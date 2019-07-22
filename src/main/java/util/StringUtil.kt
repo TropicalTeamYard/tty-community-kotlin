@@ -15,11 +15,7 @@ object StringUtil {
 
     val time: String
         get() {
-            val time: String
-            val date = Date()
-            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            time = sdf.format(date)
-            return time
+            return getTime(Date())
         }
 
     @Throws(SQLException::class, IOException::class)
@@ -36,13 +32,13 @@ object StringUtil {
 
     fun getTime(date: Date): String {
         val time: String
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss")
         time = sdf.format(date)
         return time
     }
 
     fun getMd5(input: String): String? {
-        try {
+        return try {
             //拿到一个MD5转换器（如果想要SHA1加密参数换成"SHA1"）
             val messageDigest = MessageDigest.getInstance("MD5")
             //输入的字符串转换成字节数组
@@ -52,10 +48,10 @@ object StringUtil {
             //转换并返回结果，也是字节数组，包含16个元素
             val resultByteArray = messageDigest.digest()
             //字符数组转换成字符串返回
-            return byteArrayToHex(resultByteArray)
+            byteArrayToHex(resultByteArray)
 
         } catch (e: NoSuchAlgorithmException) {
-            return null
+            null
         }
 
     }

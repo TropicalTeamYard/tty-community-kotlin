@@ -1,62 +1,82 @@
 package model
 
+import com.alibaba.fastjson.JSONObject
 import util.MySQLConn
 import util.StringUtil
-import java.lang.Exception
 import java.sql.SQLException
 import java.util.*
 
 
 class RegisterInfo(
-    private val nickname: String,
-    private val registerIP: String,
-    private val email: String,
-    private val password: String
+    private val nickname: String?,
+    private val registerIP: String?,
+    private val email: String?,
+    private val password: String?
 ) {
-    fun submit(): HashMap<String, String> {
+    fun submit(): String {
         //TODO CHECK WHETHER USER INFO IS VALID
-        val result = HashMap<String, String>()
         val conn = MySQLConn.mySQLConnection
+        if(nickname == null|| registerIP == null || email == null || password ==null || nickname.isEmpty()||registerIP.isEmpty()||registerIP=="0.0.0.0"||email.isEmpty()||password.isEmpty()){
+            return json(Shortcut.AE, "arguments mismatch.")
+        }
         try {
-            if(nickname.isEmpty()||registerIP.isEmpty()||registerIP=="0.0.0.0"||email.isEmpty()||password.isEmpty()){
-                result["status"] = "failed"
-                result["code"] = "104"
-                result["msg"] = "error : Invalid Parameter"
-            }
-
             var ps = conn.prepareStatement("select * from user where nickname = ?")
             ps.setString(1, nickname)
             val rs = ps.executeQuery()
             if (rs.next()) {
-                result["status"] = "failed"
-                result["code"] = "101"
-                result["msg"] = "error : Nickname Conflict"
                 rs.close()
                 ps.close()
-                return result
+                return json(Shortcut.UR, "The user $nickname has been registered.")
             }
             val registerTime = Date()
-            val userId = "${registerTime.time}$nickname${(10..99).random()}".hashCode().toString()
+            val userId = idGenerator(registerTime, nickname)
             ps = conn.prepareStatement("insert into user (id, password, token, last_login_ip, last_login_time, email, log, nickname) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
             ps.setString(1, userId)
             ps.setString(2, password)
-            ps.setString(3, "{\"time\":\"" + StringUtil.getTime(registerTime) + "\"}")
+            ps.setString(3, Token.getToken(userId, "web", "123456", registerTime))
             ps.setString(4, registerIP)
             ps.setString(5, StringUtil.getTime(registerTime))
             ps.setString(6, email)
             ps.setString(7, Log.register(registerTime, registerIP, nickname))
             ps.setString(8, nickname)
             ps.execute()
-            result["status"] = "success"
-            result["code"] = "100"
-            result["msg"] = "id : $userId"
+            return json(Shortcut.OK, "Ok, you have created a user, let's fun!")
         } catch (e: SQLException) {
-            result["status"] = "failed"
-            result["code"] = "102"
-            result["msg"] = "error : SQL"
             e.printStackTrace()
+            return json(Shortcut.OTHER, "SQL ERROR")
         }
+    }
 
-        return result
+    private fun idGenerator(registerTime: Date, nickname: String?) =
+        ("${registerTime.time}$nickname${(10..99).random()}".hashCode() and Integer.MAX_VALUE).toString()
+
+    private fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+        val map = JSONObject()
+        map["shortcut"] = shortcut.name
+        map["msg"] = msg
+        if(data!=null){map["data"] = JSONObject(data as Map<String, Any>?)}
+        return map.toJSONString()
+    }
+
+    companion object {
+        fun checkNickname(nickname: String): Boolean{
+            val conn = MySQLConn.mySQLConnection
+            try {
+                val ps = conn.prepareStatement("select * from user where nickname = ?")
+                ps.setString(1, nickname)
+                val rs = ps.executeQuery()
+                if (rs.next()) {
+                    rs.close()
+                    ps.close()
+                    return true
+                }
+                rs.close()
+                ps.close()
+                return false
+            } catch (e: SQLException) {
+                e.printStackTrace()
+                return true
+            }
+        }
     }
 }

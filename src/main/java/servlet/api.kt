@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@WebServlet(name = "api", urlPatterns = ["/api"])
+@WebServlet(name = "api", urlPatterns = ["/api/user"])
 class API: HttpServlet() {
-    var reqIP: String = "0.0.0.0"
-    var method: ReqType = ReqType.Default
+    private var reqIP: String = "0.0.0.0"
+    private var method: ReqType = ReqType.Default
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
         reqIP = getIpAddr(req!!)?:"0.0.0.0"
         resp?.writer?.write("IP: $reqIP\n")
@@ -25,7 +25,7 @@ class API: HttpServlet() {
             "register" -> {
                 reqIP = getIpAddr(req)?:"0.0.0.0"
                 val result = RegisterInfo(req.getParameter("nickname"), reqIP, req.getParameter("email"), req.getParameter("password")).submit()
-                out.write(JSONObject(result as Map<String, Any>?).toJSONString())
+                out.write(result)
                 ReqType.Register
             }
             else -> {
