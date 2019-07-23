@@ -1,10 +1,9 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
-import util.LoginPlatform
-import util.LoginType
-import util.MySQLConn
-import util.StringUtil
+import util.*
+import util.Log
+import util.Token
 import java.sql.PreparedStatement
 import java.sql.SQLException
 import java.util.*
@@ -18,7 +17,7 @@ class Login(
     var id: String? = null
     var nickname: String? = null
     var password: String? = null
-    var APIKey: String? = null
+    var apiKey: String? = null
     private val loginTime = Date()
 
     fun submit(): String{
@@ -29,7 +28,7 @@ class Login(
             ||loginType == null
             ||(loginType == LoginType.ID && (id.isNullOrEmpty() || password.isNullOrEmpty()))
             ||(loginType == LoginType.NICKNAME && (nickname.isNullOrEmpty()) || password.isNullOrEmpty())
-            ||(loginType == LoginType.THIRD_PARTY && (id.isNullOrEmpty() || APIKey.isNullOrEmpty()))
+            ||(loginType == LoginType.THIRD_PARTY && (id.isNullOrEmpty() || apiKey.isNullOrEmpty()))
         ){
             return json(Shortcut.AE, "arguments mismatch.")
         } else {

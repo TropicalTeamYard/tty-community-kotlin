@@ -1,14 +1,14 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
-import util.LoginPlatform
-import util.MySQLConn
-import util.StringUtil
+import util.*
+import util.Log
+import util.Token
 import java.sql.SQLException
 import java.util.*
 
 
-class RegisterInfo(
+class Register(
     private val nickname: String?,
     private val registerIP: String?,
     private val email: String?,

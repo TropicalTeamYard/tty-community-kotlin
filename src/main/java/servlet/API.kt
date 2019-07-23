@@ -1,27 +1,17 @@
 package servlet
 
 import com.alibaba.fastjson.JSONObject
-import model.AutoLogin
-import model.Login
-import model.RegisterInfo
+import model.*
 import util.LoginPlatform
 import util.LoginType
+import util.Shortcut
+import util.StringUtil
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 //TABLE USER
-
-
-//# `id`: IntegerField()  # 用户的唯一标识符
-//# nickname: TextField()  # 用户的昵称
-//# password: TextField()  # 密码
-//# token: TextField()  # 用户的token信息
-//# last_login_ip: TextField()  # 用户最后一次登录的ip地址
-//# last_login_time: TextField()  # 用户最后一次登录的时间，格式为'%y-%M-%d'
-//# email: TextField()  # 用户邮箱
-//# log: TextField()  # 用户登录的日志
 
 //# create database tty_community;
 //# create table user(
@@ -82,7 +72,7 @@ class API: HttpServlet() {
                     "third_party" -> {
                         login.loginType = LoginType.THIRD_PARTY
                         login.id = req.getParameter("id")
-                        login.APIKey = req.getParameter("api_key")
+                        login.apiKey = req.getParameter("api_key")
                         out.write(login.submit())
                     }
                     else -> {
@@ -119,7 +109,7 @@ class API: HttpServlet() {
             }
             "register" -> {
                 // http://localhost:8080/community/api/user?method=register&nickname=wcf&password=******&email=******
-                val result = RegisterInfo(req.getParameter("nickname"), reqIP, req.getParameter("email"), req.getParameter("password")).submit()
+                val result = Register(req.getParameter("nickname"), reqIP, req.getParameter("email"), req.getParameter("password")).submit()
                 out.write(result)
                 ReqType.Register
             }
@@ -131,8 +121,7 @@ class API: HttpServlet() {
                     json["shortcut"] = "AE"
                     json["msg"] = "arguments mismatch."
                 } else {
-                    val result = RegisterInfo.checkNickname(req.getParameter("nickname"))
-                    when(result){
+                    when(Register.checkNickname(req.getParameter("nickname"))){
                         false -> {
                             json["shortcut"] = "OK"
                             json["msg"] = "The nickname $nickname is not registered"
@@ -147,6 +136,26 @@ class API: HttpServlet() {
                 ReqType.CheckName
             }
             "change_info" -> {
+                val id = req.getParameter("id")
+                val token = req.getParameter("token")
+
+                if(reqIP.isEmpty() || id.isNullOrEmpty() || token.isNullOrEmpty()){
+                    out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
+                    return
+                }
+
+                val changeUserInfo = ChangeUserInfo(id, token, reqIP)
+
+                if (!req.getParameter("nickname").isNullOrEmpty()){
+                    changeUserInfo.changedItem[UserInfoType.Nickname] = req.getParameter("nickname")
+                }
+
+                if (!req.getParameter("email").isNullOrEmpty()){
+                    changeUserInfo.changedItem[UserInfoType.Email] = req.getParameter("email")
+                }
+
+                out.write(changeUserInfo.submit())
+
                 ReqType.ChangeInfo
             }
             else -> {

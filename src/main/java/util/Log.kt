@@ -1,8 +1,6 @@
-package model
+package util
 
-import util.LoginPlatform
-import util.LoginType
-import util.StringUtil
+import model.UserInfoType
 
 import java.util.Date
 
@@ -22,6 +20,22 @@ internal object Log {
     }
     fun autoLoginFailed(date: Date, ip: String, loginPlatform: LoginPlatform): String{
         return "user::auto_login::invalid_token::time=${StringUtil.getTime(date)}::platform=${loginPlatform.name}::ip=$ip\n"
+    }
+    fun changeUserInfo(date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: UserInfoType? = null): String {
+        return "user::change_info::ip=$ip::${
+            when(status){
+                true -> "success::time=${StringUtil.getTime(date)}::target=${target?:UserInfoType.Default.name}::before=$before::after=$after"
+                false -> "failed"
+            }
+        }\n"
+    }
+    fun changePassword(date: Date, ip: String, status: Boolean): String{
+        return "user::change_password::${
+            when(status){
+                true -> "success"
+                false -> "failed"
+            }
+        }::ip=$ip::date=${StringUtil.getTime(date)}"
     }
 }
 

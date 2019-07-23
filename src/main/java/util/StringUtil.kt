@@ -1,5 +1,6 @@
 package util
 
+import com.alibaba.fastjson.JSONObject
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -70,5 +71,15 @@ object StringUtil {
 
         //字符数组组合成字符串返回
         return String(resultCharArray)
+    }
+
+    fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+        val map = JSONObject()
+        map["shortcut"] = shortcut.name
+        map["msg"] = msg
+        if(data!=null){
+            map["data"] = JSONObject(data as Map<String, Any>?)
+        }
+        return map.toJSONString()
     }
 }
