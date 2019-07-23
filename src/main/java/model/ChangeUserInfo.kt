@@ -104,6 +104,64 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     }
 }
 
+class ChangePassword(var id: String, var oldPassword: String, var newPassword: String, var ip: String){
+
+    val conn = MySQLConn.mySQLConnection
+    private val date = Date()
+
+    fun submit(): String{
+        try {
+            var ps = conn.prepareStatement("select * from user where id = ? limit 1")
+            ps.setString(1, id)
+            val rs = ps.executeQuery()
+            if (rs.next()){
+                val password = rs.getString("password")
+                if (password == oldPassword){
+                    rs.close()
+                    ps.close()
+                    ps = conn.prepareStatement("update user set password = ?, log = concat(?, log) where id = ?")
+                    ps.setString(1, newPassword)
+                    ps.setString(2, Log.changePassword(date, ip, true))
+                    ps.setString(3, id)
+                    ps.executeUpdate()
+                    ps.close()
+
+                    return json(Shortcut.OK, "change password succeed.")
+                } else {
+                    rs.close()
+                    ps.close()
+                    ps = conn.prepareStatement("update user set log = concat(?, log) where id = ?")
+                    ps.setString(1, Log.changePassword(date, ip, false))
+                    ps.setString(2, id)
+                    ps.executeUpdate()
+                    ps.close()
+                    return json(Shortcut.UPE, "wrong password.")
+                }
+            } else {
+                rs.close()
+                ps.close()
+                return json(Shortcut.UNE, "user $id has not been registered.")
+            }
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            return json(Shortcut.OTHER, "SQL ERROR")
+        }
+    }
+
+    companion object {
+        private fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+            val map = JSONObject()
+            map["shortcut"] = shortcut.name
+            map["msg"] = msg
+            if(data!=null){
+                map["data"] = JSONObject(data as Map<String, Any>?)
+            }
+            return map.toJSONString()
+        }
+    }
+
+}
+
 enum class UserInfoType{
     Email, Nickname, Default
 }

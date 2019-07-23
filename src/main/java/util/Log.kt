@@ -35,7 +35,7 @@ internal object Log {
                 true -> "success"
                 false -> "failed"
             }
-        }::ip=$ip::date=${StringUtil.getTime(date)}"
+        }::ip=$ip::date=${StringUtil.getTime(date)}\n"
     }
 }
 

@@ -7,40 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/META-INF/TTY_COMMUNITY.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/META-INF/TTY_COMMUNITY.kotlin_module" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Log.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login$WhenMappings.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/RegisterInfo$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/RegisterInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Shortcut.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Token.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/API$ReqType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/API$ReqType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/API.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/API.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/LoginPlatform.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/LoginPlatform.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/LoginType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/LoginType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/MySQLConn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/MySQLConn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/RegisterType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/RegisterType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/StringUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/StringUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/UserCertification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/UserCertification.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/UserGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/UserGroup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-reflect.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-reflect.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-stdlib-jdk7.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-stdlib-jdk7.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-stdlib-jdk8.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-stdlib-jdk8.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-stdlib.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-stdlib.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-test.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/lib/kotlin-test.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Log.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Log.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/LoginInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Login.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/RegisterInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Register.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/api.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/Log.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Log.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -77,6 +46,21 @@
         <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
         <item name="tty_community" type="feb32156:DbDataSourceImpl" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
     </expand>
     <select />
   </component>
@@ -85,23 +69,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="154" column="17" lean-forward="true" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
+            <state relative-caret-position="441">
+              <caret line="171" column="87" selection-start-line="171" selection-start-column="87" selection-end-line="171" selection-end-column="87" />
               <folding>
+                <element signature="e#5845#6163#0" />
                 <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#API#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Login.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="97" column="22" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -118,25 +94,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/util/Log.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="35" column="33" lean-forward="true" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+            <state relative-caret-position="521">
+              <caret line="37" column="53" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Register.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
+            <state relative-caret-position="295">
               <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
@@ -154,8 +121,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="22" column="55" lean-forward="true" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
+            <state relative-caret-position="697">
+              <caret line="126" column="30" lean-forward="true" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
               <folding>
                 <element signature="e#15#226#0" expanded="true" />
               </folding>
@@ -208,9 +175,9 @@
         <option value="$PROJECT_DIR$/design/sql.md" />
         <option value="$PROJECT_DIR$/design/tty_community.sql" />
         <option value="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/servlet/API.kt" />
         <option value="$PROJECT_DIR$/src/main/java/util/Log.kt" />
         <option value="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/servlet/API.kt" />
       </list>
     </option>
   </component>
@@ -433,12 +400,12 @@
       <workItem from="1563808102262" duration="24893000" />
       <workItem from="1563872348849" duration="4528000" />
       <workItem from="1563900910469" duration="94000" />
-      <workItem from="1563901059722" duration="4662000" />
+      <workItem from="1563901059722" duration="6054000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58374000" />
+    <option name="totallyTimeSpent" value="59766000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -450,7 +417,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7725806" visible="true" weight="0.17412141" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -463,7 +431,7 @@
       <window_info id="Resources Explorer" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32900432" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32900432" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -476,14 +444,14 @@
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32937366" />
       <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32900432" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.32900432" />
-      <window_info active="true" anchor="bottom" id="Database Console" order="15" visible="true" weight="0.2943723" />
+      <window_info anchor="bottom" id="Database Console" order="15" weight="0.2943723" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Maven" order="3" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Database" order="6" weight="0.14217253" />
+      <window_info anchor="right" id="Database" order="6" visible="true" weight="0.14217253" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
     </layout>
@@ -648,13 +616,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/Register.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/util/Enums.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -676,37 +637,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
+    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="154" column="17" lean-forward="true" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
-          <folding>
-            <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#API#0" />
-          </folding>
+        <state relative-caret-position="16">
+          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="c15eda0d-d99c-4b50-bad0-6bd9a6a1ff00">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/Register.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/util/Log.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="35" column="33" lean-forward="true" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
+        <state relative-caret-position="521">
+          <caret line="37" column="53" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="22" column="55" lean-forward="true" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
+        <state relative-caret-position="697">
+          <caret line="126" column="30" lean-forward="true" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
           <folding>
             <element signature="e#15#226#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/console.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        <state relative-caret-position="441">
+          <caret line="171" column="87" selection-start-line="171" selection-start-column="87" selection-end-line="171" selection-end-column="87" />
+          <folding>
+            <element signature="e#5845#6163#0" />
+            <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#API#0" />
+          </folding>
         </state>
       </provider>
     </entry>

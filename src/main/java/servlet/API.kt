@@ -136,10 +136,11 @@ class API: HttpServlet() {
                 ReqType.CheckName
             }
             "change_info" -> {
+                // http://localhost:8080/community/api/user?method=change_info&token=2922598E94BCE57F9534909CC0404F97&id=720468899&nickname=wcf&email=1533144693@qq.com
                 val id = req.getParameter("id")
                 val token = req.getParameter("token")
 
-                if(reqIP.isEmpty() || id.isNullOrEmpty() || token.isNullOrEmpty()){
+                if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
                     out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
                     return
                 }
@@ -157,6 +158,22 @@ class API: HttpServlet() {
                 out.write(changeUserInfo.submit())
 
                 ReqType.ChangeInfo
+            }
+
+            "change_password" -> {
+                // http://localhost:8080/community/api/user?method=change_password&id=720468899&old=123456&new=123456789
+                val id = req.getParameter("id")
+                val oldPassword = req.getParameter("old")
+                val newPassword = req.getParameter("new")
+
+                if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || newPassword.isNullOrEmpty() || oldPassword.isNullOrEmpty()){
+                    out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
+                    return
+                }
+
+                out.write(ChangePassword(id, oldPassword, newPassword, reqIP).submit())
+
+                ReqType.ChangePassword
             }
             else -> {
                 val json = JSONObject()
@@ -199,7 +216,7 @@ class API: HttpServlet() {
 
     enum class ReqType{
         Register, Login, AutoLogin, CheckName,
-        ChangeInfo,
+        ChangeInfo, ChangePassword,
         Default
     }
 }
