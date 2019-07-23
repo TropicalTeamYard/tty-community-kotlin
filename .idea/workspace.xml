@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Log.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Log.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/APIUser.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -70,13 +68,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
+        <entry file="file://$PROJECT_DIR$/src/main/java/servlet/APIUser.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="171" column="87" selection-start-line="171" selection-start-column="87" selection-end-line="171" selection-end-column="87" />
+            <state relative-caret-position="745">
+              <caret line="234" column="8" lean-forward="true" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="8" />
               <folding>
-                <element signature="e#5845#6163#0" />
-                <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#API#0" />
+                <element signature="n#!!block;n#doPost#0;n#!!block;n#API#0" />
+                <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#Companion#0;n#!!block;n#APIUser#0" />
               </folding>
             </state>
           </provider>
@@ -178,6 +176,8 @@
         <option value="$PROJECT_DIR$/src/main/java/util/Log.kt" />
         <option value="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" />
         <option value="$PROJECT_DIR$/src/main/java/servlet/API.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/servlet/APIPublicUser.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/servlet/APIUser.kt" />
       </list>
     </option>
   </component>
@@ -188,7 +188,7 @@
     <option name="FILTER_DEBUG" value="false" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -269,7 +269,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="database.console.LAST_STATE" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -400,12 +400,12 @@
       <workItem from="1563808102262" duration="24893000" />
       <workItem from="1563872348849" duration="4528000" />
       <workItem from="1563900910469" duration="94000" />
-      <workItem from="1563901059722" duration="6054000" />
+      <workItem from="1563901059722" duration="6752000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59766000" />
+    <option name="totallyTimeSpent" value="60464000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -420,7 +420,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7725806" visible="true" weight="0.17412141" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7725806" visible="true" weight="0.17412141" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -653,13 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Register.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="333">
@@ -684,13 +677,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="171" column="87" selection-start-line="171" selection-start-column="87" selection-end-line="171" selection-end-column="87" />
+        <state relative-caret-position="295">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/APIPublicUser.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
           <folding>
-            <element signature="e#5845#6163#0" />
-            <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#API#0" />
+            <element signature="e#17#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/APIUser.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="745">
+          <caret line="234" column="8" lean-forward="true" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="8" />
+          <folding>
+            <element signature="n#!!block;n#doPost#0;n#!!block;n#API#0" />
+            <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#Companion#0;n#!!block;n#APIUser#0" />
           </folding>
         </state>
       </provider>

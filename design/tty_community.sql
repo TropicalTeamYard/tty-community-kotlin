@@ -11,3 +11,7 @@ create table user(
     email text not null,
     log blob not null
 );
+create table blog(
+    _id integer primary key auto_increment,
+    tag 
+);
