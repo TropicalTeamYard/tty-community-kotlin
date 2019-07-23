@@ -62,7 +62,7 @@ class Login(
                     data["email"] = rs.getString("email")
                     rs.close()
                     ps.close()
-                    val token = Token.getToken(id!!, platform!!, "123456", loginTime)
+                    val token = Token.getToken(id!!, platform!!, "123456", loginTime, true)
                     ps = conn.prepareStatement("update user set last_login_time = ?, last_login_ip = ?, token = ?, log = concat(?, log)  where id = ?")
                     ps.setString(1, StringUtil.getTime(loginTime))
                     ps.setString(2, ip)
@@ -120,8 +120,65 @@ class Login(
 }
 
 
-class AutoLogin(ip: String?, id: String, token: String) {
+class AutoLogin(val ip: String?, var id: String?, var token: String?, var platform: LoginPlatform) {
+    private val loginTime = Date()
+    private val conn = MySQLConn.mySQLConnection
     fun submit(): String{
-        
+        if(ip.isNullOrEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
+            return json(Shortcut.AE, "arguments mismatch.")
+        } else {
+            try {
+                var ps = conn.prepareStatement("select * from user where id = ?")
+                ps.setString(1, id)
+                val rs = ps.executeQuery()
+                if (rs.next()){
+                    val token = rs.getString("token")
+                    return if(StringUtil.getMd5(token) == this.token){
+                        val data= HashMap<String, String>()
+                        data["id"] = rs.getString("id")
+                        data["email"] = rs.getString("email")
+                        rs.close()
+                        ps.close()
+                        val log = Log.autoLogin(loginTime, ip, platform)
+                        ps = conn.prepareStatement("update user set log = concat(?, log), last_login_ip = ?, last_login_time = ? where id = ?")
+                        ps.setString(1, log)
+                        ps.setString(2, ip)
+                        ps.setString(3, StringUtil.getTime(loginTime))
+                        ps.setString(4, id)
+                        ps.executeUpdate()
+                        ps.close()
+                        json(Shortcut.OK, "OK, let's fun", data)
+                    } else {
+                        rs.close()
+                        ps.close()
+                        val log = Log.autoLoginFailed(loginTime, ip, platform)
+                        ps = conn.prepareStatement("update user set log = concat(?, log) where id = ?")
+                        ps.setString(1, log)
+                        ps.setString(2, id)
+                        ps.executeUpdate()
+                        ps.close()
+                        json(Shortcut.TE, "invalid token")
+                    }
+                } else {
+                    ps.close()
+                    return json(Shortcut.UPE, "user $id not exist.")
+                }
+            } catch (e: SQLException){
+                e.printStackTrace()
+                return json(Shortcut.OTHER, "SQL ERROR")
+            }
+
+
+        }
+    }
+
+    companion object {
+        private fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+            val map = JSONObject()
+            map["shortcut"] = shortcut.name
+            map["msg"] = msg
+            if(data!=null){map["data"] = JSONObject(data as Map<String, Any>?)}
+            return map.toJSONString()
+        }
     }
 }

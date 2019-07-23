@@ -34,7 +34,7 @@ class RegisterInfo(
             ps = conn.prepareStatement("insert into user (id, password, token, last_login_ip, last_login_time, email, log, nickname) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
             ps.setString(1, userId)
             ps.setString(2, password)
-            ps.setString(3, Token.getToken(userId, LoginPlatform.MOBILE, "123456", registerTime))
+            ps.setString(3, Token.getToken(userId, LoginPlatform.MOBILE, "123456", registerTime, false))
             ps.setString(4, registerIP)
             ps.setString(5, StringUtil.getTime(registerTime))
             ps.setString(6, email)

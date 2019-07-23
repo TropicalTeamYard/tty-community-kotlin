@@ -17,11 +17,18 @@ internal object Log {
     fun loginFailed(date: Date, ip: String, loginType: LoginType, loginPlatform: LoginPlatform): String{
         return "user::login::failed::time=${StringUtil.getTime(date)}::login_type=${loginType.name}::platform=${loginPlatform.name}::ip=$ip\n"
     }
+    fun autoLogin(date: Date, ip: String, loginPlatform: LoginPlatform): String{
+        return "user::auto_login::success::time=${StringUtil.getTime(date)}::platform=${loginPlatform.name}::ip=$ip\n"
+    }
+    fun autoLoginFailed(date: Date, ip: String, loginPlatform: LoginPlatform): String{
+        return "user::auto_login::invalid_token::time=${StringUtil.getTime(date)}::platform=${loginPlatform.name}::ip=$ip\n"
+    }
 }
 
 enum class Shortcut{
     AE, FE, UR, OK,
     UNE, UPE,
+    TE,
     OTHER
 }
 
@@ -30,7 +37,7 @@ internal object Token{
     //platform
     //secret
     //time
-    fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date): String {
-        return "$id::${platform.name}::$secret::${StringUtil.getTime(time)}"
+    fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date, status: Boolean): String {
+        return "$id::${platform.name}::$secret::${StringUtil.getTime(time)}::$status"
     }
 }

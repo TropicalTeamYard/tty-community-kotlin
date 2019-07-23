@@ -1,6 +1,7 @@
 package servlet
 
 import com.alibaba.fastjson.JSONObject
+import model.AutoLogin
 import model.Login
 import model.RegisterInfo
 import util.LoginPlatform
@@ -95,8 +96,25 @@ class API: HttpServlet() {
 
                 ReqType.Login
             }
-            "auto" -> {
-
+            "auto_login" -> {
+                // http://localhost:8080/community/api/user?method=auto_login&platform=pc&token=0F7B94AC09054FF9BBBF275340483BB9&id=720468899
+                val json = JSONObject()
+                val id = req.getParameter("id")
+                val token = req.getParameter("token")
+                val platform: LoginPlatform = when(req.getParameter("platform")){
+                    "mobile" -> LoginPlatform.MOBILE
+                    "pc" -> LoginPlatform.PC
+                    "web" -> LoginPlatform.WEB
+                    "pad" -> LoginPlatform.PAD
+                    else -> {
+                        json["shortcut"] = "AE"
+                        json["msg"] = "platform not allowed."
+                        out.write(json.toJSONString())
+                        return
+                    }
+                }
+                val auto = AutoLogin(reqIP, id, token, platform)
+                out.write(auto.submit())
                 ReqType.AutoLogin
             }
             "register" -> {
@@ -128,6 +146,7 @@ class API: HttpServlet() {
                 out.write(json.toJSONString())
                 ReqType.CheckName
             }
+            ""
             else -> {
                 val json = JSONObject()
                 json["shortcut"] = "AE"
