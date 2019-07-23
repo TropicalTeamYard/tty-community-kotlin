@@ -13,5 +13,13 @@ create table user(
 );
 create table blog(
     _id integer primary key auto_increment,
-    tag 
+    title text not null,
+    introduction text not null,
+    content blob not null,
+    tag text not null,
+    comment blob not null,
+    likes blob not null,
+    last_edit_time datetime not null,
+    data blob,
+    log blob not null
 );

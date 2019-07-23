@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/APIUser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -67,15 +67,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/servlet/APIUser.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="745">
-              <caret line="234" column="8" lean-forward="true" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="8" />
+            <state relative-caret-position="640">
+              <caret line="223" column="1" lean-forward="true" selection-start-line="223" selection-start-column="1" selection-end-line="223" selection-end-column="1" />
               <folding>
                 <element signature="n#!!block;n#doPost#0;n#!!block;n#API#0" />
                 <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#Companion#0;n#!!block;n#APIUser#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/design/tty_community.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -171,13 +180,13 @@
         <option value="$PROJECT_DIR$/src/main/java/model/User.kt" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/console.sql" />
         <option value="$PROJECT_DIR$/design/sql.md" />
-        <option value="$PROJECT_DIR$/design/tty_community.sql" />
         <option value="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" />
         <option value="$PROJECT_DIR$/src/main/java/util/Log.kt" />
         <option value="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" />
         <option value="$PROJECT_DIR$/src/main/java/servlet/API.kt" />
         <option value="$PROJECT_DIR$/src/main/java/servlet/APIPublicUser.kt" />
         <option value="$PROJECT_DIR$/src/main/java/servlet/APIUser.kt" />
+        <option value="$PROJECT_DIR$/design/tty_community.sql" />
       </list>
     </option>
   </component>
@@ -188,7 +197,7 @@
     <option name="FILTER_DEBUG" value="false" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
@@ -400,12 +409,12 @@
       <workItem from="1563808102262" duration="24893000" />
       <workItem from="1563872348849" duration="4528000" />
       <workItem from="1563900910469" duration="94000" />
-      <workItem from="1563901059722" duration="6752000" />
+      <workItem from="1563901059722" duration="7202000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60464000" />
+    <option name="totallyTimeSpent" value="60914000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -598,17 +607,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/design/tty_community.sql">
-      <provider editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="96">
-            <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/User.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -696,12 +694,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/servlet/APIUser.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="745">
-          <caret line="234" column="8" lean-forward="true" selection-start-line="234" selection-start-column="8" selection-end-line="234" selection-end-column="8" />
+        <state relative-caret-position="640">
+          <caret line="223" column="1" lean-forward="true" selection-start-line="223" selection-start-column="1" selection-end-line="223" selection-end-column="1" />
           <folding>
             <element signature="n#!!block;n#doPost#0;n#!!block;n#API#0" />
             <element signature="n#!!block;n#getIpAddr#0;n#!!block;n#Companion#0;n#!!block;n#APIUser#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/design/tty_community.sql">
+      <provider editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="96">
+            <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
         </state>
       </provider>
     </entry>
