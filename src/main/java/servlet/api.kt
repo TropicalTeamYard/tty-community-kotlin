@@ -146,7 +146,9 @@ class API: HttpServlet() {
                 out.write(json.toJSONString())
                 ReqType.CheckName
             }
-            ""
+            "change_info" -> {
+                ReqType.ChangeInfo
+            }
             else -> {
                 val json = JSONObject()
                 json["shortcut"] = "AE"
@@ -188,6 +190,7 @@ class API: HttpServlet() {
 
     enum class ReqType{
         Register, Login, AutoLogin, CheckName,
+        ChangeInfo,
         Default
     }
 }

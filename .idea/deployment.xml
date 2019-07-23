@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="Ubuntu">
+    <serverData>
+      <paths name="Ubuntu">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/app/apache-tomcat-8.5.43/webapps/community" local="$PROJECT_DIR$" web="/community" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
