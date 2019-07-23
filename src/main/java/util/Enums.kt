@@ -1,6 +1,6 @@
 package util
 
-internal enum class UserGroup {
+enum class UserGroup {
     SUPER_ADMIN,
     NORMAL_ADMIN,
 
@@ -9,19 +9,21 @@ internal enum class UserGroup {
     GUEST
 }
 
-internal enum class UserCertification {
+enum class UserCertification {
     NORMAL,
     PERSONAL,
     ENTERPRISE
 }
+enum class LoginPlatform{
+    WEB, PC, MOBILE, PAD
+}
 
-internal enum class LoginType {
-    PASSWORD,
-    TOKEN,
+enum class LoginType {
+    ID, NICKNAME,
     THIRD_PARTY
 }
 
-internal enum class RegisterType {
+enum class RegisterType {
     THIRD_PARTY,
     NORMAL
 }
