@@ -29,30 +29,26 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
                     for(e in changedItem){
                         when(e.key){
                             UserInfoType.Email -> {
-                                ps = conn.prepareStatement("update user set email = ?, log = concat(?, log) where id = ?")
+                                ps = conn.prepareStatement("update user set email = ? where id = ?")
                                 ps.setString(1, e.value)
-                                ps.setString(2, Log.changeUserInfo(date, ip, true, emailBefore, e.value, UserInfoType.Email))
-                                ps.setString(3, id)
+                                ps.setString(2, id)
                                 ps.executeUpdate()
                                 ps.close()
+                                Log.changeUserInfo(id, date, ip, true, emailBefore, e.value, UserInfoType.Email)
                                 succeedItem["email"] = e.value
                             }
                             UserInfoType.Nickname -> {
                                 val isNicknameRegistered = Register.checkNickname(e.value)
                                 if (!isNicknameRegistered){
-                                    ps = conn.prepareStatement("update user set nickname = ?, log = concat(?, log) where id = ?")
+                                    ps = conn.prepareStatement("update user set nickname = ? where id = ?")
                                     ps.setString(1, e.value)
-                                    ps.setString(2, Log.changeUserInfo(date, ip, true, nicknameBefore, e.value, UserInfoType.Nickname))
-                                    ps.setString(3, id)
-                                    ps.executeUpdate()
-                                    ps.close()
-                                    succeedItem["nickname"] = e.value
-                                } else {
-                                    ps = conn.prepareStatement("update user set log = concat(?, log) where id = ?")
-                                    ps.setString(1, Log.changeUserInfo(date, ip, false))
                                     ps.setString(2, id)
                                     ps.executeUpdate()
                                     ps.close()
+                                    Log.changeUserInfo(id, date, ip, true, nicknameBefore, e.value, UserInfoType.Nickname)
+                                    succeedItem["nickname"] = e.value
+                                } else {
+                                    Log.changeUserInfo(id, date, ip, false)
                                 }
 
                             }
@@ -65,24 +61,14 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
                 } else {
                     rs.close()
                     ps.close()
-
-                    ps = conn.prepareStatement("update user set log = concat(?, log) where id = ?")
-                    ps.setString(1, Log.changeUserInfo(date, ip, false))
-                    ps.setString(2, id)
-                    ps.executeUpdate()
-                    ps.close()
+                    Log.changeUserInfo(id, date, ip, false)
                     return json(Shortcut.UPE, "invalid token")
                 }
 
             } else {
                 rs.close()
                 ps.close()
-
-                ps = conn.prepareStatement("update user set log = concat(?, log) where id = ?")
-                ps.setString(1, Log.changeUserInfo(date, ip, false))
-                ps.setString(2, id)
-                ps.executeUpdate()
-                ps.close()
+                Log.changeUserInfo(id, date, ip, false)
                 return json(Shortcut.UNE, "user $id has not been registered.")
             }
         } catch (e: SQLException) {
@@ -119,22 +105,18 @@ class ChangePassword(var id: String, var oldPassword: String, var newPassword: S
                 if (password == oldPassword){
                     rs.close()
                     ps.close()
-                    ps = conn.prepareStatement("update user set password = ?, log = concat(?, log) where id = ?")
+                    ps = conn.prepareStatement("update user set password = ? where id = ?")
                     ps.setString(1, newPassword)
-                    ps.setString(2, Log.changePassword(date, ip, true))
-                    ps.setString(3, id)
+                    ps.setString(2, id)
                     ps.executeUpdate()
                     ps.close()
 
+                    Log.changePassword(id, date, ip, true)
                     return json(Shortcut.OK, "change password succeed.")
                 } else {
                     rs.close()
                     ps.close()
-                    ps = conn.prepareStatement("update user set log = concat(?, log) where id = ?")
-                    ps.setString(1, Log.changePassword(date, ip, false))
-                    ps.setString(2, id)
-                    ps.executeUpdate()
-                    ps.close()
+                    Log.changePassword(id, date, ip, false)
                     return json(Shortcut.UPE, "wrong password.")
                 }
             } else {

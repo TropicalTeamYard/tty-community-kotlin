@@ -38,8 +38,9 @@ class APIUser: HttpServlet() {
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?){
         val out = resp!!.writer
-        reqIP = Companion.getIPAddr(req!!) ?:"0.0.0.0"
+        reqIP = getIPAddr(req!!) ?:"0.0.0.0"
         method = when(req.getParameter("method")){
+
             "login" -> {
                 // http://localhost:8080/community/api/user?method=login&platform=web&login_type=id&id=720468899&password=9128639163198r91b
                 val json = JSONObject()
@@ -83,9 +84,9 @@ class APIUser: HttpServlet() {
                     }
                 }
 
-
                 ReqType.Login
             }
+
             "auto_login" -> {
                 // http://localhost:8080/community/api/user?method=auto_login&platform=pc&token=0F7B94AC09054FF9BBBF275340483BB9&id=720468899
                 val json = JSONObject()
@@ -103,16 +104,29 @@ class APIUser: HttpServlet() {
                         return
                     }
                 }
+                if(reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
+                    out.write(AutoLogin.json(Shortcut.AE, "arguments mismatch."))
+                    return
+                }
                 val auto = AutoLogin(reqIP, id, token, platform)
                 out.write(auto.submit())
                 ReqType.AutoLogin
             }
+
             "register" -> {
-                // http://localhost:8080/community/api/user?method=register&nickname=wcf&password=******&email=******
-                val result = Register(req.getParameter("nickname"), reqIP, req.getParameter("email"), req.getParameter("password")).submit()
+                // http://localhost:8080/community/api/user?method=register&nickname=wcf&password=123456&email=123@qq.com
+                val nickname = req.getParameter("nickname")
+                val email = req.getParameter("email")
+                val password = req.getParameter("password")
+                if(nickname.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty() || reqIP=="0.0.0.0"){
+                    out.write(Register.json(Shortcut.AE, "arguments mismatch."))
+                    return
+                }
+                val result = Register(nickname, reqIP, email, password).submit()
                 out.write(result)
                 ReqType.Register
             }
+
             "check_name" -> {
                 // http://localhost:8080/community/api/user?method=check_name&nickname=wcf
                 val nickname = req.getParameter("nickname")
@@ -135,6 +149,7 @@ class APIUser: HttpServlet() {
                 out.write(json.toJSONString())
                 ReqType.CheckName
             }
+
             "change_info" -> {
                 // http://localhost:8080/community/api/user?method=change_info&token=2922598E94BCE57F9534909CC0404F97&id=720468899&nickname=wcf&email=1533144693@qq.com
                 val id = req.getParameter("id")
@@ -175,6 +190,7 @@ class APIUser: HttpServlet() {
 
                 ReqType.ChangePassword
             }
+
             else -> {
                 val json = JSONObject()
                 json["shortcut"] = "AE"

@@ -8,8 +8,7 @@ create table user(
     password text not null,
     last_login_ip text not null,
     last_login_time text not null,
-    email text not null,
-    log blob not null
+    email text not null
 );
 create table user_detail(
     _id integer primary key auto_increment,
@@ -19,7 +18,7 @@ create table user_detail(
     following text not null,
     personal_signature text not null,
     account_status text not null,
-    user_group integer not null,
+    user_group integer not null default 0,
     exp integer not null default 20,
     data blob,
     log blob not null
