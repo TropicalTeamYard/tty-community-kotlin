@@ -2,13 +2,12 @@ package servlet
 
 import com.alibaba.fastjson.JSONObject
 import model.*
-import org.apache.commons.fileupload.disk.DiskFileItemFactory
-import org.apache.commons.fileupload.servlet.ServletFileUpload
 import util.LoginPlatform
 import util.LoginType
 import util.Shortcut
 import util.StringUtil
 import java.io.File
+import java.lang.IllegalArgumentException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -179,9 +178,10 @@ class APIUser: HttpServlet() {
             }
 
             "change_detail_info" -> {
-
-                val id = req.getParameter("id")
-                val token = req.getParameter("token")
+                // http://localhost:8080/community/api/user?method=change_detail_info&id=1285609993&token=E0DC9F89E9C06F36072C27138833230B&params=personal_signature::helloworld&params=key::value
+                val map = req.parameterMap
+                val id = map["id"]?.get(0)
+                val token = map["token"]?.get(0)
 
                 if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
                     out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
@@ -190,11 +190,21 @@ class APIUser: HttpServlet() {
 
                 val changeDetailInfo = ChangeDetailInfo(id, token, reqIP)
 
-                if (!req.getParameter("signature").isNullOrEmpty()){
-                    changeDetailInfo.changedItem[DetailInfoType.valueOf("signature")] = req.getParameter("signature")
-                    changeDetailInfo.changedItem[DetailInfoType.Signature] = req.getParameter("signature")
+                val params = map["params"]?: arrayOf()
+                for(item in params) {
+                    try {
+                        val key = item.split("::")[0]
+                        val value = item.split("::")[1]
+                        changeDetailInfo.changedItem[key] = value
+                    } catch (e: IndexOutOfBoundsException) {
+                        continue
+                    }
                 }
-
+                if (changeDetailInfo.changedItem.size > 0) {
+                    out.write(changeDetailInfo.submit())
+                } else {
+                    out.write(StringUtil.json(Shortcut.OTHER, "Nothing changed"))
+                }
 
                 ReqType.ChangeDetailInfo
             }

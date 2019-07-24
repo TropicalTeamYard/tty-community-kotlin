@@ -34,8 +34,18 @@ object Log {
         val log = "user::change_info::ip=$ip::${
             when(status){
                 true -> "success::time=${StringUtil.getTime(date)}::target=${target?:UserInfoType.Default.name}::before=$before::after=$after"
-                false -> "failed"
+                false -> "failed::time=${StringUtil.getTime(date)}::target=${target?:UserInfoType.Default.name}"
             }
+        }\n"
+        log(id, log)
+    }
+
+    fun changeUserDetailInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: String? = null)  {
+        val log = "user::change_info::ip=$ip::${
+        when(status){
+            true -> "success::time=${StringUtil.getTime(date)}::target=${target?:"default"}::before=$before::after=$after"
+            false -> "failed::time=${StringUtil.getTime(date)}::target=${target?:"default"}"
+        }
         }\n"
         log(id, log)
     }
