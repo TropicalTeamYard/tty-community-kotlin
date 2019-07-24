@@ -7,11 +7,15 @@ import util.LoginType
 import util.Shortcut
 import util.StringUtil
 import java.io.File
-import java.lang.IllegalArgumentException
+import java.io.PrintWriter
+import java.util.*
+import java.util.function.BiConsumer
+import javax.servlet.ServletException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+
 
 //TABLE USER
 
@@ -209,14 +213,6 @@ class APIUser: HttpServlet() {
                 ReqType.ChangeDetailInfo
             }
 
-            "test" -> {
-                // http://localhost:8080/community/api/user?method=test
-                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-                val conf = StringUtil.jsonFromFile(jsonFile)
-                out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
-                ReqType.Test
-            }
-
             "change_password" -> {
                 // http://localhost:8080/community/api/user?method=change_password&id=720468899&old=123456&new=123456789
                 val id = req.getParameter("id")
@@ -231,6 +227,14 @@ class APIUser: HttpServlet() {
                 out.write(ChangePassword(id, oldPassword, newPassword, reqIP).submit())
 
                 ReqType.ChangePassword
+            }
+
+            "test" -> {
+                // http://localhost:8080/community/api/user?method=test
+                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
+                val conf = StringUtil.jsonFromFile(jsonFile)
+                out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
+                ReqType.Test
             }
 
             else -> {
@@ -278,15 +282,79 @@ class APIUser: HttpServlet() {
     }
 }
 
-@WebServlet(name = "api_public_user", urlPatterns = ["/api/public/user"])
+@WebServlet(name = "api_public_user", urlPatterns = ["/api/public/user/*"])
 class APIPublicUser: HttpServlet() {
+    private var ip: String = "0.0.0.0"
+    private var method: APIUser.ReqType = APIUser.ReqType.Default
+    private val routerMap = HashMap<String, BiConsumer<HttpServletRequest?, HttpServletResponse?>>()
+    lateinit var out: PrintWriter
+
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
         val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
         resp?.writer?.write("API: APIPublicUser\nIP: $reqIP\n")
         doPost(req, resp)
     }
 
+
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        resp?.characterEncoding = "utf-8"
+        req?.characterEncoding = "utf-8"
+        out = resp!!.writer
+        ip = APIUser.getIPAddr(req!!) ?:"0.0.0.0"
+        val route = try {
+            req.requestURI.substring(27)
+        } catch (e: StringIndexOutOfBoundsException) {
+            out.write(json(Shortcut.AE, "invalid request"))
+            return
+        }
+
+        when (route) {
+            "info" -> {
+                getPublicInfo(req, resp)
+            }
+
+            "test" -> {
+                test(req, resp)
+            }
+
+            else -> {
+                out.write(json(Shortcut.AE, "invalid request"))
+                return
+            }
+        }
+    }
+
+
+    private fun test(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
+        val conf = StringUtil.jsonFromFile(jsonFile)
+        out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
+    }
+    private fun getPublicInfo(req: HttpServletRequest?, resp: HttpServletResponse?) {
+//        out.write("info")
+        val map = req!!.parameterMap
+        val id = map["id"]?.get(0)
+        val targetId = map["target"]?.get(0)
+        val items = map["items"]
+        if (id.isNullOrEmpty() || targetId.isNullOrEmpty() || items.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        TODO()
 
     }
+
+    companion object {
+        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+            val map = JSONObject()
+            map["shortcut"] = shortcut.name
+            map["msg"] = msg
+            if(data!=null){
+                map["data"] = JSONObject(data as Map<String, Any>?)
+            }
+            return map.toJSONString()
+        }
+    }
+
 }
