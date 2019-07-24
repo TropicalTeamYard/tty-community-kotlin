@@ -53,7 +53,7 @@ object Log {
 
 
     private fun log(id: String, log: String) {
-        val conn = MySQLConn.mySQLConnection
+        val conn = MySQLConn.connection
         val ps = conn.prepareStatement("update user_detail set log = concat(?, log) where id = ?")
         ps.setString(1, log)
         ps.setString(2, id)

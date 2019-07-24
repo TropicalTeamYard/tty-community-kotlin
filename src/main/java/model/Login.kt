@@ -21,7 +21,7 @@ class Login(
     private val loginTime = Date()
 
     fun submit(): String{
-        val conn = MySQLConn.mySQLConnection
+        val conn = MySQLConn.connection
         if(ip.isEmpty()||ip == "0.0.0.0"
             || loginType == null || (loginType == LoginType.ID && (id.isNullOrEmpty() || password.isNullOrEmpty()))
             || (loginType == LoginType.NICKNAME && (nickname.isNullOrEmpty()) || password.isNullOrEmpty())
@@ -117,7 +117,7 @@ class Login(
 
 class AutoLogin(private val ip: String, private var id: String, private var token: String, private var platform: LoginPlatform) {
     private val loginTime = Date()
-    private val conn = MySQLConn.mySQLConnection
+    private val conn = MySQLConn.connection
     fun submit(): String{
         try {
             var ps = conn.prepareStatement("select * from user where id = ?")

@@ -1,8 +1,7 @@
 package util
 
 import com.alibaba.fastjson.JSONObject
-import java.io.ByteArrayInputStream
-import java.io.IOException
+import java.io.*
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -11,6 +10,11 @@ import java.sql.SQLException
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.experimental.and
+import java.io.IOException
+import java.io.BufferedReader
+import java.io.FileInputStream
+
+
 
 object StringUtil {
 
@@ -82,4 +86,29 @@ object StringUtil {
         }
         return map.toJSONString()
     }
+
+    fun jsonFromFile(file: File): JSONObject? {
+        val s: String
+        try {
+            val fileReader = FileReader(file)
+            val reader = InputStreamReader(FileInputStream(file), "utf-8")
+            var ch: Int
+            val sb = StringBuffer()
+            do {
+                ch = reader.read()
+                if(ch == -1){
+                    break
+                }
+                sb.append(ch.toChar())
+            } while (true)
+            fileReader.close()
+            reader.close()
+            s = sb.toString()
+            return JSONObject.parseObject(s)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return null
+        }
+    }
+
 }

@@ -2,10 +2,13 @@ package servlet
 
 import com.alibaba.fastjson.JSONObject
 import model.*
+import org.apache.commons.fileupload.disk.DiskFileItemFactory
+import org.apache.commons.fileupload.servlet.ServletFileUpload
 import util.LoginPlatform
 import util.LoginType
 import util.Shortcut
 import util.StringUtil
+import java.io.File
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -175,6 +178,35 @@ class APIUser: HttpServlet() {
                 ReqType.ChangeInfo
             }
 
+            "change_detail_info" -> {
+
+                val id = req.getParameter("id")
+                val token = req.getParameter("token")
+
+                if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
+                    out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
+                    return
+                }
+
+                val changeDetailInfo = ChangeDetailInfo(id, token, reqIP)
+
+                if (!req.getParameter("signature").isNullOrEmpty()){
+                    changeDetailInfo.changedItem[DetailInfoType.valueOf("signature")] = req.getParameter("signature")
+                    changeDetailInfo.changedItem[DetailInfoType.Signature] = req.getParameter("signature")
+                }
+
+
+                ReqType.ChangeDetailInfo
+            }
+
+            "test" -> {
+                // http://localhost:8080/community/api/user?method=test
+                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
+                val conf = StringUtil.jsonFromFile(jsonFile)
+                out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
+                ReqType.Test
+            }
+
             "change_password" -> {
                 // http://localhost:8080/community/api/user?method=change_password&id=720468899&old=123456&new=123456789
                 val id = req.getParameter("id")
@@ -192,10 +224,7 @@ class APIUser: HttpServlet() {
             }
 
             else -> {
-                val json = JSONObject()
-                json["shortcut"] = "AE"
-                json["msg"] = "invalid request"
-                out.write(json.toJSONString())
+                out.write(StringUtil.json(Shortcut.AE, "invalid request."))
                 ReqType.Default
             }
         }
@@ -203,8 +232,8 @@ class APIUser: HttpServlet() {
 
     enum class ReqType{
         Register, Login, AutoLogin, CheckName,
-        ChangeInfo, ChangePassword,
-        Default
+        ChangeInfo, ChangePassword, ChangeDetailInfo, UpdatePortrait,
+        Test, Default
     }
 
     companion object {

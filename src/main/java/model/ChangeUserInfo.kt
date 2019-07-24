@@ -9,12 +9,13 @@ import java.sql.SQLException
 import java.util.*
 import kotlin.collections.HashMap
 
+@Suppress("ReplaceWithEnumMap")
 class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     var changedItem: HashMap<UserInfoType, String> = HashMap()
     private val date = Date()
     var succeedItem: HashMap<String, String> = HashMap()
     fun submit(): String{
-        val conn = MySQLConn.mySQLConnection
+        val conn = MySQLConn.connection
         try {
             var ps = conn.prepareStatement("select  * from user where id = ? limit 1")
             ps.setString(1, id)
@@ -78,7 +79,7 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     }
 
     companion object {
-        private fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
@@ -90,9 +91,9 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     }
 }
 
-class ChangePassword(var id: String, var oldPassword: String, var newPassword: String, var ip: String){
+class ChangePassword(var id: String, var oldPassword: String, var newPassword: String, var ip: String) {
 
-    val conn = MySQLConn.mySQLConnection
+    private val conn = MySQLConn.connection
     private val date = Date()
 
     fun submit(): String{
@@ -144,6 +145,23 @@ class ChangePassword(var id: String, var oldPassword: String, var newPassword: S
 
 }
 
+class ChangeDetailInfo(var id: String, var token: String, var ip: String) {
+    var changedItem = HashMap<DetailInfoType, Any>()
+    fun submit(): String{
+        val conn = MySQLConn.connection
+        try {
+            return "TODO"
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            return ChangeUserInfo.json(Shortcut.OTHER, "SQL ERROR")
+        }
+    }
+}
+
 enum class UserInfoType{
     Email, Nickname, Default
+}
+
+enum class DetailInfoType(name: String) {
+    Signature("signature"), Default("default")
 }

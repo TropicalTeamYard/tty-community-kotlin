@@ -14,7 +14,7 @@ class Register(
 ) {
     fun submit(): String {
         //TODO CHECK WHETHER USER INFO IS VALID
-        val conn = MySQLConn.mySQLConnection
+        val conn = MySQLConn.connection
         try {
             var ps = conn.prepareStatement("select * from user where nickname = ?")
             ps.setString(1, nickname)
@@ -75,7 +75,7 @@ class Register(
 
     companion object {
         fun checkNickname(nickname: String): Boolean{
-            val conn = MySQLConn.mySQLConnection
+            val conn = MySQLConn.connection
             try {
                 val ps = conn.prepareStatement("select * from user where nickname = ?")
                 ps.setString(1, nickname)
