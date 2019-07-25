@@ -31,10 +31,10 @@ object Log {
     }
 
     fun changeUserInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: UserInfoType? = null)  {
-        val log = "user::change_info::ip=$ip::${
+        val log = "user::change_info::${
             when(status){
-                true -> "success::time=${StringUtil.getTime(date)}::target=${target?:UserInfoType.Default.name}::before=$before::after=$after"
-                false -> "failed::time=${StringUtil.getTime(date)}::target=${target?:UserInfoType.Default.name}"
+                true -> "success::time=${StringUtil.getTime(date)}::ip=$ip::target=${target?:UserInfoType.Default.name}::before=$before::after=$after"
+                false -> "failed::time=${StringUtil.getTime(date)}::ip=$ip::target=${target?:UserInfoType.Default.name}"
             }
         }\n"
         logUser(id, log)
@@ -62,13 +62,27 @@ object Log {
 
 
 
-    fun createBlog(id: String, date: Date, ip: String, blogId: String){
+    fun createBlog(id: String, date: Date, ip: String, status: Boolean, blogId: String? = null){
+        val user = "blog::create::${
+            when(status){
+                true -> "success::ip=$ip::date=${StringUtil.getTime(date)}::blogId=$blogId"
+                false -> "failed::ip=$ip::date=${StringUtil.getTime(date)}"
+            }
+        }\n"
+
+        logUser(id, user)
+
+        if (status && blogId != null) {
+            val blog = "blog::create::success::date=${StringUtil.getTime(date)}::ip=$ip::author=$id\n"
+            logBlog(blogId, blog)
+        }
+
 
     }
 
     private fun logBlog(blogId:String, log: String){
         val conn = MySQLConn.connection
-        val ps = conn.prepareStatement("update blog set log = concat(?, log) where _id = ?")
+        val ps = conn.prepareStatement("update blog set log = concat(?, log) where blog_id = ?")
         ps.setString(1, log)
         ps.setString(2, blogId)
         ps.executeUpdate()

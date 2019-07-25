@@ -5,8 +5,9 @@ import model.*
 import util.*
 import java.io.File
 import java.io.PrintWriter
+import java.nio.charset.Charset
 import java.sql.SQLException
-import java.util.function.BiConsumer
+import java.sql.*
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -191,7 +192,7 @@ class APIUser: HttpServlet() {
 
                 val changeDetailInfo = ChangeDetailInfo(id, token, reqIP)
 
-                val params = map["params"]?: arrayOf()
+                val params = map["fields"]?: arrayOf()
                 for(item in params) {
                     try {
                         val key = item.split("::")[0]
@@ -392,7 +393,7 @@ class APIPublicUser: HttpServlet() {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data!=null){
+            if(data != null){
                 map["data"] = JSONObject(data as Map<String, Any>?)
             }
             return map.toJSONString()
@@ -405,7 +406,9 @@ class APIPublicUser: HttpServlet() {
 @WebServlet(name = "api_public_user", urlPatterns = ["/api/blog/*"])
 class APIBlog: HttpServlet() {
     private var ip: String = "0.0.0.0"
-    lateinit var out: PrintWriter
+    private lateinit var out: PrintWriter
+    private val date = java.util.Date()
+    private val time = Timestamp(date.time)
 
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
         val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
@@ -428,27 +431,98 @@ class APIBlog: HttpServlet() {
 
         when (route) {
             "test" -> {
-                test(req, resp)
+                test()
             }
 
             "create" -> {
-                create(req, resp)
+                create(req)
             }
 
             else -> {
                 out.write(json(Shortcut.AE, "invalid request"))
+                return
             }
         }
     }
 
-    private fun create(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        val paramKey = arrayOf("id", "token", "type", "tag")
-        val map = req!!.parameterMap
+    private fun create(req: HttpServletRequest?) {
+        val params: HashMap<String, String>
+        val reqMaps = RequestPhrase(req!!)
+        params = reqMaps.getField()
+
+        val id = params["id"]
+        val token = params["token"]
+        val type = params["type"]
+        val title = params["title"]
+        val introduction = params["introduction"]
+        val content = params["content"]
+        val tag = params["tag"]
+        val filesCount = params["file_count"]
+
+        if (ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty() || type.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || tag.isNullOrEmpty() || filesCount.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        val blogId = ("$ip$id$token${date.time}${(1000..9999).random()}".hashCode() and Integer.MAX_VALUE).toString()
+
+        try {
+            val conn = MySQLConn.connection
+            var ps = conn.prepareStatement("select * from user where id = ? limit 1")
+            ps.setString(1, id)
+            var rs = ps.executeQuery()
+            if (rs.next() && token == StringUtil.getMd5(rs.getString("token"))) {
+                rs.close()
+                ps.close()
+                ps = conn.prepareStatement("insert into blog (blog_id, author_id, title, introduction, content, tag, last_edit_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                ps.setString(1, blogId)
+                ps.setString(2, id)
+                ps.setString(3, title)
+                ps.setString(4, introduction)
+                ps.setString(5, content)
+                ps.setString(6, tag)
+                ps.setTimestamp(7, time)
+                ps.setString(8, "normal")
+                ps.setString(9, "files:$filesCount")
+                ps.setString(10, "init\n")
+                ps.setString(11, "")
+                ps.setString(12, "")
+                ps.execute()
+                ps.close()
+                ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
+                ps.setString(1, blogId)
+                rs = ps.executeQuery()
+                if(rs.next()) {
+                    val data = HashMap<String, String>()
+                    data["blogId"] = blogId
+                    Log.createBlog(id, date, ip, true, blogId)
+                    rs.close()
+                    reqMaps.getBlogFiles(blogId, id)
+                    out.write(json(Shortcut.OK, "you have posted the blog successfully.", data))
+
+                } else {
+                    rs.close()
+                    out.write(json(Shortcut.AE, "CREATE BLOG FAILED"))
+                    return
+                }
+            } else {
+                Log.createBlog(id, date, ip, false)
+                out.write(json(Shortcut.TE, "invalid token"))
+                rs.close()
+                ps.close()
+                return
+            }
+
+        } catch (e: SQLException) {
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
+            e.printStackTrace()
+            return
+        }
 
     }
 
 
-    private fun test(req: HttpServletRequest?, resp: HttpServletResponse?) {
+    private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
         val conf = StringUtil.jsonFromFile(jsonFile)
         out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
@@ -459,7 +533,7 @@ class APIBlog: HttpServlet() {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data!=null){
+            if(data != null){
                 map["data"] = JSONObject(data as Map<String, Any>?)
             }
             return map.toJSONString()

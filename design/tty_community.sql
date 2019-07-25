@@ -10,6 +10,7 @@ create table user(
     last_login_time text not null,
     email text not null
 );
+
 create table user_detail(
     _id integer primary key auto_increment,
     id varchar(32) not null unique,
@@ -23,9 +24,11 @@ create table user_detail(
     data blob,
     log blob not null
 );
+
 create table blog(
     _id integer primary key auto_increment,
-    id varchar(32) not null,
+    blog_id varchar(32) not null unique,
+    author_id varchar(32) not null,
     title text not null,
     introduction text not null,
     content blob not null,
