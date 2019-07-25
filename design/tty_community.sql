@@ -25,6 +25,7 @@ create table user_detail(
 );
 create table blog(
     _id integer primary key auto_increment,
+    id varchar(32) not null,
     title text not null,
     introduction text not null,
     content blob not null,
@@ -32,6 +33,7 @@ create table blog(
     comment blob not null,
     likes blob not null,
     last_edit_time datetime not null,
+    status text not null,
     data blob,
     log blob not null
 );

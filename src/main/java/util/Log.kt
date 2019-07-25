@@ -7,27 +7,27 @@ import java.util.Date
 object Log {
     fun register(id: String, date: Date, ip: String, nickname: String) {
         val log = "user::register::nickname=$nickname::time=${StringUtil.getTime(date)}::ip=$ip\n"
-        log(id, log)
+        logUser(id, log)
     }
 
     fun login(id: String, date: Date, ip: String, loginType: LoginType, loginPlatform: LoginPlatform) {
         val log = "user::login::success::time=${StringUtil.getTime(date)}::login_type=${loginType.name}::platform=${loginPlatform.name}::ip=$ip\n"
-        log(id, log)
+        logUser(id, log)
     }
 
     fun loginFailed(id: String, date: Date, ip: String, loginType: LoginType, loginPlatform: LoginPlatform) {
         val log = "user::login::failed::time=${StringUtil.getTime(date)}::login_type=${loginType.name}::platform=${loginPlatform.name}::ip=$ip\n"
-        log(id, log)
+        logUser(id, log)
     }
 
     fun autoLogin(id: String, date: Date, ip: String, loginPlatform: LoginPlatform) {
         val log = "user::auto_login::success::time=${StringUtil.getTime(date)}::platform=${loginPlatform.name}::ip=$ip\n"
-        log(id, log)
+        logUser(id, log)
     }
 
     fun autoLoginFailed(id: String, date: Date, ip: String, loginPlatform: LoginPlatform) {
         val log = "user::auto_login::invalid_token::time=${StringUtil.getTime(date)}::platform=${loginPlatform.name}::ip=$ip\n"
-        log(id, log)
+        logUser(id, log)
     }
 
     fun changeUserInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: UserInfoType? = null)  {
@@ -37,7 +37,7 @@ object Log {
                 false -> "failed::time=${StringUtil.getTime(date)}::target=${target?:UserInfoType.Default.name}"
             }
         }\n"
-        log(id, log)
+        logUser(id, log)
     }
 
     fun changeUserDetailInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: String? = null)  {
@@ -47,7 +47,7 @@ object Log {
             false -> "failed::time=${StringUtil.getTime(date)}::target=${target?:"default"}"
         }
         }\n"
-        log(id, log)
+        logUser(id, log)
     }
 
     fun changePassword(id: String, date: Date, ip: String, status: Boolean) {
@@ -57,12 +57,26 @@ object Log {
                 false -> "failed"
             }
         }::ip=$ip::date=${StringUtil.getTime(date)}\n"
-        log(id, log)
+        logUser(id, log)
     }
 
 
 
-    private fun log(id: String, log: String) {
+    fun createBlog(id: String, date: Date, ip: String, blogId: String){
+
+    }
+
+    private fun logBlog(blogId:String, log: String){
+        val conn = MySQLConn.connection
+        val ps = conn.prepareStatement("update blog set log = concat(?, log) where _id = ?")
+        ps.setString(1, log)
+        ps.setString(2, blogId)
+        ps.executeUpdate()
+        ps.close()
+    }
+
+
+    private fun logUser(id: String, log: String) {
         val conn = MySQLConn.connection
         val ps = conn.prepareStatement("update user_detail set log = concat(?, log) where id = ?")
         ps.setString(1, log)

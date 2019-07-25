@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/Log.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Log.kt" afterDir="false" />
     </list>
@@ -68,6 +68,15 @@
         <item name="tty_community" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="blog: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="user_detail: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
@@ -78,15 +87,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
-              <caret line="370" column="28" lean-forward="true" selection-start-line="370" selection-start-column="28" selection-end-line="370" selection-end-column="28" />
+            <state relative-caret-position="542">
+              <caret line="444" column="58" selection-start-line="444" selection-start-column="58" selection-end-line="444" selection-end-column="58" />
               <folding>
                 <element signature="e#17#393#0" expanded="true" />
                 <element signature="n#!!block;n#getIPAddr#0;n#!!block;n#Companion#0;n#!!block;n#APIUser#0" />
-                <element signature="n#!!block;n#json#0;n#!!block;n#Companion#0;n#!!block;n#APIPublicUser#0" />
+                <element signature="n#!!block;n#doPost#0;n#!!block;n#APIPublicUser#0" />
+                <element signature="e#17509#17588#0" />
+                <element signature="n#!!block;n#json#0;n#!!block;n#Companion#0;n#!!block;n#APIPublicUser#1" />
               </folding>
             </state>
           </provider>
@@ -135,27 +146,21 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user_detail">
+        <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/blog">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state projectRestartId="8d8481fd-76f4-4020-8c1e-b7c8072e7b26">
               <filtering>
                 <filter text="" />
               </filtering>
-              <column-attributes>
-                <column name="data" position="11" />
-                <column name="log" position="10" />
-              </column-attributes>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="8d8481fd-76f4-4020-8c1e-b7c8072e7b26">
-              <filtering>
-                <filter text="" />
-              </filtering>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/design/tty_community.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="25" selection-start-line="25" selection-end-line="38" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -163,10 +168,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/util/Log.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+            <state relative-caret-position="339">
+              <caret line="72" column="31" lean-forward="true" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
               <folding>
-                <element signature="n#!!block;n#log#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#register#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#login#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#loginFailed#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#autoLogin#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#autoLoginFailed#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#changeUserInfo#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#changeUserDetailInfo#0;n#!!block;n#Log#0" />
+                <element signature="n#!!block;n#changePassword#0;n#!!block;n#Log#0" />
               </folding>
             </state>
           </provider>
@@ -217,9 +229,9 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" />
         <option value="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" />
-        <option value="$PROJECT_DIR$/design/tty_community.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/util/Log.kt" />
         <option value="$PROJECT_DIR$/src/main/java/servlet/API.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/util/Log.kt" />
+        <option value="$PROJECT_DIR$/design/tty_community.sql" />
       </list>
     </option>
   </component>
@@ -231,9 +243,9 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="976" />
+    <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -256,11 +268,6 @@
               <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
               <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
               <item name="design" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
@@ -466,12 +473,12 @@
       <workItem from="1563872348849" duration="4528000" />
       <workItem from="1563900910469" duration="94000" />
       <workItem from="1563901059722" duration="45094000" />
-      <workItem from="1564026215065" duration="5754000" />
+      <workItem from="1564026215065" duration="12603000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104560000" />
+    <option name="totallyTimeSpent" value="111409000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -486,7 +493,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7725806" visible="true" weight="0.16986156" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7725806" visible="true" weight="0.16986156" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -570,13 +577,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="16" lean-forward="true" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/test.kt" />
     <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/lang/Math.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -629,15 +629,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/servlet/APIPublicUser.kt" />
-    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/blog">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="c15eda0d-d99c-4b50-bad0-6bd9a6a1ff00">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Login.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -811,21 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/design/tty_community.sql">
-      <provider editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="96">
-            <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/kotlin/text/StringsJVM.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
@@ -858,16 +834,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
           <caret line="330" column="24" selection-start-line="330" selection-start-column="24" selection-end-line="330" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1031">
-          <caret line="200" column="57" selection-start-line="200" selection-start-column="57" selection-end-line="200" selection-end-column="57" />
-          <folding>
-            <element signature="n#!!block;n#ChangePassword#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -909,12 +875,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/Log.kt">
+    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="8d8481fd-76f4-4020-8c1e-b7c8072e7b26">
+          <filtering>
+            <filter text="" />
+          </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/servlet-api.jar!/javax/servlet/http/HttpServlet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+        <state relative-caret-position="539">
+          <caret line="69" column="1" selection-start-line="69" selection-start-column="1" selection-end-line="69" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="542">
+          <caret line="444" column="58" selection-start-line="444" selection-start-column="58" selection-end-line="444" selection-end-column="58" />
           <folding>
-            <element signature="n#!!block;n#log#0;n#!!block;n#Log#0" />
+            <element signature="e#17#393#0" expanded="true" />
+            <element signature="n#!!block;n#getIPAddr#0;n#!!block;n#Companion#0;n#!!block;n#APIUser#0" />
+            <element signature="n#!!block;n#doPost#0;n#!!block;n#APIPublicUser#0" />
+            <element signature="e#17509#17588#0" />
+            <element signature="n#!!block;n#json#0;n#!!block;n#Companion#0;n#!!block;n#APIPublicUser#1" />
           </folding>
         </state>
       </provider>
@@ -932,7 +918,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user">
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1031">
+          <caret line="200" column="57" selection-start-line="200" selection-start-column="57" selection-end-line="200" selection-end-column="57" />
+          <folding>
+            <element signature="n#!!block;n#ChangePassword#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/Log.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="72" column="31" lean-forward="true" selection-start-line="72" selection-start-column="31" selection-end-line="72" selection-end-column="31" />
+          <folding>
+            <element signature="n#!!block;n#register#0;n#!!block;n#Log#0" />
+            <element signature="n#!!block;n#login#0;n#!!block;n#Log#0" />
+            <element signature="n#!!block;n#loginFailed#0;n#!!block;n#Log#0" />
+            <element signature="n#!!block;n#autoLogin#0;n#!!block;n#Log#0" />
+            <element signature="n#!!block;n#autoLoginFailed#0;n#!!block;n#Log#0" />
+            <element signature="n#!!block;n#changeUserInfo#0;n#!!block;n#Log#0" />
+            <element signature="n#!!block;n#changeUserDetailInfo#0;n#!!block;n#Log#0" />
+            <element signature="n#!!block;n#changePassword#0;n#!!block;n#Log#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/blog">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state projectRestartId="8d8481fd-76f4-4020-8c1e-b7c8072e7b26">
           <filtering>
@@ -941,15 +954,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/API.kt">
+    <entry file="file://$PROJECT_DIR$/design/tty_community.sql">
+      <provider editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="96">
+            <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="370" column="28" lean-forward="true" selection-start-line="370" selection-start-column="28" selection-end-line="370" selection-end-column="28" />
-          <folding>
-            <element signature="e#17#393#0" expanded="true" />
-            <element signature="n#!!block;n#getIPAddr#0;n#!!block;n#Companion#0;n#!!block;n#APIUser#0" />
-            <element signature="n#!!block;n#json#0;n#!!block;n#Companion#0;n#!!block;n#APIPublicUser#0" />
-          </folding>
+        <state relative-caret-position="400">
+          <caret line="25" selection-start-line="25" selection-end-line="38" selection-end-column="2" />
         </state>
       </provider>
     </entry>
