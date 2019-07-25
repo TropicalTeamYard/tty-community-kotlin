@@ -2,19 +2,17 @@ package servlet
 
 import com.alibaba.fastjson.JSONObject
 import model.*
-import util.LoginPlatform
-import util.LoginType
-import util.Shortcut
-import util.StringUtil
+import util.*
 import java.io.File
 import java.io.PrintWriter
+import java.sql.SQLException
 import java.util.*
 import java.util.function.BiConsumer
-import javax.servlet.ServletException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import kotlin.collections.HashMap
 
 
 //TABLE USER
@@ -310,6 +308,7 @@ class APIPublicUser: HttpServlet() {
 
         when (route) {
             "info" -> {
+                // http://localhost:8080/community/api/public/user/info?target=1285609993&items=personal_signature&items=nickname&items=follower&items=following&items=user_group
                 getPublicInfo(req, resp)
             }
 
@@ -319,7 +318,6 @@ class APIPublicUser: HttpServlet() {
 
             else -> {
                 out.write(json(Shortcut.AE, "invalid request"))
-                return
             }
         }
     }
@@ -330,23 +328,70 @@ class APIPublicUser: HttpServlet() {
         val conf = StringUtil.jsonFromFile(jsonFile)
         out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
     }
+
+
+
     private fun getPublicInfo(req: HttpServletRequest?, resp: HttpServletResponse?) {
-//        out.write("info")
+        val publicInfoKey = arrayOf("personal_signature", "following", "follower", "user_group")
+        val infoKey = arrayOf("nickname")
         val map = req!!.parameterMap
-        val id = map["id"]?.get(0)
         val targetId = map["target"]?.get(0)
         val items = map["items"]
-        if (id.isNullOrEmpty() || targetId.isNullOrEmpty() || items.isNullOrEmpty()) {
+        if (targetId.isNullOrEmpty() || items.isNullOrEmpty()) {
             out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
 
-        TODO()
+        val conn = MySQLConn.connection
+        val data = HashMap<String, String>()
+        try {
+            data["id"] = targetId
+            var ps = conn.prepareStatement("select * from user_detail where id = ? limit 1")
+            ps.setString(1, targetId)
+            var rs = ps.executeQuery()
+            if (rs.next()) {
+                for (key in items) {
+                    if (publicInfoKey.contains(key)) {
+                        val value = rs.getString(key)
+                        data[key] = value
+                    }
+                }
+                rs.close()
+                ps.close()
+            } else {
+                rs.close()
+                ps.close()
+                out.write(json(Shortcut.UNE, "id $targetId have not been registered."))
+                return
+            }
+
+            ps = conn.prepareStatement("select * from user where id = ?")
+            ps.setString(1, targetId)
+            rs = ps.executeQuery()
+            if (rs.next()) {
+                for (key in items) {
+                    if (infoKey.contains(key)) {
+                        val value = rs.getString(key)
+                        data[key] = value
+                    }
+                }
+                rs.close()
+                ps.close()
+            } else {
+                rs.close()
+                ps.close()
+            }
+
+            out.write(json(Shortcut.OK, "the user info have been returned.", data))
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
+        }
 
     }
 
     companion object {
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
