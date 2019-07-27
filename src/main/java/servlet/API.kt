@@ -364,7 +364,7 @@ class APIPublicUser: HttpServlet() {
                 return
             }
 
-            ps = conn.prepareStatement("select * from user where id = ?")
+            ps = conn.prepareStatement("select * from user where id = ? limit 1")
             ps.setString(1, targetId)
             rs = ps.executeQuery()
             if (rs.next()) {
@@ -398,6 +398,28 @@ class APIPublicUser: HttpServlet() {
                 map["data"] = JSONObject(data as Map<String, Any>?)
             }
             return map.toJSONString()
+        }
+
+        fun getNickname(id: String): String? {
+            val conn = MySQLConn.connection
+            try {
+
+                val ps = conn.prepareStatement("select nickname from user where id = ? limit 1")
+                ps.setString(1, id)
+                val rs = ps.executeQuery()
+                val nickname =
+                if (rs.next()) {
+                    rs.getString("nickname")
+                } else {
+                    null
+                }
+                rs.close()
+                ps.close()
+                return nickname
+            } catch (e: SQLException) {
+                e.printStackTrace()
+                return null
+            }
         }
     }
 
@@ -442,6 +464,7 @@ class APIBlog: HttpServlet() {
             }
 
             "get" -> {
+                // http://localhost:8080/community/api/blog/get?blog_id=1293756613
                 getBlog(req)
                 return
             }
@@ -539,13 +562,52 @@ class APIBlog: HttpServlet() {
     }
 
     private fun getBlog(req: HttpServletRequest?) {
-        val map = req!!.parameterMap
-        val paramSet = setOf("id", "blog_id")
+        val blogId = req?.getParameter("blog_id")
+        if (blogId.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        try {
+            val conn = MySQLConn.connection
+            val ps = conn.prepareStatement("select * from blog where blog_id = ? and status = 'normal' limit 1")
+            ps.setString(1, blogId)
+            val rs = ps.executeQuery()
+            if (rs.next()) {
+                val blog = Blog.Detail(
+                    blogId,
+                    rs.getString("author_id"),
+                    rs.getString("title"),
+                    rs.getString("introduction"),
+                    rs.getString("tag"),
+                    rs.getTimestamp("last_edit_time")
+                )
+
+                blog.authorNickname = APIPublicUser.getNickname(blog.author).toString()
+                blog.content = rs.getString("content")
+                blog.comment = rs.getString("comment")
+                blog.likes = rs.getString("likes")
+                blog.status = rs.getString("status")
+                rs.close()
+                ps.close()
+                out.write(jsonBlogDetail(Shortcut.OK, "return blog successfully.", blog))
+                return
+            } else {
+                rs.close()
+                ps.close()
+                out.write(json(Shortcut.BNE, "blog not found"))
+                return
+            }
+
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
+        }
     }
 
     private fun getBlogList(req: HttpServletRequest?) {
         val map = req!!.parameterMap
-        val paramSet = setOf("type", "count", "date", "from", "to")
+        //val paramSet = setOf("type", "count", "date", "from", "to")
         val type = when(map["type"]?.get(0)) {
             "id" -> GetBlogType.Id
             "time" -> GetBlogType.Time
@@ -568,7 +630,7 @@ class APIBlog: HttpServlet() {
                 GetBlogType.Time -> {
                     val blogList = ArrayList<Blog.Outline>()
                     var index = 0
-                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time <= ? order by last_edit_time desc limit ?")
+                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time <= ? and status = 'normal' order by last_edit_time desc limit ?")
                     ps.setTimestamp(1, Timestamp(date!!.time))
                     ps.setInt(2, count)
                     val rs = ps.executeQuery()
@@ -611,7 +673,7 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_edit_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time > ? order by last_edit_time limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time > ? and status = 'normal' order by last_edit_time limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setInt(2, count)
                                 val rs = ps.executeQuery()
@@ -651,7 +713,7 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_edit_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time < ? order by last_edit_time desc limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time < ? and status = 'normal' order by last_edit_time desc limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setInt(2, count)
                                 val rs = ps.executeQuery()
@@ -716,13 +778,19 @@ class APIBlog: HttpServlet() {
             return map.toJSONString()
         }
 
-        fun jsonBlogOutline(shortcut: Shortcut, msg: String, data: ArrayList<Blog.Outline>? = null): String {
+        private fun jsonBlogDetail(shortcut: Shortcut, msg: String, data: Blog.Detail): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data != null){
-                map["data"] = JSONArray(data as List<Any>?)
-            }
+            map["data"] = data
+            return map.toJSONString()
+        }
+
+        fun jsonBlogOutline(shortcut: Shortcut, msg: String, data: ArrayList<Blog.Outline>): String {
+            val map = JSONObject()
+            map["shortcut"] = shortcut.name
+            map["msg"] = msg
+            map["data"] = JSONArray(data as List<Any>?)
             return map.toJSONString()
         }
     }

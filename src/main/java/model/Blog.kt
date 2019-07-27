@@ -28,10 +28,11 @@ interface Blog {
         override val tag: String,
         override val lastEditTime: Date
     ) : Blog {
+        var authorNickname: String = ""
         var content: String = ""
         var comment: String = ""
         var likes = ""
-        var status = "deleted::0"
+        var status = "deleted::self"
         var data: String? = null
 
     }
