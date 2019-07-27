@@ -11,9 +11,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.experimental.and
 import java.io.IOException
-import java.io.BufferedReader
 import java.io.FileInputStream
-
+import java.text.ParseException
 
 
 object StringUtil {
@@ -40,6 +39,20 @@ object StringUtil {
         val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss")
         time = sdf.format(date)
         return time
+    }
+
+    fun getTime(s: String?): Date? {
+        if (s == null) {
+            return null
+        }
+
+        return try {
+            val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss")
+            sdf.parse(s)
+        } catch (e: ParseException){
+            null
+        }
+
     }
 
     fun getMd5(input: String): String? {
@@ -110,5 +123,7 @@ object StringUtil {
             return null
         }
     }
+
+
 
 }

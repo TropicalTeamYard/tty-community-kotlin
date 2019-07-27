@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=GBK" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
   <title>TTY Community</title>
@@ -8,14 +8,7 @@
 <p>Welcome to TTY-Community Server Page!</p>
 
 <form action="api/blog/create" method="post" enctype="multipart/form-data">
-  <p class="leftDiv">ÉÏ´«ÎÄ¼þÒ»</p>
-  <p class="rightDiv">
-    <input type="file" name="file1" class="text">
-  </p>
-  <p class="leftDiv">ÉÏ´«ÎÄ¼þ¶þ</p>
-  <p class="rightDiv">
-    <input type="file" name="file2" class="text">
-  </p>
+
   <label>
     ID
     <input name="id" type="text">
@@ -56,8 +49,16 @@
     <input name="file_count" type="text">
   </label>
   <br>
+  <p class="leftDiv">ä¸Šä¼ æ–‡ä»¶ä¸€</p>
   <p class="rightDiv">
-    <input type="submit" value="ÉÏ´«" class="button">
+    <input type="file" name="file1" class="text">
+  </p>
+  <p class="leftDiv">ä¸Šä¼ æ–‡ä»¶äºŒ</p>
+  <p class="rightDiv">
+    <input type="file" name="file2" class="text">
+  </p>
+  <p class="rightDiv">
+    <input type="submit" value="ä¸Šä¼ " class="button">
   </p>
 </form>
 </body>

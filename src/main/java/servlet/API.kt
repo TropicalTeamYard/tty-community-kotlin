@@ -1,5 +1,6 @@
 package servlet
 
+import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import model.*
 import util.*
@@ -403,7 +404,7 @@ class APIPublicUser: HttpServlet() {
 }
 
 
-@WebServlet(name = "api_public_user", urlPatterns = ["/api/blog/*"])
+@WebServlet(name = "api_blog", urlPatterns = ["/api/blog/*"])
 class APIBlog: HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
@@ -432,10 +433,26 @@ class APIBlog: HttpServlet() {
         when (route) {
             "test" -> {
                 test()
+                return
             }
 
             "create" -> {
                 create(req)
+                return
+            }
+
+            "get" -> {
+                getBlog(req)
+                return
+            }
+
+
+            "list" -> {
+                // http://localhost:8080/community/api/blog/list?type=id&to=1293637237&count=8 # id 为 `to` 之前日期的 count 条记录
+                // http://localhost:8080/community/api/blog/list?type=id&from=1293637237&count=8 # id 为 `from` 之后日期的 count 条记录
+                // http://localhost:8080/community/api/blog/list?type=time&date=2019/7/26-03:24:52&count=5 # date 及之前日期的 count 条记录
+                getBlogList(req)
+                return
             }
 
             else -> {
@@ -521,6 +538,166 @@ class APIBlog: HttpServlet() {
 
     }
 
+    private fun getBlog(req: HttpServletRequest?) {
+        val map = req!!.parameterMap
+        val paramSet = setOf("id", "blog_id")
+    }
+
+    private fun getBlogList(req: HttpServletRequest?) {
+        val map = req!!.parameterMap
+        val paramSet = setOf("type", "count", "date", "from", "to")
+        val type = when(map["type"]?.get(0)) {
+            "id" -> GetBlogType.Id
+            "time" -> GetBlogType.Time
+            else -> GetBlogType.Default
+        }
+        val count = map["count"]?.get(0)?.toInt()?:0
+        val date = StringUtil.getTime(map["date"]?.get(0))
+        val from = map["from"]?.get(0)
+        val to = map["to"]?.get(0)
+
+
+        if((type == GetBlogType.Id && ((from.isNullOrEmpty() && to.isNullOrEmpty()) || count <= 0)) || (type == GetBlogType.Time && (date == null || count <= 0)) || (type == GetBlogType.Default)) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        try {
+            val conn = MySQLConn.connection
+            when (type) {
+                GetBlogType.Time -> {
+                    val blogList = ArrayList<Blog.Outline>()
+                    var index = 0
+                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time <= ? order by last_edit_time desc limit ?")
+                    ps.setTimestamp(1, Timestamp(date!!.time))
+                    ps.setInt(2, count)
+                    val rs = ps.executeQuery()
+                    while (rs.next()) {
+                        val blog = Blog.Outline(
+                            rs.getString("blog_id"),
+                            rs.getString("author_id"),
+                            rs.getString("title"),
+                            rs.getString("introduction"),
+                            rs.getString("tag"),
+                            rs.getTimestamp("last_edit_time")
+                        )
+                        blog.index = index
+                        index++
+
+                        blogList.add(blog)
+
+                    }
+                    rs.close()
+                    ps.close()
+
+                    val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
+                    out.write(json)
+
+                    return
+                }
+
+                GetBlogType.Id -> {
+
+                    val blogList = ArrayList<Blog.Outline>()
+                    var index = 0
+
+                    when {
+                        from != null -> {
+
+                            val ps1 = conn.prepareStatement("select last_edit_time from blog where blog_id = ?")
+                            ps1.setString(1, from)
+                            val rs1 = ps1.executeQuery()
+                            if (rs1.next()) {
+                                val timestamp = rs1.getTimestamp("last_edit_time")
+                                rs1.close()
+                                ps1.close()
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time > ? order by last_edit_time limit ?")
+                                ps.setTimestamp(1, timestamp)
+                                ps.setInt(2, count)
+                                val rs = ps.executeQuery()
+                                while (rs.next()) {
+                                    val blog = Blog.Outline(
+                                        rs.getString("blog_id"),
+                                        rs.getString("author_id"),
+                                        rs.getString("title"),
+                                        rs.getString("introduction"),
+                                        rs.getString("tag"),
+                                        rs.getTimestamp("last_edit_time")
+                                    )
+                                    blog.index = index
+                                    index++
+
+                                    blogList.add(blog)
+
+                                }
+                                rs.close()
+                                ps.close()
+                                val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
+                                out.write(json)
+                                return
+
+                            } else {
+                                rs1.close()
+                                ps1.close()
+                                out.write(json(Shortcut.BNE, "blog $from not found."))
+                                return
+                            }
+                        }
+                        to != null -> {
+                            val ps1 = conn.prepareStatement("select last_edit_time from blog where blog_id = ?")
+                            ps1.setString(1, to)
+                            val rs1 = ps1.executeQuery()
+                            if (rs1.next()) {
+                                val timestamp = rs1.getTimestamp("last_edit_time")
+                                rs1.close()
+                                ps1.close()
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time < ? order by last_edit_time desc limit ?")
+                                ps.setTimestamp(1, timestamp)
+                                ps.setInt(2, count)
+                                val rs = ps.executeQuery()
+                                while (rs.next()) {
+                                    val blog = Blog.Outline(
+                                        rs.getString("blog_id"),
+                                        rs.getString("author_id"),
+                                        rs.getString("title"),
+                                        rs.getString("introduction"),
+                                        rs.getString("tag"),
+                                        rs.getTimestamp("last_edit_time")
+                                    )
+                                    blog.index = index
+                                    index++
+
+                                    blogList.add(blog)
+
+                                }
+                                rs.close()
+                                ps.close()
+                                val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
+                                out.write(json)
+                                return
+
+                            } else {
+                                rs1.close()
+                                ps1.close()
+                                out.write(json(Shortcut.BNE, "blog $from not found."))
+                                return
+                            }
+                        }
+                        else -> return
+                    }
+
+                }
+
+                GetBlogType.Default -> return
+            }
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
+        }
+
+
+    }
+
 
     private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
@@ -538,6 +715,20 @@ class APIBlog: HttpServlet() {
             }
             return map.toJSONString()
         }
+
+        fun jsonBlogOutline(shortcut: Shortcut, msg: String, data: ArrayList<Blog.Outline>? = null): String {
+            val map = JSONObject()
+            map["shortcut"] = shortcut.name
+            map["msg"] = msg
+            if(data != null){
+                map["data"] = JSONArray(data as List<Any>?)
+            }
+            return map.toJSONString()
+        }
+    }
+
+    enum class GetBlogType {
+        Time, Id, Default
     }
 
 }
