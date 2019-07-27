@@ -8,9 +8,9 @@ create table user(
     password text not null,
     last_login_ip text not null,
     last_login_time text not null,
-    email text not null,
-    log blob not null
+    email text not null
 );
+
 create table user_detail(
     _id integer primary key auto_increment,
     id varchar(32) not null unique,
@@ -19,13 +19,16 @@ create table user_detail(
     following text not null,
     personal_signature text not null,
     account_status text not null,
-    user_group integer not null,
+    user_group integer not null default 0,
     exp integer not null default 20,
     data blob,
     log blob not null
 );
+
 create table blog(
     _id integer primary key auto_increment,
+    blog_id varchar(32) not null unique,
+    author_id varchar(32) not null,
     title text not null,
     introduction text not null,
     content blob not null,
@@ -33,6 +36,7 @@ create table blog(
     comment blob not null,
     likes blob not null,
     last_edit_time datetime not null,
+    status text not null,
     data blob,
     log blob not null
 );

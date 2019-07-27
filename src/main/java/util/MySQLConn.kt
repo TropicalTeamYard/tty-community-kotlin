@@ -9,7 +9,7 @@ object MySQLConn {
     private const val MySQLConnStr = "jdbc:mysql://$SERVER_HOST/tty_community?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true"
     private var conn: Connection? = null
 
-    val mySQLConnection: Connection
+    val connection: Connection
         get() {
             if (conn == null) {
                 try {
