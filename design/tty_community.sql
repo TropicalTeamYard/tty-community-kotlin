@@ -40,3 +40,19 @@ create table blog(
     data blob,
     log blob not null
 );
+
+# for app
+
+create table user(
+    _id integer primary key auto_increment,
+    id varchar(32) not null unique,
+    nickname varchar(32) not null,
+    token text not null,
+    portrait text not null,
+    follower_count integer not null default 0,
+    following_count integer not null default 0,
+    personal_signature text not null,
+    account_status text not null,
+    data blob,
+    log blob not null
+);
