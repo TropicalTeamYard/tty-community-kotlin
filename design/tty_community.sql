@@ -25,6 +25,7 @@ create table user_detail(
     exp integer not null default 20,
     data blob,
     log blob not null
+#     settings json
 );
 
 create table blog(

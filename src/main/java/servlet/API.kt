@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@WebServlet(name = "api_user", urlPatterns = ["/api/user"])
+@WebServlet(name = "api_user", urlPatterns = ["/api/user/*"])
 class APIUser: HttpServlet() {
     private var reqIP: String = "0.0.0.0"
-    private var method: ReqType = ReqType.Default
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
         reqIP = getIPAddr(req!!) ?:"0.0.0.0"
         resp?.writer?.write("API: APIUser\nIP: $reqIP\n")
@@ -26,10 +25,16 @@ class APIUser: HttpServlet() {
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?){
         val out = resp!!.writer
         reqIP = getIPAddr(req!!) ?:"0.0.0.0"
-        method = when(req.getParameter("method")){
+        val route = try {
+            req.requestURI.substring(20)
+        } catch (e: StringIndexOutOfBoundsException) {
+            out.write(APIPublicUser.json(Shortcut.AE, "invalid request"))
+            return
+        }
 
+        when(route){
             "login" -> {
-                // http://localhost:8080/community/api/user?method=login&platform=web&login_type=id&id=2008153477&password=123456
+                // http://localhost:8080/community/api/user/login?platform=web&login_type=id&id=2008153477&password=123456
                 val json = JSONObject()
                 val platform: LoginPlatform = when(req.getParameter("platform")){
                     "mobile" -> LoginPlatform.MOBILE
@@ -70,12 +75,10 @@ class APIUser: HttpServlet() {
                         return
                     }
                 }
-
-                ReqType.Login
             }
 
             "auto_login" -> {
-                // http://localhost:8080/community/api/user?method=auto_login&platform=pc&token=0F7B94AC09054FF9BBBF275340483BB9&id=720468899
+                // http://localhost:8080/community/api/user/auto_login?platform=pc&token=9A389DAAE829CD0166CAED9734A40592&id=2008153477
                 val json = JSONObject()
                 val id = req.getParameter("id")
                 val token = req.getParameter("token")
@@ -97,11 +100,10 @@ class APIUser: HttpServlet() {
                 }
                 val auto = AutoLogin(reqIP, id, token, platform)
                 out.write(auto.submit())
-                ReqType.AutoLogin
             }
 
             "register" -> {
-                // http://localhost:8080/community/api/user?method=register&nickname=wcf&password=123456&email=123@qq.com
+                // http://localhost:8080/community/api/user/register?nickname=wcf&password=123456&email=123@qq.com
                 val nickname = req.getParameter("nickname")
                 val email = req.getParameter("email")
                 val password = req.getParameter("password")
@@ -111,11 +113,10 @@ class APIUser: HttpServlet() {
                 }
                 val result = Register(nickname, reqIP, email, password).submit()
                 out.write(result)
-                ReqType.Register
             }
 
             "check_name" -> {
-                // http://localhost:8080/community/api/user?method=check_name&nickname=wcf
+                // http://localhost:8080/community/api/user/check_name?nickname=wcf
                 val nickname = req.getParameter("nickname")
                 val json = JSONObject()
                 if(nickname == null || nickname.isEmpty()){
@@ -134,11 +135,10 @@ class APIUser: HttpServlet() {
                     }
                 }
                 out.write(json.toJSONString())
-                ReqType.CheckName
             }
 
             "change_info" -> {
-                // http://localhost:8080/community/api/user?method=change_info&token=2922598E94BCE57F9534909CC0404F97&id=720468899&nickname=wcf&email=1533144693@qq.com
+                // http://localhost:8080/community/api/user/change_info?token=2922598E94BCE57F9534909CC0404F97&id=720468899&nickname=wcf&email=1533144693@qq.com
                 val id = req.getParameter("id")
                 val token = req.getParameter("token")
 
@@ -158,12 +158,10 @@ class APIUser: HttpServlet() {
                 }
 
                 out.write(changeUserInfo.submit())
-
-                ReqType.ChangeInfo
             }
 
             "change_detail_info" -> {
-                // http://localhost:8080/community/api/user?method=change_detail_info&id=1285609993&token=E0DC9F89E9C06F36072C27138833230B&params=personal_signature::helloworld&params=key::value
+                // http://localhost:8080/community/api/user/change_detail_info?id=1285609993&token=E0DC9F89E9C06F36072C27138833230B&params=personal_signature::helloworld&params=key::value
                 val map = req.parameterMap
                 val id = map["id"]?.get(0)
                 val token = map["token"]?.get(0)
@@ -175,13 +173,14 @@ class APIUser: HttpServlet() {
 
                 val changeDetailInfo = ChangeDetailInfo(id, token, reqIP)
 
-                val params = map["fields"]?: arrayOf()
+                val params = map["params"]?: arrayOf()
                 for(item in params) {
                     try {
                         val key = item.split("::")[0]
                         val value = item.split("::")[1]
                         changeDetailInfo.changedItem[key] = value
                     } catch (e: IndexOutOfBoundsException) {
+                        e.printStackTrace()
                         continue
                     }
                 }
@@ -190,12 +189,10 @@ class APIUser: HttpServlet() {
                 } else {
                     out.write(StringUtil.json(Shortcut.OTHER, "Nothing changed"))
                 }
-
-                ReqType.ChangeDetailInfo
             }
 
             "change_password" -> {
-                // http://localhost:8080/community/api/user?method=change_password&id=720468899&old=123456&new=123456789
+                // http://localhost:8080/community/api/user/change_password?id=2008153477&old=123456&new=123456789
                 val id = req.getParameter("id")
                 val oldPassword = req.getParameter("old")
                 val newPassword = req.getParameter("new")
@@ -206,29 +203,19 @@ class APIUser: HttpServlet() {
                 }
 
                 out.write(ChangePassword(id, oldPassword, newPassword, reqIP).submit())
-
-                ReqType.ChangePassword
             }
 
             "test" -> {
-                // http://localhost:8080/community/api/user?method=test
+                // http://localhost:8080/community/api/user/test
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
                 val conf = StringUtil.jsonFromFile(jsonFile)
                 out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
-                ReqType.Test
             }
 
             else -> {
                 out.write(StringUtil.json(Shortcut.AE, "invalid request."))
-                ReqType.Default
             }
         }
-    }
-
-    enum class ReqType{
-        Register, Login, AutoLogin, CheckName,
-        ChangeInfo, ChangePassword, ChangeDetailInfo, UpdatePortrait,
-        Test, Default
     }
 
     companion object {
