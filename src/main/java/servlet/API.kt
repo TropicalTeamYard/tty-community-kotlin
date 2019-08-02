@@ -6,30 +6,12 @@ import model.*
 import util.*
 import java.io.File
 import java.io.PrintWriter
-import java.nio.charset.Charset
 import java.sql.SQLException
-import java.sql.*
+import java.sql.Timestamp
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import kotlin.collections.HashMap
-
-
-//TABLE USER
-
-//# create database tty_community;
-//# create table user(
-//#     _id integer primary key auto_increment,
-//#     id text not null,
-//#     nickname text not null,
-//#     token text not null,
-//#     password text not null,
-//#     last_login_ip text not null,
-//#     last_login_time text not null,
-//#     email text not null,
-//#     log blob not null
-//# );
 
 @WebServlet(name = "api_user", urlPatterns = ["/api/user"])
 class APIUser: HttpServlet() {
@@ -47,7 +29,7 @@ class APIUser: HttpServlet() {
         method = when(req.getParameter("method")){
 
             "login" -> {
-                // http://localhost:8080/community/api/user?method=login&platform=web&login_type=id&id=720468899&password=9128639163198r91b
+                // http://localhost:8080/community/api/user?method=login&platform=web&login_type=id&id=2008153477&password=123456
                 val json = JSONObject()
                 val platform: LoginPlatform = when(req.getParameter("platform")){
                     "mobile" -> LoginPlatform.MOBILE
@@ -432,6 +414,7 @@ class APIBlog: HttpServlet() {
 
         when (route) {
             "test" -> {
+                // http://localhost:8080/community/api/blog/test
                 test()
                 return
             }

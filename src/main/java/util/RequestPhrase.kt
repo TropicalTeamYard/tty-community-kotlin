@@ -9,7 +9,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import javax.servlet.http.HttpServletRequest
 
-class RequestPhrase (private val req: HttpServletRequest){
+class RequestPhrase (req: HttpServletRequest){
     private val conf = StringUtil.jsonFromFile(File(req.servletContext.getRealPath("/conf/dir")))
     private val files = HashMap<String, File>()
     private val factory = DiskFileItemFactory()

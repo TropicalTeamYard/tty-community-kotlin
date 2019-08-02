@@ -1,5 +1,7 @@
 create database tty_community;
 alter database tty_community character set utf8mb4;
+use tty_community;
+
 create table user(
     _id integer primary key auto_increment,
     id varchar(32) not null unique,

@@ -80,6 +80,9 @@ object Log {
 
     }
 
+
+
+
     private fun logBlog(blogId:String, log: String){
         val conn = MySQLConn.connection
         val ps = conn.prepareStatement("update blog set log = concat(?, log) where blog_id = ?")
@@ -88,7 +91,6 @@ object Log {
         ps.executeUpdate()
         ps.close()
     }
-
 
     private fun logUser(id: String, log: String) {
         val conn = MySQLConn.connection
@@ -109,10 +111,7 @@ enum class Shortcut{
 }
 
 internal object Token{
-    //id
-    //platform
-    //secret
-    //time
+    //id platform secret time
     fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date, status: Boolean): String {
         return "$id::${platform.name}::$secret::${StringUtil.getTime(time)}::$status"
     }
