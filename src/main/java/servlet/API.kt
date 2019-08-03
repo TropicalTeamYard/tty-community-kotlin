@@ -12,6 +12,17 @@ import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import java.io.FileInputStream
+import javax.servlet.ServletOutputStream
+import java.io.IOException
+import java.io.OutputStream
+import java.io.InputStream
+
+
+
+
+
+
 
 @WebServlet(name = "api_user", urlPatterns = ["/api/user/*"])
 class APIUser: HttpServlet() {
@@ -78,7 +89,7 @@ class APIUser: HttpServlet() {
             }
 
             "auto_login" -> {
-                // http://localhost:8080/community/api/user/auto_login?platform=pc&token=9A389DAAE829CD0166CAED9734A40592&id=2008153477
+                // http://localhost:8080/community/api/user/auto_login?platform=pc&token=040DC2D9B6B8069563E7DC10D53D1B0D&id=2008153477
                 val json = JSONObject()
                 val id = req.getParameter("id")
                 val token = req.getParameter("token")
@@ -280,6 +291,11 @@ class APIPublicUser: HttpServlet() {
                 getPublicInfo(req)
             }
 
+            "portrait" -> {
+                // http://localhost:8080/community/api/public/user/portrait?target=2008153477
+                getPortrait(req, resp)
+            }
+
             "test" -> {
                 test()
             }
@@ -298,6 +314,59 @@ class APIPublicUser: HttpServlet() {
     }
 
 
+    private fun getPortrait(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        val map = req!!.parameterMap
+        val targetId = map["target"]?.get(0)
+        if (targetId.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        val conn = MySQLConn.connection
+        try {
+            val ps = conn.prepareStatement("select portrait from user_detail where id = ? limit 1")
+            ps.setString(1, targetId)
+            val rs = ps.executeQuery()
+            if (rs.next()) {
+                val portrait = rs.getString("portrait")
+                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
+                val conf = StringUtil.jsonFromFile(jsonFile)
+                val path = conf?.getString("root")+"\\${conf?.getString("portrait")}\\$portrait"
+                val `is` = FileInputStream(path)
+
+                resp!!.reset()
+                resp.setHeader("Content-Disposition", "attachment; filename=$portrait")
+                val os = resp.outputStream
+                var len: Int
+                val buffer = ByteArray(1024)
+                do {
+                    len = `is`.read(buffer)
+                    if (len == -1) {
+                        break
+                    }
+                    os.write(buffer, 0, len)
+                } while (true)
+
+                os.close()
+                `is`.close()
+                rs.close()
+                ps.close()
+            } else {
+                out.write(json(Shortcut.UNE, "the user $targetId have not been registered."))
+                rs.close()
+                ps.close()
+            }
+
+
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            out.write(json(Shortcut.OTHER, "UNKNOWN EXCEPTION"))
+        }
+
+    }
 
     private fun getPublicInfo(req: HttpServletRequest?) {
         val publicInfoKey = arrayOf("personal_signature", "following", "follower", "user_group")
@@ -676,6 +745,7 @@ class APIBlog: HttpServlet() {
     }
 
     companion object {
+
         fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name

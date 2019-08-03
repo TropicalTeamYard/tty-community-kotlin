@@ -11,7 +11,7 @@ object MySQLConn {
 
     val connection: Connection
         get() {
-            if (conn == null) {
+            if (conn == null || (conn != null && conn!!.isClosed)) {
                 try {
                     Class.forName("com.mysql.jdbc.Driver")
                     val user = "root"
