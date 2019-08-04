@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject
 import model.*
 import util.*
 import java.io.File
+import java.io.FileInputStream
 import java.io.PrintWriter
 import java.sql.SQLException
 import java.sql.Timestamp
@@ -12,16 +13,6 @@ import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import java.io.FileInputStream
-import javax.servlet.ServletOutputStream
-import java.io.IOException
-import java.io.OutputStream
-import java.io.InputStream
-
-
-
-
-
 
 
 @WebServlet(name = "api_user", urlPatterns = ["/api/user/*"])
@@ -34,6 +25,8 @@ class APIUser: HttpServlet() {
     }
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?){
+        resp?.characterEncoding = "utf-8"
+        req?.characterEncoding = "utf-8"
         val out = resp!!.writer
         reqIP = getIPAddr(req!!) ?:"0.0.0.0"
         val route = try {
@@ -274,8 +267,8 @@ class APIPublicUser: HttpServlet() {
 
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        resp?.characterEncoding = "utf-8"
-        req?.characterEncoding = "utf-8"
+        resp?.characterEncoding = "UTF-8"
+        req?.characterEncoding = "UTF-8"
         out = resp!!.writer
         ip = APIUser.getIPAddr(req!!) ?:"0.0.0.0"
         val route = try {
@@ -440,7 +433,6 @@ class APIPublicUser: HttpServlet() {
 
 }
 
-
 @WebServlet(name = "api_blog", urlPatterns = ["/api/blog/*"])
 class APIBlog: HttpServlet() {
     private var ip: String = "0.0.0.0"
@@ -456,8 +448,8 @@ class APIBlog: HttpServlet() {
 
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        resp?.characterEncoding = "utf-8"
-        req?.characterEncoding = "utf-8"
+        resp?.characterEncoding = "UTF-8"
+        req?.characterEncoding = "UTF-8"
         out = resp!!.writer
         ip = APIUser.getIPAddr(req!!) ?:"0.0.0.0"
         val route = try {
@@ -578,7 +570,62 @@ class APIBlog: HttpServlet() {
 
     private fun getBlog(req: HttpServletRequest?) {
         val map = req!!.parameterMap
-        val paramSet = setOf("id", "blog_id")
+
+    }
+
+    private fun getBlogPics(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        // TODO return files
+
+        val map = req!!.parameterMap
+        val blogId = map["blog_id"]?.get(0)
+        if (blogId.isNullOrEmpty()) {
+            out.write(APIPublicUser.json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        val conn = MySQLConn.connection
+        try {
+            val ps = conn.prepareStatement("select data from blog where blog_id = ? limit 1")
+            ps.setString(1, blogId)
+            val rs = ps.executeQuery()
+            if (rs.next()) {
+                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
+                val conf = StringUtil.jsonFromFile(jsonFile)
+                val path = conf?.getString("root")+"\\${conf?.getString("blog_pics")}\\$blogId"
+                val `is` = FileInputStream(path)
+
+                resp!!.reset()
+                val os = resp.outputStream
+                var len: Int
+                val buffer = ByteArray(1024)
+                do {
+                    len = `is`.read(buffer)
+                    if (len == -1) {
+                        break
+                    }
+                    os.write(buffer, 0, len)
+                } while (true)
+
+                os.close()
+                `is`.close()
+
+
+                rs.close()
+                ps.close()
+            } else {
+                out.write(APIPublicUser.json(Shortcut.UNE, "the user $blogId have not been registered."))
+                rs.close()
+                ps.close()
+            }
+
+
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            out.write(APIPublicUser.json(Shortcut.OTHER, "SQL ERROR"))
+        } catch (e: Exception) {
+            e.printStackTrace()
+            out.write(APIPublicUser.json(Shortcut.OTHER, "UNKNOWN EXCEPTION"))
+        }
     }
 
     private fun getBlogList(req: HttpServletRequest?) {

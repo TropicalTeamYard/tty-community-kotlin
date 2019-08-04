@@ -128,6 +128,7 @@ class AutoLogin(private val ip: String, private var id: String, private var toke
                 return if(StringUtil.getMd5(token) == this.token){
                     val data= HashMap<String, String>()
                     data["id"] = rs.getString("id")
+                    data["nickname"] = rs.getString("nickname")
                     data["email"] = rs.getString("email")
                     rs.close()
                     ps.close()
