@@ -335,7 +335,6 @@ class APIPublicUser: HttpServlet() {
                 val `is` = FileInputStream(path)
 
                 resp!!.reset()
-                resp.setHeader("Content-Disposition", "attachment; filename=$portrait")
                 val os = resp.outputStream
                 var len: Int
                 val buffer = ByteArray(1024)
