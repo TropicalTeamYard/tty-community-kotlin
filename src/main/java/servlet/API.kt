@@ -212,8 +212,8 @@ class APIUser: HttpServlet() {
             "test" -> {
                 // http://localhost:8080/community/api/user/test
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-                val conf = StringUtil.jsonFromFile(jsonFile)
-                out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
+                val conf = FileReadUtil.readJson(jsonFile)
+                out.write(conf.toJSONString() ?:StringUtil.json(Shortcut.OTHER, "Failed"))
             }
 
             else -> {
@@ -257,7 +257,7 @@ class APIUser: HttpServlet() {
 @WebServlet(name = "api_public_user", urlPatterns = ["/api/public/user/*"])
 class APIPublicUser: HttpServlet() {
     private var ip: String = "0.0.0.0"
-    lateinit var out: PrintWriter
+    private lateinit var out: PrintWriter
 
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
         val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
@@ -302,8 +302,8 @@ class APIPublicUser: HttpServlet() {
 
     private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-        val conf = StringUtil.jsonFromFile(jsonFile)
-        out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
+        val conf = FileReadUtil.readJson(jsonFile)
+        out.write(conf.toJSONString() ?:StringUtil.json(Shortcut.OTHER, "Failed"))
     }
 
 
@@ -323,16 +323,16 @@ class APIPublicUser: HttpServlet() {
             if (rs.next()) {
                 val portrait = rs.getString("portrait")
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-                val conf = StringUtil.jsonFromFile(jsonFile)
-                val path = conf?.getString("root")+"\\${conf?.getString("portrait")}\\$portrait"
-                val `is` = FileInputStream(path)
+                val conf = FileReadUtil.readJson(jsonFile)
+                val path = conf.getString("root") +"\\${conf.getString("portrait")}\\$portrait"
+                val inputStream = FileInputStream(path)
 
                 resp!!.reset()
                 val os = resp.outputStream
                 var len: Int
                 val buffer = ByteArray(1024)
                 do {
-                    len = `is`.read(buffer)
+                    len = inputStream.read(buffer)
                     if (len == -1) {
                         break
                     }
@@ -340,7 +340,7 @@ class APIPublicUser: HttpServlet() {
                 } while (true)
 
                 os.close()
-                `is`.close()
+                inputStream.close()
                 rs.close()
                 ps.close()
             } else {
@@ -441,8 +441,8 @@ class APIBlog: HttpServlet() {
     private val time = Timestamp(date.time)
 
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
-        val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
-        resp?.writer?.write("API: APIBlog\nIP: $reqIP\n")
+//        val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
+//        resp?.writer?.write("API: APIBlog\nIP: $reqIP\n")
         doPost(req, resp)
     }
 
@@ -472,6 +472,7 @@ class APIBlog: HttpServlet() {
             }
 
             "get" -> {
+                // http://localhost:8080/community/api/blog/get?id=746235507&type=json
                 getBlog(req)
                 return
             }
@@ -480,8 +481,14 @@ class APIBlog: HttpServlet() {
             "list" -> {
                 // http://localhost:8080/community/api/blog/list?type=id&to=1293637237&count=8 # id 为 `to` 之前日期的 count 条记录
                 // http://localhost:8080/community/api/blog/list?type=id&from=1293637237&count=8 # id 为 `from` 之后日期的 count 条记录
-                // http://localhost:8080/community/api/blog/list?type=time&date=2019/7/26-03:24:52&count=5 # date 及之前日期的 count 条记录
+                // http://localhost:8080/community/api/blog/list?type=time&date=2019/8/25-03:24:52&count=2 # date 及之前日期的 count 条记录
                 getBlogList(req)
+                return
+            }
+
+            "picture" -> {
+                //TODO
+                getBlogPics(req, resp)
                 return
             }
 
@@ -570,6 +577,67 @@ class APIBlog: HttpServlet() {
 
     private fun getBlog(req: HttpServletRequest?) {
         val map = req!!.parameterMap
+        val blogId = map["id"]?.get(0)
+        val type = when(map["type"]?.get(0)) {
+            "json" -> ShowBlogType.JSON
+            else -> ShowBlogType.HTML
+        }
+        if (blogId.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch"))
+            return
+        }
+
+        try {
+            val conn = MySQLConn.connection
+            val ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
+            ps.setString(1, blogId)
+            val rs = ps.executeQuery()
+            if (rs.next()) {
+                val data = HashMap<String, String>()
+                data["author_id"] = rs.getString("author_id")
+                data["nickname"] = User.getNickname(data["author_id"]?:"000000")
+                data["title"] = rs.getString("title")
+                data["introduction"] = rs.getString("introduction")
+                val content = StringUtil.blob2String(rs.getBlob("content"))
+                data["tag"] = rs.getString("tag")
+                data["comment"] = StringUtil.blob2String(rs.getBlob("comment"))
+                data["likes"] = StringUtil.blob2String(rs.getBlob("likes"))
+                data["last_edit_time"] = StringUtil.getTime(rs.getTimestamp("last_edit_time"))
+                data["data"] = StringUtil.blob2String(rs.getBlob("data"))
+
+                when (type) {
+                    ShowBlogType.JSON -> {
+                        data["content"] = Markdown2Html.parse(content)
+                        out.write(json(Shortcut.OK, "return blog successfully", data))
+                    }
+
+                    ShowBlogType.HTML -> {
+                        data["content"] = Markdown2Html.parse(content)
+                        var html = StringUtil.htmlTemplate()
+                        val style = StringUtil.markdownAirCss()
+                        html = html.replace("####title-author####", "${data["nickname"]}-${data["title"]}")
+                            .replace("####style####", style)
+                            .replace("####title####", "${data["title"]}")
+                            .replace("####nickname####", "${data["nickname"]}")
+                            .replace("####last_edit_time####", "${data["last_edit_time"]}")
+                            .replace("####introduction####", "${data["introduction"]}")
+                            .replace("####content####", "${data["content"]}")
+
+                        out.write(html)
+                    }
+                }
+
+                rs.close()
+                ps.close()
+            } else {
+                rs.close()
+                ps.close()
+                out.write(json(Shortcut.BNE, "Blog $blogId does not exist"))
+            }
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
+        }
 
     }
 
@@ -585,21 +653,21 @@ class APIBlog: HttpServlet() {
 
         val conn = MySQLConn.connection
         try {
-            val ps = conn.prepareStatement("select data from blog where blog_id = ? limit 1")
+            val ps = conn.prepareStatement("select data from blog where blog_id = ? and status = 'normal' limit 1")
             ps.setString(1, blogId)
             val rs = ps.executeQuery()
             if (rs.next()) {
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-                val conf = StringUtil.jsonFromFile(jsonFile)
-                val path = conf?.getString("root")+"\\${conf?.getString("blog_pics")}\\$blogId"
-                val `is` = FileInputStream(path)
+                val conf = FileReadUtil.readJson(jsonFile)
+                val path = conf.getString("root") +"\\${conf.getString("blog_pics")}\\$blogId"
+                val inputStream = FileInputStream(path)
 
                 resp!!.reset()
                 val os = resp.outputStream
                 var len: Int
                 val buffer = ByteArray(1024)
                 do {
-                    len = `is`.read(buffer)
+                    len = inputStream.read(buffer)
                     if (len == -1) {
                         break
                     }
@@ -607,13 +675,12 @@ class APIBlog: HttpServlet() {
                 } while (true)
 
                 os.close()
-                `is`.close()
-
+                inputStream.close()
 
                 rs.close()
                 ps.close()
             } else {
-                out.write(APIPublicUser.json(Shortcut.UNE, "the user $blogId have not been registered."))
+                out.write(APIPublicUser.json(Shortcut.BNE, "the blog $blogId does not found."))
                 rs.close()
                 ps.close()
             }
@@ -630,11 +697,11 @@ class APIBlog: HttpServlet() {
 
     private fun getBlogList(req: HttpServletRequest?) {
         val map = req!!.parameterMap
-        val paramSet = setOf("type", "count", "date", "from", "to")
+        // "type", "count", "date", "from", "to"
         val type = when(map["type"]?.get(0)) {
-            "id" -> GetBlogType.Id
-            "time" -> GetBlogType.Time
-            else -> GetBlogType.Default
+            "id" -> GetBlogByType.Id
+            "time" -> GetBlogByType.Time
+            else -> GetBlogByType.Default
         }
         val count = map["count"]?.get(0)?.toInt()?:0
         val date = StringUtil.getTime(map["date"]?.get(0))
@@ -642,7 +709,7 @@ class APIBlog: HttpServlet() {
         val to = map["to"]?.get(0)
 
 
-        if((type == GetBlogType.Id && ((from.isNullOrEmpty() && to.isNullOrEmpty()) || count <= 0)) || (type == GetBlogType.Time && (date == null || count <= 0)) || (type == GetBlogType.Default)) {
+        if((type == GetBlogByType.Id && ((from.isNullOrEmpty() && to.isNullOrEmpty()) || count <= 0)) || (type == GetBlogByType.Time && (date == null || count <= 0)) || (type == GetBlogByType.Default)) {
             out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
@@ -650,10 +717,10 @@ class APIBlog: HttpServlet() {
         try {
             val conn = MySQLConn.connection
             when (type) {
-                GetBlogType.Time -> {
+                GetBlogByType.Time -> {
                     val blogList = ArrayList<Blog.Outline>()
                     var index = 0
-                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time <= ? order by last_edit_time desc limit ?")
+                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time <= ? and status = 'normal' order by last_edit_time desc limit ?")
                     ps.setTimestamp(1, Timestamp(date!!.time))
                     ps.setInt(2, count)
                     val rs = ps.executeQuery()
@@ -681,7 +748,7 @@ class APIBlog: HttpServlet() {
                     return
                 }
 
-                GetBlogType.Id -> {
+                GetBlogByType.Id -> {
 
                     val blogList = ArrayList<Blog.Outline>()
                     var index = 0
@@ -696,7 +763,7 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_edit_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time > ? order by last_edit_time limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time > ? and status = 'normal' order by last_edit_time limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setInt(2, count)
                                 val rs = ps.executeQuery()
@@ -736,7 +803,7 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_edit_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time < ? order by last_edit_time desc limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time < ? order by last_edit_time and status = 'normal' desc limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setInt(2, count)
                                 val rs = ps.executeQuery()
@@ -773,7 +840,7 @@ class APIBlog: HttpServlet() {
 
                 }
 
-                GetBlogType.Default -> return
+                GetBlogByType.Default -> return
             }
         } catch (e: SQLException) {
             e.printStackTrace()
@@ -786,8 +853,8 @@ class APIBlog: HttpServlet() {
 
     private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-        val conf = StringUtil.jsonFromFile(jsonFile)
-        out.write(conf?.toJSONString()?:StringUtil.json(Shortcut.OTHER, "Failed"))
+        val conf = FileReadUtil.readJson(jsonFile)
+        out.write(conf.toJSONString() ?:StringUtil.json(Shortcut.OTHER, "Failed"))
     }
 
     companion object {
@@ -813,8 +880,12 @@ class APIBlog: HttpServlet() {
         }
     }
 
-    enum class GetBlogType {
+    enum class GetBlogByType {
         Time, Id, Default
+    }
+
+    enum class ShowBlogType {
+        JSON, HTML
     }
 
 }

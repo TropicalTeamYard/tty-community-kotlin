@@ -7,19 +7,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/tty_community_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/tty_community_war.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/tty_community_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/tty_community_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/AutoLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTY_COMMUNITY.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TTY_COMMUNITY.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/model/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$WhenMappings.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Login.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Login.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/FileIO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/StringUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/StringUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/FileIO.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -105,10 +112,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
         <option value="Kotlin Object" />
+        <option value="Class" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -133,11 +141,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BoardServer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/css" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -146,21 +155,26 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.3926499" />
+    <property name="project.structure.side.proportion" value="0.2121514" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\lib" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java" />
-      <recent name="C:\Users\15331\Documents\GitHub\KT_WEB_TEST\lib" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
       <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\servlet" />
       <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="util" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\web\css" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\lib" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java" />
+      <recent name="C:\Users\15331\Documents\GitHub\KT_WEB_TEST\lib" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -257,25 +271,32 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3473b523" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3fd71770" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3473b523" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@39ca8390" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3fd71770" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@443d0628" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3473b523" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@39ca8390" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@559d341d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3fd71770" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@443d0628" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@37eef0d5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3473b523" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@39ca8390" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@559d341d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@7818a41e" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3fd71770" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@443d0628" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@37eef0d5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@7f3189a8" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3fd71770" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@443d0628" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@37eef0d5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@41bc9827" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -312,7 +333,8 @@
       <workItem from="1564730407643" duration="416000" />
       <workItem from="1564731225164" duration="2324000" />
       <workItem from="1564739965561" duration="25218000" />
-      <workItem from="1564899278951" duration="13728000" />
+      <workItem from="1564899278951" duration="17350000" />
+      <workItem from="1565264905151" duration="12416000" />
     </task>
     <servers />
   </component>
@@ -333,20 +355,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/servlet/API.kt</url>
-          <line>123</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/model/Register.kt</url>
-          <line>79</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
         <watch expression="((String[])((Collections.UnmodifiableMap.UnmodifiableEntrySet.UnmodifiableEntry)((Map)map).entrySet().toArray()[0]).getValue())[0]" custom="java.util.Map,java.util.Collections.UnmodifiableMap.UnmodifiableEntrySet.UnmodifiableEntry,java.lang.String[]" />
