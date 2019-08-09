@@ -487,8 +487,8 @@ class APIBlog: HttpServlet() {
             }
 
             "picture" -> {
-                //TODO
-                getBlogPics(req, resp)
+                // http://localhost:8080/community/api/blog/picture?id=700642438&index=0
+                getBlogPic(req, resp)
                 return
             }
 
@@ -598,7 +598,7 @@ class APIBlog: HttpServlet() {
                 data["nickname"] = User.getNickname(data["author_id"]?:"000000")
                 data["title"] = rs.getString("title")
                 data["introduction"] = rs.getString("introduction")
-                val content = StringUtil.blob2String(rs.getBlob("content"))
+                val content = StringUtil.blob2String(rs.getBlob("content")).replace("####blog_id####", blogId)
                 data["tag"] = rs.getString("tag")
                 data["comment"] = StringUtil.blob2String(rs.getBlob("comment"))
                 data["likes"] = StringUtil.blob2String(rs.getBlob("likes"))
@@ -641,11 +641,10 @@ class APIBlog: HttpServlet() {
 
     }
 
-    private fun getBlogPics(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        // TODO return files
-
+    private fun getBlogPic(req: HttpServletRequest?, resp: HttpServletResponse?) {
         val map = req!!.parameterMap
-        val blogId = map["blog_id"]?.get(0)
+        val blogId = map["id"]?.get(0)
+        val picIndex = map["index"]?.get(0)?.toInt()?:0
         if (blogId.isNullOrEmpty()) {
             out.write(APIPublicUser.json(Shortcut.AE, "argument mismatch."))
             return
@@ -659,7 +658,7 @@ class APIBlog: HttpServlet() {
             if (rs.next()) {
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
                 val conf = FileReadUtil.readJson(jsonFile)
-                val path = conf.getString("root") +"\\${conf.getString("blog_pics")}\\$blogId"
+                val path = conf.getString("root") +"\\${conf.getString("blog_pics")}\\$blogId\\${blogId}_$picIndex"
                 val inputStream = FileInputStream(path)
 
                 resp!!.reset()
