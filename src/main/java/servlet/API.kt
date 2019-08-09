@@ -525,7 +525,7 @@ class APIBlog: HttpServlet() {
             var ps = conn.prepareStatement("select * from user where id = ? limit 1")
             ps.setString(1, id)
             var rs = ps.executeQuery()
-            if (rs.next() && token == StringUtil.getMd5(rs.getString("token"))) {
+            if (rs.next() && token == StringUtil.getMD5(rs.getString("token"))) {
                 rs.close()
                 ps.close()
                 ps = conn.prepareStatement("insert into blog (blog_id, author_id, title, introduction, content, tag, last_edit_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")

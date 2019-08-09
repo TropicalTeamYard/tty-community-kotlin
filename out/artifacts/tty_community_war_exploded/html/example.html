@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wcf-3131</title>
+</head>
+<style type="text/css">
+    @media print {
+        *,
+        *:before,
+        *:after {
+            background: transparent !important;
+            color: #000 !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        a,
+        a:visited {
+            text-decoration: underline;
+        }
+
+        a[href]:after {
+            content: " (" attr(href) ")";
+        }
+
+        abbr[title]:after {
+            content: " (" attr(title) ")";
+        }
+
+        a[href^="#"]:after,
+        a[href^="javascript:"]:after {
+            content: "";
+        }
+
+        pre,
+        blockquote {
+            border: 1px solid #999;
+            page-break-inside: avoid;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tr,
+        img {
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100% !important;
+        }
+
+        p,
+        h2,
+        h3 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2,
+        h3 {
+            page-break-after: avoid;
+        }
+    }
+
+    html {
+        font-size: 12px;
+    }
+
+    @media screen and (min-width: 32rem) and (max-width: 48rem) {
+        html {
+            font-size: 15px;
+        }
+    }
+
+    @media screen and (min-width: 48rem) {
+        html {
+            font-size: 16px;
+        }
+    }
+
+    body {
+        line-height: 1.85;
+    }
+
+    p,
+    .air-p {
+        font-size: 1rem;
+        margin-bottom: 1.3rem;
+    }
+
+    h1,
+    .air-h1,
+    h2,
+    .air-h2,
+    h3,
+    .air-h3,
+    h4,
+    .air-h4 {
+        margin: 1.414rem 0 .5rem;
+        font-weight: inherit;
+        line-height: 1.42;
+    }
+
+    h1,
+    .air-h1 {
+        margin-top: 0;
+        font-size: 3.998rem;
+    }
+
+    h2,
+    .air-h2 {
+        font-size: 2.827rem;
+    }
+
+    h3,
+    .air-h3 {
+        font-size: 1.999rem;
+    }
+
+    h4,
+    .air-h4 {
+        font-size: 1.414rem;
+    }
+
+    h5,
+    .air-h5 {
+        font-size: 1.121rem;
+    }
+
+    h6,
+    .air-h6 {
+        font-size: .88rem;
+    }
+
+    small,
+    .air-small {
+        font-size: .707em;
+    }
+
+    img,
+    canvas,
+    iframe,
+    video,
+    svg,
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+    body {
+        color: #444;
+        font-family: 'Open Sans', Helvetica, sans-serif;
+        font-weight: 300;
+        margin: 6rem auto 1rem;
+        max-width: 48rem;
+        text-align: center;
+    }
+
+    img {
+        border-radius: 50%;
+        height: 200px;
+        margin: 0 auto;
+        width: 200px;
+    }
+
+    a,
+    a:visited {
+        color: #3498db;
+    }
+
+    a:hover,
+    a:focus,
+    a:active {
+        color: #2980b9;
+    }
+
+    pre {
+        background-color: #fafafa;
+        padding: 1rem;
+        text-align: left;
+    }
+
+    blockquote {
+        margin: 0;
+        border-left: 5px solid #7a7a7a;
+        font-style: italic;
+        padding: 0 0 0 1.33em;
+        text-align: left;
+    }
+
+    ul,
+    ol,
+    li {
+        text-align: left;
+    }
+
+    p {
+        color: #777;
+    }
+</style>
+<body style="width: 85%; text-align: left">
+
+<h1>3131</h1>
+<p>Last Edit By wcf @2019/08/01-23:26:09</p>
+<blockquote id = "introduction">introduction:<br>312</blockquote>
+<div id = "content">
+    <h1>创意与点子</h1>
+    <blockquote>
+        <p>该部分还没有完成，最近可能会完善这一部分，主要是记录我们的想法之类的东西</p>
+    </blockquote>
+    <h2>BalanceYourIO</h2>
+    <blockquote>
+        <p>这是一款记账的软件。</p>
+    </blockquote>
+    <p>起初写这个项目是因为现在的软件有的<code>广告太多</code>，<code>操作复杂</code>。还有我们想做一个自己喜欢的，方便的记账软件。</p>
+    <p>今天要给大家介绍的是TTY正在合作开发的项目：BalanceYourIO，一个个性化，智能记录你的日常收支的APP。</p>
+    <p>相信大家会有这样的问题，例如这个APP有什么样的特色呢？为什么要叫 BalanceYourIO呢？就让我来讲讲其中的故事吧。</p>
+    <h4>为什么要做BalanceYourIO</h4>
+    <p>在4月2日，那是一个舒适的日子，我们走在去食堂的路上，考虑中午吃什么，然后想到吃饭需要花钱，花钱要计划收支，计划收支需要一个软件来记录和安排，于是------我们打开应用商店，下载了**记账软件，但是迎面而来的广告和需要会员才能体验高级功能是，我~~毫不犹豫地卸载~~保留了它们，但是默默下定决心，要自己做一个APP，功能更丰富、界面更完善、交互更智能的软件、没有广告、不收费的记账软件！</p>
+    <h4>一起BalanceYourIO吧！</h4>
+    <p>花呗还款日马上就要到了，可爱的孩子们，你们还有多少欠款没有还清呢？ 你是否遇见过Input&lt;&lt;Output的情况呢？ iostream显然是救不了你的，那就让Balance Your IO来帮助你吧！</p>
+    <p>大家可能会问，我什么时候才能用到如此~~强大~~的APP呢，不要着急，我们会在五月下旬到六月上旬发布第一个技术预览版~~gugugu~~，到时候我们将公布下载地址，希望大家多多支持呀！</p>
+    <blockquote>
+        <p>这是<a href="/community/api/blog/get?id=746235507">开发文档</a>，主要记录了软件开发的细节和相关问题</p>
+        <p><em>2019年5月11日</em>：我们进行了<a href="/community/api/blog/get?id=746235507">第一次技术研讨</a></p>
+    </blockquote>
+    <h2>tty.myday.android</h2>
+    <p>TTY项目介绍：MyDay，让个人和组织的日程安排变得更加轻松</p>
+    <p>  我们组织的<strong>开发组成员</strong>是一些对生活充满热爱的同学，而我作为TTY的创始人也当然不能落后，今天就由我来介绍一下这个项目的一些花絮。 <br/>  日程的安排，我想对于大部分同学来说，是一件颇为头疼的事情，当然我也一直再寻求<strong>高效</strong>的解决方案，试图让我们的日程安排变得更加方便与快捷。<em>读书打卡，跑步打卡，计划清单...</em> 我想有些同学或多或少都尝试过。 <br/>  前前后后，我尝试了各种各样的应用，<code>Forest</code>、<code>番茄钟</code>、<code>微精弘</code>、<code>Microsoft To-do</code>、<code>Excel</code>、<code>超级课程表</code>、<code>潮汐</code>、<code>Keep</code>以及各种<code>打卡</code>引用等来规划<strong>时间</strong>，最后我只留下了<code>To-do</code>一个应用，因为它实在是太优秀了，优秀到无可挑剔。 <br/>  虽然<code>To-do</code>是一款非常优秀的应用，但我觉得它实在是太<strong>清爽</strong>了，已经满足不了像我这样的<strong>重度依赖用户</strong>了，<code>To-do</code>关注于<strong>任务</strong>，然而对<strong>普通的日程</strong>和<strong>打卡</strong>的兼容性却比较差。 <br/>  除此之外，我还发现了像<code>钉钉</code>、<code>Tower</code>、<code>PU口袋校园</code>等关注于团队日程管理与活动发布的应用，而且<strong>团队</strong>活动的发布、报名等是比较大的需求。我前后构思了很久，打算做出一个<strong>干净，良好</strong>的程序，当然对于大学生群体来说，兼容<strong>课程表以及动态调整课程表</strong>也是一个很好的功能。</p>
+    <blockquote>
+        <p>所以，一起Schedule MyDay吧，让我们的日程规划变得更加轻松。</p>
+    </blockquote>
+    <p>  这个应用相较于<code>BalanceYourIO</code>来说，是一个更加复杂，规模更大的项目，也需要更多精力的投入。为了保证界面、交互与效率都有不错的表现，我们开发组准备<strong>长期开发和更新迭代</strong>这个软件，不断地往软件加入必要的功能。但是我相信在不久的将来，测试版就会和大家见面。 <br/>  下面我会介绍一些大致的功能。</p>
+    <h4>功能篇</h4>
+    <p>  日程清单、日程项的添加，删除是软件的基础功能。这个软件还有很多<strong>亮点</strong>，例如它可以设置日程是一个<em>任务</em>还是一个<em>事件</em>(即日程是否可以完成)，重复规则，子项等功能。基于此，我们还会写一个<strong>智能清单</strong>，包括打卡、生日&amp;纪念日、课程表、重要日程等。<strong>生日&amp;纪念日</strong>是一个非常特殊的清单（这个模块会与普通的日程会分离开来，其共享机制也与其他的不同），我们也会在后期为此编写彩蛋。 <br/>  在这个共享经济的时代，日程清单也应该能够实现共享，还应该像<code>Keep</code>一样，支持分享你的清单、以及你打卡的滴滴汗水，而这些，需要比较完善的用户系统来帮助。 <br/>  当然，要做出一块优秀的软件，<strong>团队</strong>功能也是我们的亮点，我们计划在个人模块做的足够稳定后加入该功能，来实现<strong>任务与活动发布、活动报名、动态发布</strong>等功能。</p>
+
+</div>
+
+</body>
+</html>

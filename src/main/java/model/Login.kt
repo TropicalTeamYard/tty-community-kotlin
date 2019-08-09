@@ -66,7 +66,7 @@ class Login(
                     ps.setString(4, id)
                     ps.executeUpdate()
                     Log.login(id!!, loginTime, ip, loginType!!, platform)
-                    data["token"] = StringUtil.getMd5(token)?:"00000000000000000000000000000000"
+                    data["token"] = StringUtil.getMD5(token)?:"00000000000000000000000000000000"
                     ps.close()
                     return json(Shortcut.OK, "Ok, let's fun", data)
                 } else {
@@ -125,7 +125,7 @@ class AutoLogin(private val ip: String, private var id: String, private var toke
             val rs = ps.executeQuery()
             if (rs.next()){
                 val token = rs.getString("token")
-                return if(StringUtil.getMd5(token) == this.token){
+                return if(StringUtil.getMD5(token) == this.token){
                     val data= HashMap<String, String>()
                     data["id"] = rs.getString("id")
                     data["nickname"] = rs.getString("nickname")

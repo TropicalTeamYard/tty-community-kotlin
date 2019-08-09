@@ -21,7 +21,7 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
             ps.setString(1, id)
             val rs = ps.executeQuery()
             if(rs.next()){
-                if(token == StringUtil.getMd5(rs.getString("token"))){
+                if(token == StringUtil.getMD5(rs.getString("token"))){
                     val nicknameBefore = rs.getString("nickname")
                     val emailBefore = rs.getString("email")
                     rs.close()
@@ -155,7 +155,7 @@ class ChangeDetailInfo(private var id: String, private var token: String, privat
             var ps = conn.prepareStatement("select token from user where id = ? limit 1")
             ps.setString(1, id)
             var rs = ps.executeQuery()
-            if (rs.next() && StringUtil.getMd5(rs.getString("token")) == token){
+            if (rs.next() && StringUtil.getMD5(rs.getString("token")) == token){
                 rs.close()
                 ps.close()
                 ps = conn.prepareStatement("select * from user_detail where id = ? limit 1")
