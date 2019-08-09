@@ -139,7 +139,7 @@ object StringUtil {
                 "\n" +
                 "<h1>####title####</h1>\n" +
                 "<p>Last Edit: ####nickname#### @####last_edit_time####</p>\n" +
-                "<blockquote id = \"introduction\">introduction:<br>####introduction####</blockquote>\n" +
+                "<blockquote id = \"introduction\">介绍 : ####introduction####</blockquote>\n" +
                 "<div id = \"content\">\n" +
                 "####content####\n" +
                 "</div>\n" +

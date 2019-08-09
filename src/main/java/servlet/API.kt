@@ -38,7 +38,7 @@ class APIUser: HttpServlet() {
 
         when(route){
             "login" -> {
-                // http://localhost:8080/community/api/user/login?platform=web&login_type=id&id=2008153477&password=123456
+                // http://localhost:8080/community/api/user/login?platform=web&login_type=id&id=2008153477&password=123456789
                 val json = JSONObject()
                 val platform: LoginPlatform = when(req.getParameter("platform")){
                     "mobile" -> LoginPlatform.MOBILE
@@ -615,7 +615,7 @@ class APIBlog: HttpServlet() {
                         data["content"] = Markdown2Html.parse(content)
                         var html = StringUtil.htmlTemplate()
                         val style = StringUtil.markdownAirCss()
-                        html = html.replace("####title-author####", "${data["nickname"]}-${data["title"]}")
+                        html = html.replace("####title-author####", "${data["title"]}-${data["nickname"]}")
                             .replace("####style####", style)
                             .replace("####title####", "${data["title"]}")
                             .replace("####nickname####", "${data["nickname"]}")
@@ -644,8 +644,8 @@ class APIBlog: HttpServlet() {
     private fun getBlogPic(req: HttpServletRequest?, resp: HttpServletResponse?) {
         val map = req!!.parameterMap
         val blogId = map["id"]?.get(0)
-        val picIndex = map["index"]?.get(0)?.toInt()?:0
-        if (blogId.isNullOrEmpty()) {
+        val picKey = map["key"]?.get(0)
+        if (blogId.isNullOrEmpty() || picKey.isNullOrEmpty()) {
             out.write(APIPublicUser.json(Shortcut.AE, "argument mismatch."))
             return
         }
@@ -658,7 +658,7 @@ class APIBlog: HttpServlet() {
             if (rs.next()) {
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
                 val conf = FileReadUtil.readJson(jsonFile)
-                val path = conf.getString("root") +"\\${conf.getString("blog_pics")}\\$blogId\\${blogId}_$picIndex"
+                val path = conf.getString("root") +"\\${conf.getString("blog_pics")}\\$blogId\\$picKey"
                 val inputStream = FileInputStream(path)
 
                 resp!!.reset()

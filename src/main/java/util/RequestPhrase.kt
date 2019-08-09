@@ -48,11 +48,9 @@ class RequestPhrase (req: HttpServletRequest){
             return HashMap()
         }
         try {
-            var i = 0
             for (item in list!!) {
                 if (!item.isFormField) {
-                    val file = File("${blogId}_$i")
-                    i++
+                    val file = File(item.name)
                     val outFile = File(conf?.getString("root")+"/${conf?.getString("blog_pics")}/$blogId", file.name)
                     outFile.parentFile.mkdirs()
                     outFile.createNewFile()

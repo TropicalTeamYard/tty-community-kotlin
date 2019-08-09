@@ -17,7 +17,4 @@ object Markdown2Html {
         return renderer.render(document)
     }
 
-    fun test() {
-        
-    }
 }

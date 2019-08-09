@@ -8,22 +8,35 @@
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/AutoLogin$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/AutoLogin$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/AutoLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/AutoLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/ChangeDetailInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/ChangeDetailInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/ChangeUserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/ChangeUserInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIBlog$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIPublicUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIPublicUser$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIUser$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/Log.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/MySQLConn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/MySQLConn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/RequestPhrase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/RequestPhrase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/Shortcut.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/Shortcut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/StringUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/StringUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/FileReadUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/FileReadUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/Markdown2Html.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/Markdown2Html.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/RequestPhrase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/RequestPhrase.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/StringUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/StringUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/css/markdown-air.css" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/css/markdown-air.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/html/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/html/template.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/FileReadUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/FileReadUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/Markdown2Html.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Markdown2Html.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/RequestPhrase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/RequestPhrase.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/StringUtil.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/css/markdown-air.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/css/markdown-air.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/html/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/html/template.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -288,6 +301,13 @@
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3fd71770" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@443d0628" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@37eef0d5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@2f2ee904" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3fd71770" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@443d0628" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@37eef0d5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceNode@41bc9827" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
@@ -326,7 +346,7 @@
       <workItem from="1564731225164" duration="2324000" />
       <workItem from="1564739965561" duration="25218000" />
       <workItem from="1564899278951" duration="17350000" />
-      <workItem from="1565264905151" duration="20915000" />
+      <workItem from="1565264905151" duration="25218000" />
     </task>
     <servers />
   </component>
