@@ -10,7 +10,7 @@ import java.io.IOException
 import javax.servlet.http.HttpServletRequest
 
 class RequestPhrase (req: HttpServletRequest){
-    private val conf = StringUtil.jsonFromFile(File(req.servletContext.getRealPath("/conf/dir")))
+    private val conf = FileReadUtil.readJson(File(req.servletContext.getRealPath("/conf/dir")))
     private val files = HashMap<String, File>()
     private val factory = DiskFileItemFactory()
     private val fileUpload = ServletFileUpload(factory)
