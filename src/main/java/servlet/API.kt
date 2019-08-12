@@ -478,9 +478,9 @@ class APIBlog: HttpServlet() {
 
 
             "list" -> {
-                // http://localhost:8080/community/api/blog/list?type=id&to=1293637237&count=8 # id 为 `to` 之前日期的 count 条记录
-                // http://localhost:8080/community/api/blog/list?type=id&from=1293637237&count=8 # id 为 `from` 之后日期的 count 条记录
-                // http://localhost:8080/community/api/blog/list?type=time&date=2019/8/25-03:24:52&count=2 # date 及之前日期的 count 条记录
+                // http://localhost:8080/community/api/blog/list?type=id&to=1293637237&count=8 # id 为 `to` 之前日期的 count 条记录 &tag=?
+                // http://localhost:8080/community/api/blog/list?type=id&from=1293637237&count=8 # id 为 `from` 之后日期的 count 条记录 &tag=?
+                // http://localhost:8080/community/api/blog/list?type=time&date=2019/8/25-03:24:52&count=2 # date 及之前日期的 count 条记录 &tag=?
                 getBlogList(req)
                 return
             }
@@ -705,6 +705,7 @@ class APIBlog: HttpServlet() {
             "time" -> GetBlogByType.Time
             else -> GetBlogByType.Default
         }
+        val tag: String = map["tag"]?.get(0)?:""
         val count = map["count"]?.get(0)?.toInt()?:0
         val date = StringUtil.getTime(map["date"]?.get(0))
         val from = map["from"]?.get(0)
@@ -722,9 +723,10 @@ class APIBlog: HttpServlet() {
                 GetBlogByType.Time -> {
                     val blogList = ArrayList<Blog.Outline>()
                     var index = 0
-                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time <= ? and status = 'normal' order by last_active_time desc limit ?")
+                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time <= ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
                     ps.setTimestamp(1, Timestamp(date!!.time))
-                    ps.setInt(2, count)
+                    ps.setString(2, "%$tag%")
+                    ps.setInt(3, count)
                     val rs = ps.executeQuery()
                     while (rs.next()) {
                         val blog = Blog.Outline(
@@ -765,9 +767,10 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time > ? and status = 'normal' order by last_active_time limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time > ? and status = 'normal' and tag like ? order by last_active_time limit ?")
                                 ps.setTimestamp(1, timestamp)
-                                ps.setInt(2, count)
+                                ps.setString(2, "%$tag%")
+                                ps.setInt(3, count)
                                 val rs = ps.executeQuery()
                                 while (rs.next()) {
                                     val blog = Blog.Outline(
@@ -805,9 +808,10 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time < ? and status = 'normal' order by last_active_time desc limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time < ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
                                 ps.setTimestamp(1, timestamp)
-                                ps.setInt(2, count)
+                                ps.setString(2, "%$tag%")
+                                ps.setInt(3, count)
                                 val rs = ps.executeQuery()
                                 while (rs.next()) {
                                     val blog = Blog.Outline(
