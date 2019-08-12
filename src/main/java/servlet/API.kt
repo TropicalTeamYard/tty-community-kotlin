@@ -731,7 +731,8 @@ class APIBlog: HttpServlet() {
                     while (rs.next()) {
                         val blogId = rs.getString("blog_id")
                         val author = rs.getString("author_id")
-                        val title = rs.getString("title")
+                        val nickname = User.getNickname(author)
+                        val title = rs.getString("title").replace("####nickname####", nickname)
                         val introduction = rs.getString("introduction")
                         val allTag = rs.getString("tag")
                         val lastActiveTime = rs.getTimestamp("last_active_time")
@@ -742,7 +743,7 @@ class APIBlog: HttpServlet() {
                             introduction,
                             allTag,
                             lastActiveTime,
-                            User.getNickname(author)
+                            nickname
                         )
                         blog.index = index
                         index++
