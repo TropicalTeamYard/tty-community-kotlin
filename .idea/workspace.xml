@@ -2,19 +2,22 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="tty_community:war" />
       <artifact name="tty_community:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/RequestPhrase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/RequestPhrase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/StringUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/WEB-INF/classes/util/StringUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war/html/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war/html/template.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/RequestPhrase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/util/RequestPhrase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/RequestPhrase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/RequestPhrase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,10 +148,8 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\servlet" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
+    <key name="KotlinExtractSuperclassDialog.RECENT_KEYS">
+      <recent name="model" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="util" />
@@ -158,6 +159,11 @@
       <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\lib" />
       <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java" />
       <recent name="C:\Users\15331\Documents\GitHub\KT_WEB_TEST\lib" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\servlet" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -325,7 +331,7 @@
       <workItem from="1564739965561" duration="25218000" />
       <workItem from="1564899278951" duration="17350000" />
       <workItem from="1565264905151" duration="25487000" />
-      <workItem from="1565349979005" duration="7437000" />
+      <workItem from="1565349979005" duration="16002000" />
     </task>
     <servers />
   </component>
@@ -346,15 +352,6 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/util/RequestPhrase.kt</url>
-          <line>35</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
         <watch expression="((String[])((Collections.UnmodifiableMap.UnmodifiableEntrySet.UnmodifiableEntry)((Map)map).entrySet().toArray()[0]).getValue())[0]" custom="java.util.Map,java.util.Collections.UnmodifiableMap.UnmodifiableEntrySet.UnmodifiableEntry,java.lang.String[]" />

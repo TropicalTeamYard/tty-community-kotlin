@@ -437,8 +437,7 @@ class APIPublicUser: HttpServlet() {
 class APIBlog: HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
-    private val date = java.util.Date()
-    private val time = Timestamp(date.time)
+
 
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
 //        val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
@@ -500,6 +499,8 @@ class APIBlog: HttpServlet() {
     }
 
     private fun create(req: HttpServletRequest?) {
+        val date = java.util.Date()
+        val time = Timestamp(date.time)
         val params: HashMap<String, String>
         val reqMaps = RequestPhrase(req!!)
         params = reqMaps.getField()
@@ -528,19 +529,20 @@ class APIBlog: HttpServlet() {
             if (rs.next() && token == StringUtil.getMD5(rs.getString("token"))) {
                 rs.close()
                 ps.close()
-                ps = conn.prepareStatement("insert into blog (blog_id, author_id, title, introduction, content, tag, last_edit_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                ps = conn.prepareStatement("insert into blog (blog_id, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
                 ps.setString(1, blogId)
                 ps.setString(2, id)
                 ps.setString(3, title)
                 ps.setString(4, introduction)
                 ps.setString(5, content)
                 ps.setString(6, tag)
-                ps.setTimestamp(7, time)
-                ps.setString(8, "normal")
-                ps.setString(9, "files:$filesCount")
-                ps.setString(10, "init\n")
-                ps.setString(11, "")
-                ps.setString(12, "")
+                ps.setTimestamp(7, time) // last_edit_time
+                ps.setTimestamp(8, time) // last_active_time
+                ps.setString(9, "normal") // status
+                ps.setString(10, "files:$filesCount") // data
+                ps.setString(11, "init\n") // log
+                ps.setString(12, "") // comment
+                ps.setString(13, "") // likes
                 ps.execute()
                 ps.close()
                 ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
@@ -551,12 +553,13 @@ class APIBlog: HttpServlet() {
                     data["blogId"] = blogId
                     Log.createBlog(id, date, ip, true, blogId)
                     rs.close()
+                    ps.close()
                     reqMaps.getBlogFiles(blogId, id)
                     out.write(json(Shortcut.OK, "you have posted the blog successfully.", data))
-
                 } else {
                     rs.close()
-                    out.write(json(Shortcut.AE, "CREATE BLOG FAILED"))
+                    ps.close()
+                    out.write(json(Shortcut.OTHER, "CREATE BLOG FAILED"))
                     return
                 }
             } else {
@@ -696,7 +699,7 @@ class APIBlog: HttpServlet() {
 
     private fun getBlogList(req: HttpServletRequest?) {
         val map = req!!.parameterMap
-        // "type", "count", "date", "from", "to"
+        // type, count, date, from, to, tag
         val type = when(map["type"]?.get(0)) {
             "id" -> GetBlogByType.Id
             "time" -> GetBlogByType.Time
@@ -719,7 +722,7 @@ class APIBlog: HttpServlet() {
                 GetBlogByType.Time -> {
                     val blogList = ArrayList<Blog.Outline>()
                     var index = 0
-                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time <= ? and status = 'normal' order by last_edit_time desc limit ?")
+                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time <= ? and status = 'normal' order by last_active_time desc limit ?")
                     ps.setTimestamp(1, Timestamp(date!!.time))
                     ps.setInt(2, count)
                     val rs = ps.executeQuery()
@@ -730,7 +733,7 @@ class APIBlog: HttpServlet() {
                             rs.getString("title"),
                             rs.getString("introduction"),
                             rs.getString("tag"),
-                            rs.getTimestamp("last_edit_time")
+                            rs.getTimestamp("last_active_time")
                         )
                         blog.index = index
                         index++
@@ -755,14 +758,14 @@ class APIBlog: HttpServlet() {
                     when {
                         from != null -> {
 
-                            val ps1 = conn.prepareStatement("select last_edit_time from blog where blog_id = ?")
+                            val ps1 = conn.prepareStatement("select last_active_time from blog where blog_id = ?")
                             ps1.setString(1, from)
                             val rs1 = ps1.executeQuery()
                             if (rs1.next()) {
-                                val timestamp = rs1.getTimestamp("last_edit_time")
+                                val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time > ? and status = 'normal' order by last_edit_time limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time > ? and status = 'normal' order by last_active_time limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setInt(2, count)
                                 val rs = ps.executeQuery()
@@ -773,7 +776,7 @@ class APIBlog: HttpServlet() {
                                         rs.getString("title"),
                                         rs.getString("introduction"),
                                         rs.getString("tag"),
-                                        rs.getTimestamp("last_edit_time")
+                                        rs.getTimestamp("last_active_time")
                                     )
                                     blog.index = index
                                     index++
@@ -795,14 +798,14 @@ class APIBlog: HttpServlet() {
                             }
                         }
                         to != null -> {
-                            val ps1 = conn.prepareStatement("select last_edit_time from blog where blog_id = ?")
+                            val ps1 = conn.prepareStatement("select last_active_time from blog where blog_id = ?")
                             ps1.setString(1, to)
                             val rs1 = ps1.executeQuery()
                             if (rs1.next()) {
-                                val timestamp = rs1.getTimestamp("last_edit_time")
+                                val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_edit_time from blog where last_edit_time < ? order by last_edit_time and status = 'normal' desc limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time < ? order by last_active_time and status = 'normal' desc limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setInt(2, count)
                                 val rs = ps.executeQuery()
@@ -813,7 +816,7 @@ class APIBlog: HttpServlet() {
                                         rs.getString("title"),
                                         rs.getString("introduction"),
                                         rs.getString("tag"),
-                                        rs.getTimestamp("last_edit_time")
+                                        rs.getTimestamp("last_active_time")
                                     )
                                     blog.index = index
                                     index++

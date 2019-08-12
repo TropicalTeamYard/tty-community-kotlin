@@ -1169,188 +1169,199 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="277" name="status">
+    <column id="290" parent="277" name="last_active_time">
       <Position>11</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="277" name="status">
+      <Position>12</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="277" name="data">
-      <Position>12</Position>
+    <column id="292" parent="277" name="data">
+      <Position>13</Position>
       <DataType>blob|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="277" name="log">
-      <Position>13</Position>
+    <column id="293" parent="277" name="log">
+      <Position>14</Position>
       <DataType>blob|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="293" parent="277" name="blog_id">
+    <index id="294" parent="277" name="blog_id">
       <ColNames>blog_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="294" parent="277" name="PRIMARY">
+    <key id="295" parent="277" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="295" parent="277" name="blog_id">
+    <key id="296" parent="277" name="blog_id">
       <ColNames>blog_id</ColNames>
       <UnderlyingIndexName>blog_id</UnderlyingIndexName>
     </key>
-    <column id="296" parent="278" name="_id">
+    <column id="297" parent="278" name="_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="297" parent="278" name="id">
+    <column id="298" parent="278" name="id">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="298" parent="278" name="nickname">
+    <column id="299" parent="278" name="nickname">
       <Position>3</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="299" parent="278" name="token">
+    <column id="300" parent="278" name="token">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="278" name="password">
+    <column id="301" parent="278" name="password">
       <Position>5</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="278" name="last_login_ip">
+    <column id="302" parent="278" name="last_login_ip">
       <Position>6</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="278" name="last_login_time">
+    <column id="303" parent="278" name="last_login_time">
       <Position>7</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="278" name="email">
+    <column id="304" parent="278" name="email">
       <Position>8</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="304" parent="278" name="id">
+    <index id="305" parent="278" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="305" parent="278" name="nickname">
+    <index id="306" parent="278" name="nickname">
       <ColNames>nickname</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="306" parent="278" name="PRIMARY">
+    <key id="307" parent="278" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="307" parent="278" name="id">
+    <key id="308" parent="278" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <key id="308" parent="278" name="nickname">
+    <key id="309" parent="278" name="nickname">
       <ColNames>nickname</ColNames>
       <UnderlyingIndexName>nickname</UnderlyingIndexName>
     </key>
-    <column id="309" parent="279" name="_id">
+    <column id="310" parent="279" name="_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="279" name="id">
+    <column id="311" parent="279" name="id">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="311" parent="279" name="portrait">
+    <column id="312" parent="279" name="portrait">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="312" parent="279" name="follower">
+    <column id="313" parent="279" name="follower">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="313" parent="279" name="following">
+    <column id="314" parent="279" name="following">
       <Position>5</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="314" parent="279" name="personal_signature">
+    <column id="315" parent="279" name="personal_signature">
       <Position>6</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="315" parent="279" name="account_status">
+    <column id="316" parent="279" name="account_status">
       <Position>7</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="316" parent="279" name="user_group">
+    <column id="317" parent="279" name="user_group">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="317" parent="279" name="exp">
+    <column id="318" parent="279" name="exp">
       <Position>9</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>20</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="318" parent="279" name="data">
+    <column id="319" parent="279" name="data">
       <Position>10</Position>
       <DataType>blob|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="319" parent="279" name="log">
+    <column id="320" parent="279" name="log">
       <Position>11</Position>
       <DataType>blob|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="320" parent="279" name="id">
+    <column id="321" parent="279" name="settings">
+      <Position>12</Position>
+      <DataType>json|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="322" parent="279" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="321" parent="279" name="PRIMARY">
+    <key id="323" parent="279" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="322" parent="279" name="id">
+    <key id="324" parent="279" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
