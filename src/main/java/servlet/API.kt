@@ -729,13 +729,20 @@ class APIBlog: HttpServlet() {
                     ps.setInt(3, count)
                     val rs = ps.executeQuery()
                     while (rs.next()) {
+                        val blogId = rs.getString("blog_id")
+                        val author = rs.getString("author_id")
+                        val title = rs.getString("title")
+                        val introduction = rs.getString("introduction")
+                        val allTag = rs.getString("tag")
+                        val lastActiveTime = rs.getTimestamp("last_active_time")
                         val blog = Blog.Outline(
-                            rs.getString("blog_id"),
-                            rs.getString("author_id"),
-                            rs.getString("title"),
-                            rs.getString("introduction"),
-                            rs.getString("tag"),
-                            rs.getTimestamp("last_active_time")
+                            blogId,
+                            author,
+                            title,
+                            introduction,
+                            allTag,
+                            lastActiveTime,
+                            User.getNickname(author)
                         )
                         blog.index = index
                         index++
@@ -773,13 +780,28 @@ class APIBlog: HttpServlet() {
                                 ps.setInt(3, count)
                                 val rs = ps.executeQuery()
                                 while (rs.next()) {
+//                                    val blog = Blog.Outline(
+//                                        rs.getString("blog_id"),
+//                                        rs.getString("author_id"),
+//                                        rs.getString("title"),
+//                                        rs.getString("introduction"),
+//                                        rs.getString("tag"),
+//                                        rs.getTimestamp("last_active_time")
+//                                    )
+                                    val blogId = rs.getString("blog_id")
+                                    val author = rs.getString("author_id")
+                                    val title = rs.getString("title")
+                                    val introduction = rs.getString("introduction")
+                                    val allTag = rs.getString("tag")
+                                    val lastActiveTime = rs.getTimestamp("last_active_time")
                                     val blog = Blog.Outline(
-                                        rs.getString("blog_id"),
-                                        rs.getString("author_id"),
-                                        rs.getString("title"),
-                                        rs.getString("introduction"),
-                                        rs.getString("tag"),
-                                        rs.getTimestamp("last_active_time")
+                                        blogId,
+                                        author,
+                                        title,
+                                        introduction,
+                                        allTag,
+                                        lastActiveTime,
+                                        User.getNickname(author)
                                     )
                                     blog.index = index
                                     index++
@@ -814,13 +836,28 @@ class APIBlog: HttpServlet() {
                                 ps.setInt(3, count)
                                 val rs = ps.executeQuery()
                                 while (rs.next()) {
+//                                    val blog = Blog.Outline(
+//                                        rs.getString("blog_id"),
+//                                        rs.getString("author_id"),
+//                                        rs.getString("title"),
+//                                        rs.getString("introduction"),
+//                                        rs.getString("tag"),
+//                                        rs.getTimestamp("last_active_time")
+//                                    )
+                                    val blogId = rs.getString("blog_id")
+                                    val author = rs.getString("author_id")
+                                    val title = rs.getString("title")
+                                    val introduction = rs.getString("introduction")
+                                    val allTag = rs.getString("tag")
+                                    val lastActiveTime = rs.getTimestamp("last_active_time")
                                     val blog = Blog.Outline(
-                                        rs.getString("blog_id"),
-                                        rs.getString("author_id"),
-                                        rs.getString("title"),
-                                        rs.getString("introduction"),
-                                        rs.getString("tag"),
-                                        rs.getTimestamp("last_active_time")
+                                        blogId,
+                                        author,
+                                        title,
+                                        introduction,
+                                        allTag,
+                                        lastActiveTime,
+                                        User.getNickname(author)
                                     )
                                     blog.index = index
                                     index++
