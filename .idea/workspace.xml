@@ -7,16 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/tty_community_war_exploded/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -331,7 +322,7 @@
       <workItem from="1564739965561" duration="25218000" />
       <workItem from="1564899278951" duration="17350000" />
       <workItem from="1565264905151" duration="25487000" />
-      <workItem from="1565349979005" duration="16002000" />
+      <workItem from="1565349979005" duration="16661000" />
     </task>
     <servers />
   </component>

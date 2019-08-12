@@ -805,7 +805,7 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time < ? order by last_active_time and status = 'normal' desc limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time < ? and status = 'normal' order by last_active_time desc limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setInt(2, count)
                                 val rs = ps.executeQuery()
