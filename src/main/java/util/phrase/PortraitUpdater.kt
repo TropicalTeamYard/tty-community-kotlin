@@ -38,7 +38,7 @@ class PortraitUpdater(private val req: HttpServletRequest) {
 
         var id: String? = null
         var token: String? = null
-        val ip = APIUser.getIPAddr(req) ?: "0.0.0.0"
+        val ip = IP.getIPAddr(req)
         val date = Date()
 
         if (list.isNullOrEmpty()) {
@@ -100,16 +100,16 @@ class PortraitUpdater(private val req: HttpServletRequest) {
 
                         rs.close()
                         ps.close()
-                        if (hasPortrait) {
+                        return if (hasPortrait) {
                             val ps1 = conn.prepareStatement("update user_detail set portrait = ? where id = ?")
                             ps1.setString(1, name)
                             ps1.setString(2, id)
                             ps1.executeUpdate()
                             Log.changePortrait(id, date, ip, true, name)
                             ps1.close()
-                            return json(Shortcut.OK, "change portrait successfully")
+                            json(Shortcut.OK, "change portrait successfully")
                         } else {
-                            return json(Shortcut.AE, "arguments mismatch")
+                            json(Shortcut.AE, "arguments mismatch")
                         }
                     } else {
                         rs.close()

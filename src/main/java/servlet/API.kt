@@ -9,10 +9,8 @@ import util.enums.LoginType
 import util.enums.Shortcut
 import util.file.FileReadUtil
 import util.log.Log
-import util.phrase.BlogRequestPhrase
-import util.phrase.Markdown2Html
-import util.phrase.PortraitUpdater
-import util.phrase.Value
+import util.phrase.*
+import util.phrase.Value.json
 import java.io.File
 import java.io.FileInputStream
 import java.io.PrintWriter
@@ -26,10 +24,10 @@ import javax.servlet.http.HttpServletResponse
 
 @WebServlet(name = "api_user", urlPatterns = ["/api/user/*"])
 class APIUser: HttpServlet() {
-    private var reqIP: String = "0.0.0.0"
+    private var ip: String = "0.0.0.0"
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        reqIP = getIPAddr(req!!) ?:"0.0.0.0"
-        resp?.writer?.write("API: APIUser\nIP: $reqIP\n")
+        ip = IP.getIPAddr(req!!)
+        resp?.writer?.write("API: APIUser\nIP: $ip\n")
         doPost(req, resp)
     }
 
@@ -37,11 +35,11 @@ class APIUser: HttpServlet() {
         resp?.characterEncoding = "utf-8"
         req?.characterEncoding = "utf-8"
         val out = resp!!.writer
-        reqIP = getIPAddr(req!!) ?:"0.0.0.0"
+        ip = IP.getIPAddr(req!!)
         val route = try {
             req.requestURI.substring(20)
         } catch (e: StringIndexOutOfBoundsException) {
-            out.write(APIPublicUser.json(Shortcut.AE, "invalid request"))
+            out.write(json(Shortcut.AE, "invalid request"))
             return
         }
 
@@ -61,7 +59,7 @@ class APIUser: HttpServlet() {
                         return
                     }
                 }
-                val login = Login(reqIP, platform)
+                val login = Login(ip, platform)
                 when(req.getParameter("login_type")) {
                     "id" -> {
                         login.loginType = LoginType.ID
@@ -107,11 +105,11 @@ class APIUser: HttpServlet() {
                         return
                     }
                 }
-                if(reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(AutoLogin.json(Shortcut.AE, "arguments mismatch."))
+                if(ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
+                    out.write(json(Shortcut.AE, "arguments mismatch."))
                     return
                 }
-                val auto = AutoLogin(reqIP, id, token, platform)
+                val auto = AutoLogin(ip, id, token, platform)
                 out.write(auto.submit())
             }
 
@@ -120,11 +118,11 @@ class APIUser: HttpServlet() {
                 val nickname = req.getParameter("nickname")
                 val email = req.getParameter("email")
                 val password = req.getParameter("password")
-                if(nickname.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty() || reqIP=="0.0.0.0"){
+                if(nickname.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty() || ip=="0.0.0.0"){
                     out.write(Register.json(Shortcut.AE, "arguments mismatch."))
                     return
                 }
-                val result = Register(nickname, reqIP, email, password).submit()
+                val result = Register(nickname, ip, email, password).submit()
                 out.write(result)
             }
 
@@ -150,17 +148,28 @@ class APIUser: HttpServlet() {
                 out.write(json.toJSONString())
             }
 
+            "info" -> {
+                // http://47.102.200.155:8080/community/api/user/info?id=2008153477&token=712AA3EB5A560EEFFDBF1638A7587767
+                val id = req.getParameter("id")
+                val token = req.getParameter("token")
+                if(id.isNullOrEmpty() || token.isNullOrEmpty() || ip.isEmpty() || ip == "0.0.0.0") {
+                    out.write(json(Shortcut.AE, "arguments mismatch"))
+                    return
+                }
+                out.write(UserInfo.get(id, token))
+            }
+
             "change_info" -> {
                 // http://localhost:8080/community/api/user/change_info?token=2922598E94BCE57F9534909CC0404F97&id=720468899&nickname=wcf&email=1533144693@qq.com
                 val id = req.getParameter("id")
                 val token = req.getParameter("token")
 
-                if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(Value.json(Shortcut.AE, "argument mismatch."))
+                if(ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
+                    out.write(json(Shortcut.AE, "argument mismatch."))
                     return
                 }
 
-                val changeUserInfo = ChangeUserInfo(id, token, reqIP)
+                val changeUserInfo = ChangeUserInfo(id, token, ip)
 
                 if (!req.getParameter("nickname").isNullOrEmpty()){
                     changeUserInfo.changedItem[UserInfoType.Nickname] = req.getParameter("nickname")
@@ -183,12 +192,12 @@ class APIUser: HttpServlet() {
                 val id = map["id"]?.get(0)
                 val token = map["token"]?.get(0)
 
-                if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(Value.json(Shortcut.AE, "argument mismatch."))
+                if(ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
+                    out.write(json(Shortcut.AE, "argument mismatch."))
                     return
                 }
 
-                val changeDetailInfo = ChangeDetailInfo(id, token, reqIP)
+                val changeDetailInfo = ChangeDetailInfo(id, token, ip)
 
                 val params = map["params"]?: arrayOf()
                 for(item in params) {
@@ -204,7 +213,7 @@ class APIUser: HttpServlet() {
                 if (changeDetailInfo.changedItem.size > 0) {
                     out.write(changeDetailInfo.submit())
                 } else {
-                    out.write(Value.json(Shortcut.OTHER, "Nothing changed"))
+                    out.write(json(Shortcut.OTHER, "Nothing changed"))
                 }
             }
 
@@ -214,57 +223,27 @@ class APIUser: HttpServlet() {
                 val oldPassword = req.getParameter("old")
                 val newPassword = req.getParameter("new")
 
-                if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || newPassword.isNullOrEmpty() || oldPassword.isNullOrEmpty()){
-                    out.write(Value.json(Shortcut.AE, "argument mismatch."))
+                if(ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || newPassword.isNullOrEmpty() || oldPassword.isNullOrEmpty()){
+                    out.write(json(Shortcut.AE, "argument mismatch."))
                     return
                 }
 
-                out.write(ChangePassword(id, oldPassword, newPassword, reqIP).submit())
+                out.write(ChangePassword(id, oldPassword, newPassword, ip).submit())
             }
 
             "test" -> {
                 // http://localhost:8080/community/api/user/test
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
                 val conf = FileReadUtil.readJson(jsonFile)
-                out.write(conf.toJSONString() ?: Value.json(Shortcut.OTHER, "Failed"))
+                out.write(conf.toJSONString() ?: json(Shortcut.OTHER, "Failed"))
             }
 
             else -> {
-                out.write(Value.json(Shortcut.AE, "invalid request."))
+                out.write(json(Shortcut.AE, "invalid request."))
             }
         }
     }
 
-    companion object {
-        fun getIPAddr(request: HttpServletRequest): String? {
-            var ip: String? = request.getHeader("x-forwarded-for")
-            if (ip != null && ip.isNotEmpty() && !"unknown".equals(ip, ignoreCase = true)) {
-                // 多次反向代理后会有多个ip值，第一个ip才是真实ip
-                if (ip.contains(",")) {
-                    ip = ip.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-                }
-            }
-            if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
-                ip = request.getHeader("Proxy-Client-IP")
-            }
-            if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
-                ip = request.getHeader("WL-Proxy-Client-IP")
-            }
-            if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
-                ip = request.getHeader("HTTP_CLIENT_IP")
-            }
-            if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
-                ip = request.getHeader("HTTP_X_FORWARDED_FOR")
-            }
-            if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
-                ip = request.getHeader("X-Real-IP")
-            }
-            if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
-                ip = request.remoteAddr
-            }
-            return ip
-        }
-    }
 }
 
 @WebServlet(name = "api_public_user", urlPatterns = ["/api/public/user/*"])
@@ -272,18 +251,18 @@ class APIPublicUser: HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
 
+
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
-        val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
-        resp?.writer?.write("API: APIPublicUser\nIP: $reqIP\n")
+        ip = IP.getIPAddr(req!!)
+        resp?.writer?.write("API: APIPublicUser\nIP: $ip\n")
         doPost(req, resp)
     }
-
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
         resp?.characterEncoding = "UTF-8"
         req?.characterEncoding = "UTF-8"
         out = resp!!.writer
-        ip = APIUser.getIPAddr(req!!) ?:"0.0.0.0"
+        ip = IP.getIPAddr(req!!)
         val route = try {
             req.requestURI.substring(27)
         } catch (e: StringIndexOutOfBoundsException) {
@@ -316,7 +295,7 @@ class APIPublicUser: HttpServlet() {
     private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
         val conf = FileReadUtil.readJson(jsonFile)
-        out.write(conf.toJSONString() ?: Value.json(Shortcut.OTHER, "Failed"))
+        out.write(conf.toJSONString() ?: json(Shortcut.OTHER, "Failed"))
     }
 
     private fun getPortrait(req: HttpServletRequest?, resp: HttpServletResponse?) {
@@ -431,18 +410,6 @@ class APIPublicUser: HttpServlet() {
 
     }
 
-    companion object {
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
-            val map = JSONObject()
-            map["shortcut"] = shortcut.name
-            map["msg"] = msg
-            if(data != null){
-                map["data"] = JSONObject(data as Map<String, Any>?)
-            }
-            return map.toJSONString()
-        }
-    }
-
 }
 
 @WebServlet(name = "api_blog", urlPatterns = ["/api/blog/*"])
@@ -457,12 +424,11 @@ class APIBlog: HttpServlet() {
         doPost(req, resp)
     }
 
-
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
         resp?.characterEncoding = "UTF-8"
         req?.characterEncoding = "UTF-8"
         out = resp!!.writer
-        ip = APIUser.getIPAddr(req!!) ?:"0.0.0.0"
+        ip = IP.getIPAddr(req!!)
         val route = try {
             req.requestURI.substring(20)
         } catch (e: StringIndexOutOfBoundsException) {
@@ -509,6 +475,7 @@ class APIBlog: HttpServlet() {
             }
         }
     }
+
 
     private fun create(req: HttpServletRequest?) {
         val date = java.util.Date()
@@ -661,7 +628,7 @@ class APIBlog: HttpServlet() {
         val blogId = map["id"]?.get(0)
         val picKey = map["key"]?.get(0)
         if (blogId.isNullOrEmpty() || picKey.isNullOrEmpty()) {
-            out.write(APIPublicUser.json(Shortcut.AE, "argument mismatch."))
+            out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
 
@@ -694,7 +661,7 @@ class APIBlog: HttpServlet() {
                 rs.close()
                 ps.close()
             } else {
-                out.write(APIPublicUser.json(Shortcut.BNE, "the blog $blogId does not found."))
+                out.write(json(Shortcut.BNE, "the blog $blogId does not found."))
                 rs.close()
                 ps.close()
             }
@@ -702,10 +669,10 @@ class APIBlog: HttpServlet() {
 
         } catch (e: SQLException) {
             e.printStackTrace()
-            out.write(APIPublicUser.json(Shortcut.OTHER, "SQL ERROR"))
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
         } catch (e: Exception) {
             e.printStackTrace()
-            out.write(APIPublicUser.json(Shortcut.OTHER, "UNKNOWN EXCEPTION"))
+            out.write(json(Shortcut.OTHER, "UNKNOWN EXCEPTION"))
         }
     }
 
@@ -892,25 +859,14 @@ class APIBlog: HttpServlet() {
 
     }
 
-
     private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
         val conf = FileReadUtil.readJson(jsonFile)
-        out.write(conf.toJSONString() ?: Value.json(Shortcut.OTHER, "Failed"))
+        out.write(conf.toJSONString() ?: json(Shortcut.OTHER, "Failed"))
     }
 
+
     companion object {
-
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
-            val map = JSONObject()
-            map["shortcut"] = shortcut.name
-            map["msg"] = msg
-            if(data != null){
-                map["data"] = JSONObject(data as Map<String, Any>?)
-            }
-            return map.toJSONString()
-        }
-
         fun jsonBlogOutline(shortcut: Shortcut, msg: String, data: ArrayList<Blog.Outline>? = null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
