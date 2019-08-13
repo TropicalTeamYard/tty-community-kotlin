@@ -3,7 +3,15 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="8abc016a-e8ed-4248-b690-628b6faed515" name="Ubuntu" url="http://192.168.123.2">
-        <fileTransfer host="192.168.123.2" port="22" rootFolder="/home/ubuntu" accessType="SFTP">
+        <fileTransfer host="192.168.123.2" port="22" rootFolder="/home/ubuntu/app/apache-tomcat-8.5.43/webapps" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="463150d1-9fcd-4d1c-a003-d026db27b175" name="47.102.200.155" url="http://47.102.200.155">
+        <fileTransfer host="47.102.200.155" port="22" rootFolder="/home/admin/app/apache-tomcat-9.0.12/webapps" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

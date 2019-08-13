@@ -1,10 +1,10 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
-import util.Log
-import util.MySQLConn
-import util.Shortcut
-import util.StringUtil
+import util.log.Log
+import util.conn.MySQLConn
+import util.enums.Shortcut
+import util.phrase.Value
 import java.sql.SQLException
 import java.util.*
 import kotlin.collections.HashMap
@@ -21,7 +21,7 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
             ps.setString(1, id)
             val rs = ps.executeQuery()
             if(rs.next()){
-                if(token == StringUtil.getMD5(rs.getString("token"))){
+                if(token == Value.getMD5(rs.getString("token"))){
                     val nicknameBefore = rs.getString("nickname")
                     val emailBefore = rs.getString("email")
                     rs.close()
@@ -63,7 +63,7 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
                     rs.close()
                     ps.close()
                     Log.changeUserInfo(id, date, ip, false)
-                    return json(Shortcut.UPE, "invalid token")
+                    return json(Shortcut.TE, "invalid token")
                 }
 
             } else {
@@ -79,7 +79,7 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     }
 
     companion object {
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String> ?= null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
@@ -88,6 +88,13 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
             }
             return map.toJSONString()
         }
+    }
+}
+
+class ChangePortrait(val id: String, private val token: String, var ip: String) {
+    private val date = Date()
+    fun submit(): String{
+        TODO()
     }
 }
 
@@ -155,7 +162,7 @@ class ChangeDetailInfo(private var id: String, private var token: String, privat
             var ps = conn.prepareStatement("select token from user where id = ? limit 1")
             ps.setString(1, id)
             var rs = ps.executeQuery()
-            if (rs.next() && StringUtil.getMD5(rs.getString("token")) == token){
+            if (rs.next() && Value.getMD5(rs.getString("token")) == token){
                 rs.close()
                 ps.close()
                 ps = conn.prepareStatement("select * from user_detail where id = ? limit 1")

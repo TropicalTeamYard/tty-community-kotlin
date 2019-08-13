@@ -3,7 +3,16 @@ package servlet
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import model.*
-import util.*
+import util.conn.MySQLConn
+import util.enums.LoginPlatform
+import util.enums.LoginType
+import util.enums.Shortcut
+import util.file.FileReadUtil
+import util.log.Log
+import util.phrase.BlogRequestPhrase
+import util.phrase.Markdown2Html
+import util.phrase.PortraitUpdater
+import util.phrase.Value
 import java.io.File
 import java.io.FileInputStream
 import java.io.PrintWriter
@@ -147,7 +156,7 @@ class APIUser: HttpServlet() {
                 val token = req.getParameter("token")
 
                 if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
+                    out.write(Value.json(Shortcut.AE, "argument mismatch."))
                     return
                 }
 
@@ -164,6 +173,10 @@ class APIUser: HttpServlet() {
                 out.write(changeUserInfo.submit())
             }
 
+            "change_portrait" -> {
+                out.write(PortraitUpdater(req).submit())
+            }
+
             "change_detail_info" -> {
                 // http://localhost:8080/community/api/user/change_detail_info?id=1285609993&token=E0DC9F89E9C06F36072C27138833230B&params=personal_signature::helloworld&params=key::value
                 val map = req.parameterMap
@@ -171,7 +184,7 @@ class APIUser: HttpServlet() {
                 val token = map["token"]?.get(0)
 
                 if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
+                    out.write(Value.json(Shortcut.AE, "argument mismatch."))
                     return
                 }
 
@@ -191,7 +204,7 @@ class APIUser: HttpServlet() {
                 if (changeDetailInfo.changedItem.size > 0) {
                     out.write(changeDetailInfo.submit())
                 } else {
-                    out.write(StringUtil.json(Shortcut.OTHER, "Nothing changed"))
+                    out.write(Value.json(Shortcut.OTHER, "Nothing changed"))
                 }
             }
 
@@ -202,7 +215,7 @@ class APIUser: HttpServlet() {
                 val newPassword = req.getParameter("new")
 
                 if(reqIP.isEmpty() || reqIP == "0.0.0.0" || id.isNullOrEmpty() || newPassword.isNullOrEmpty() || oldPassword.isNullOrEmpty()){
-                    out.write(StringUtil.json(Shortcut.AE, "argument mismatch."))
+                    out.write(Value.json(Shortcut.AE, "argument mismatch."))
                     return
                 }
 
@@ -213,11 +226,11 @@ class APIUser: HttpServlet() {
                 // http://localhost:8080/community/api/user/test
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
                 val conf = FileReadUtil.readJson(jsonFile)
-                out.write(conf.toJSONString() ?:StringUtil.json(Shortcut.OTHER, "Failed"))
+                out.write(conf.toJSONString() ?: Value.json(Shortcut.OTHER, "Failed"))
             }
 
             else -> {
-                out.write(StringUtil.json(Shortcut.AE, "invalid request."))
+                out.write(Value.json(Shortcut.AE, "invalid request."))
             }
         }
     }
@@ -303,9 +316,8 @@ class APIPublicUser: HttpServlet() {
     private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
         val conf = FileReadUtil.readJson(jsonFile)
-        out.write(conf.toJSONString() ?:StringUtil.json(Shortcut.OTHER, "Failed"))
+        out.write(conf.toJSONString() ?: Value.json(Shortcut.OTHER, "Failed"))
     }
-
 
     private fun getPortrait(req: HttpServletRequest?, resp: HttpServletResponse?) {
         val map = req!!.parameterMap
@@ -324,7 +336,7 @@ class APIPublicUser: HttpServlet() {
                 val portrait = rs.getString("portrait")
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
                 val conf = FileReadUtil.readJson(jsonFile)
-                val path = conf.getString("root") +"\\${conf.getString("portrait")}\\$portrait"
+                val path = conf.getString("root") +"/${conf.getString("portrait")}/$portrait"
                 val inputStream = FileInputStream(path)
 
                 resp!!.reset()
@@ -502,7 +514,7 @@ class APIBlog: HttpServlet() {
         val date = java.util.Date()
         val time = Timestamp(date.time)
         val params: HashMap<String, String>
-        val reqMaps = RequestPhrase(req!!)
+        val reqMaps = BlogRequestPhrase(req!!)
         params = reqMaps.getField()
 
         val id = params["id"]
@@ -526,7 +538,7 @@ class APIBlog: HttpServlet() {
             var ps = conn.prepareStatement("select * from user where id = ? limit 1")
             ps.setString(1, id)
             var rs = ps.executeQuery()
-            if (rs.next() && token == StringUtil.getMD5(rs.getString("token"))) {
+            if (rs.next() && token == Value.getMD5(rs.getString("token"))) {
                 rs.close()
                 ps.close()
                 ps = conn.prepareStatement("insert into blog (blog_id, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
@@ -554,7 +566,7 @@ class APIBlog: HttpServlet() {
                     Log.createBlog(id, date, ip, true, blogId)
                     rs.close()
                     ps.close()
-                    reqMaps.getBlogFiles(blogId, id)
+                    reqMaps.getBlogFiles(blogId)
                     out.write(json(Shortcut.OK, "you have posted the blog successfully.", data))
                 } else {
                     rs.close()
@@ -601,12 +613,12 @@ class APIBlog: HttpServlet() {
                 data["nickname"] = User.getNickname(data["author_id"]?:"000000")
                 data["title"] = rs.getString("title")
                 data["introduction"] = rs.getString("introduction")
-                val content = StringUtil.blob2String(rs.getBlob("content")).replace("####blog_id####", blogId)
+                val content = Value.blob2String(rs.getBlob("content")).replace("####blog_id####", blogId)
                 data["tag"] = rs.getString("tag")
-                data["comment"] = StringUtil.blob2String(rs.getBlob("comment"))
-                data["likes"] = StringUtil.blob2String(rs.getBlob("likes"))
-                data["last_edit_time"] = StringUtil.getTime(rs.getTimestamp("last_edit_time"))
-                data["data"] = StringUtil.blob2String(rs.getBlob("data"))
+                data["comment"] = Value.blob2String(rs.getBlob("comment"))
+                data["likes"] = Value.blob2String(rs.getBlob("likes"))
+                data["last_edit_time"] = Value.getTime(rs.getTimestamp("last_edit_time"))
+                data["data"] = Value.blob2String(rs.getBlob("data"))
 
                 when (type) {
                     ShowBlogType.JSON -> {
@@ -616,8 +628,8 @@ class APIBlog: HttpServlet() {
 
                     ShowBlogType.HTML -> {
                         data["content"] = Markdown2Html.parse(content)
-                        var html = StringUtil.htmlTemplate()
-                        val style = StringUtil.markdownAirCss()
+                        var html = Value.htmlTemplate()
+                        val style = Value.markdownAirCss()
                         html = html.replace("####title-author####", "${data["title"]}-${data["nickname"]}")
                             .replace("####style####", style)
                             .replace("####title####", "${data["title"]}")
@@ -661,7 +673,7 @@ class APIBlog: HttpServlet() {
             if (rs.next()) {
                 val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
                 val conf = FileReadUtil.readJson(jsonFile)
-                val path = conf.getString("root") +"\\${conf.getString("blog_pics")}\\$blogId\\$picKey"
+                val path = conf.getString("root") +"/${conf.getString("blog_pics")}/$blogId/$picKey"
                 val inputStream = FileInputStream(path)
 
                 resp!!.reset()
@@ -707,7 +719,7 @@ class APIBlog: HttpServlet() {
         }
         val tag: String = map["tag"]?.get(0)?:""
         val count = map["count"]?.get(0)?.toInt()?:0
-        val date = StringUtil.getTime(map["date"]?.get(0))
+        val date = Value.getTime(map["date"]?.get(0))
         val from = map["from"]?.get(0)
         val to = map["to"]?.get(0)
 
@@ -781,17 +793,10 @@ class APIBlog: HttpServlet() {
                                 ps.setInt(3, count)
                                 val rs = ps.executeQuery()
                                 while (rs.next()) {
-//                                    val blog = Blog.Outline(
-//                                        rs.getString("blog_id"),
-//                                        rs.getString("author_id"),
-//                                        rs.getString("title"),
-//                                        rs.getString("introduction"),
-//                                        rs.getString("tag"),
-//                                        rs.getTimestamp("last_active_time")
-//                                    )
                                     val blogId = rs.getString("blog_id")
                                     val author = rs.getString("author_id")
-                                    val title = rs.getString("title")
+                                    val nickname = User.getNickname(author)
+                                    val title = rs.getString("title").replace("####nickname####", nickname)
                                     val introduction = rs.getString("introduction")
                                     val allTag = rs.getString("tag")
                                     val lastActiveTime = rs.getTimestamp("last_active_time")
@@ -802,7 +807,7 @@ class APIBlog: HttpServlet() {
                                         introduction,
                                         allTag,
                                         lastActiveTime,
-                                        User.getNickname(author)
+                                        nickname
                                     )
                                     blog.index = index
                                     index++
@@ -837,17 +842,10 @@ class APIBlog: HttpServlet() {
                                 ps.setInt(3, count)
                                 val rs = ps.executeQuery()
                                 while (rs.next()) {
-//                                    val blog = Blog.Outline(
-//                                        rs.getString("blog_id"),
-//                                        rs.getString("author_id"),
-//                                        rs.getString("title"),
-//                                        rs.getString("introduction"),
-//                                        rs.getString("tag"),
-//                                        rs.getTimestamp("last_active_time")
-//                                    )
                                     val blogId = rs.getString("blog_id")
                                     val author = rs.getString("author_id")
-                                    val title = rs.getString("title")
+                                    val nickname = User.getNickname(author)
+                                    val title = rs.getString("title").replace("####nickname####", nickname)
                                     val introduction = rs.getString("introduction")
                                     val allTag = rs.getString("tag")
                                     val lastActiveTime = rs.getTimestamp("last_active_time")
@@ -858,7 +856,7 @@ class APIBlog: HttpServlet() {
                                         introduction,
                                         allTag,
                                         lastActiveTime,
-                                        User.getNickname(author)
+                                        nickname
                                     )
                                     blog.index = index
                                     index++
@@ -898,7 +896,7 @@ class APIBlog: HttpServlet() {
     private fun test() {
         val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
         val conf = FileReadUtil.readJson(jsonFile)
-        out.write(conf.toJSONString() ?:StringUtil.json(Shortcut.OTHER, "Failed"))
+        out.write(conf.toJSONString() ?: Value.json(Shortcut.OTHER, "Failed"))
     }
 
     companion object {

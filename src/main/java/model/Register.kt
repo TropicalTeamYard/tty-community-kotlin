@@ -1,7 +1,12 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
-import util.*
+import util.conn.MySQLConn
+import util.enums.LoginPlatform
+import util.enums.Shortcut
+import util.log.Log
+import util.log.Token
+import util.phrase.Value
 import java.sql.SQLException
 import java.util.*
 
@@ -34,7 +39,7 @@ class Register(
             ps.setString(3, password)
             ps.setString(4, Token.getToken(userId, LoginPlatform.MOBILE, "123456", registerTime, false))
             ps.setString(5, registerIP)
-            ps.setString(6, StringUtil.getTime(registerTime))
+            ps.setString(6, Value.getTime(registerTime))
             ps.setString(7, email)
             ps.execute()
             ps.close()

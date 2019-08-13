@@ -1,6 +1,6 @@
 package model
 
-import util.MySQLConn
+import util.conn.MySQLConn
 import java.sql.SQLException
 import java.util.Date
 

@@ -24,8 +24,8 @@ create table user_detail(
     user_group integer not null default 0,
     exp integer not null default 20,
     data blob,
-    log blob not null,
-    settings json #todo
+    log longblob not null,
+    settings json
 );
 
 create table blog(
@@ -42,5 +42,5 @@ create table blog(
     last_active_time datetime not null, #todo
     status text not null,
     data blob,
-    log blob not null
+    log longblob not null
 );

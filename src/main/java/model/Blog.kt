@@ -10,6 +10,7 @@ interface Blog {
     val introduction: String
     val tag: String
     val lastActiveTime: Date
+
     class Outline(
         override val blogId: String,
         override val author: String,
