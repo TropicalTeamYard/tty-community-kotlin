@@ -8,3 +8,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+web/conf/path_release.json
+out/artifacts/community/conf/path_release.json
+out/artifacts/community.war
