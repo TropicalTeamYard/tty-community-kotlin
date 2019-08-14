@@ -1,7 +1,7 @@
 package util.log
 
 import model.UserInfoType
-import util.phrase.Value
+import util.Value
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType

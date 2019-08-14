@@ -3,6 +3,9 @@ package servlet
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import model.*
+import util.CONF
+import util.CONF.Companion.conf
+import util.Value
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType
@@ -10,7 +13,7 @@ import util.enums.Shortcut
 import util.file.FileReadUtil
 import util.log.Log
 import util.phrase.*
-import util.phrase.Value.json
+import util.Value.json
 import java.io.File
 import java.io.FileInputStream
 import java.io.PrintWriter
@@ -25,16 +28,17 @@ import javax.servlet.http.HttpServletResponse
 @WebServlet(name = "api_user", urlPatterns = ["/api/user/*"])
 class APIUser: HttpServlet() {
     private var ip: String = "0.0.0.0"
+    private lateinit var out: PrintWriter
+
+
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        ip = IP.getIPAddr(req!!)
-        resp?.writer?.write("API: APIUser\nIP: $ip\n")
         doPost(req, resp)
     }
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?){
         resp?.characterEncoding = "utf-8"
         req?.characterEncoding = "utf-8"
-        val out = resp!!.writer
+        out = resp!!.writer
         ip = IP.getIPAddr(req!!)
         val route = try {
             req.requestURI.substring(20)
@@ -46,200 +50,241 @@ class APIUser: HttpServlet() {
         when(route){
             "login" -> {
                 // http://localhost:8080/community/api/user/login?platform=web&login_type=id&id=2008153477&password=123456789
-                val json = JSONObject()
-                val platform: LoginPlatform = when(req.getParameter("platform")){
-                    "mobile" -> LoginPlatform.MOBILE
-                    "pc" -> LoginPlatform.PC
-                    "web" -> LoginPlatform.WEB
-                    "pad" -> LoginPlatform.PAD
-                    else -> {
-                        json["shortcut"] = "AE"
-                        json["msg"] = "platform not allowed."
-                        out.write(json.toJSONString())
-                        return
-                    }
-                }
-                val login = Login(ip, platform)
-                when(req.getParameter("login_type")) {
-                    "id" -> {
-                        login.loginType = LoginType.ID
-                        login.id = req.getParameter("id")
-                        login.password = req.getParameter("password")
-                        out.write(login.submit())
-                    }
-                    "nickname" -> {
-                        login.loginType = LoginType.NICKNAME
-                        login.nickname = req.getParameter("nickname")
-                        login.password = req.getParameter("password")
-                        out.write(login.submit())
-                    }
-                    "third_party" -> {
-                        login.loginType = LoginType.THIRD_PARTY
-                        login.id = req.getParameter("id")
-                        login.apiKey = req.getParameter("api_key")
-                        out.write(login.submit())
-                    }
-                    else -> {
-                        json["shortcut"] = "AE"
-                        json["msg"] = "invalid login_type."
-                        out.write(json.toJSONString())
-                        return
-                    }
-                }
+                login(req)
             }
 
             "auto_login" -> {
                 // http://localhost:8080/community/api/user/auto_login?platform=pc&token=040DC2D9B6B8069563E7DC10D53D1B0D&id=2008153477
-                val json = JSONObject()
-                val id = req.getParameter("id")
-                val token = req.getParameter("token")
-                val platform: LoginPlatform = when(req.getParameter("platform")){
-                    "mobile" -> LoginPlatform.MOBILE
-                    "pc" -> LoginPlatform.PC
-                    "web" -> LoginPlatform.WEB
-                    "pad" -> LoginPlatform.PAD
-                    else -> {
-                        json["shortcut"] = "AE"
-                        json["msg"] = "platform not allowed."
-                        out.write(json.toJSONString())
-                        return
-                    }
-                }
-                if(ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(json(Shortcut.AE, "arguments mismatch."))
-                    return
-                }
-                val auto = AutoLogin(ip, id, token, platform)
-                out.write(auto.submit())
+                autoLogin(req)
             }
 
             "register" -> {
                 // http://localhost:8080/community/api/user/register?nickname=wcf&password=123456&email=123@qq.com
-                val nickname = req.getParameter("nickname")
-                val email = req.getParameter("email")
-                val password = req.getParameter("password")
-                if(nickname.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty() || ip=="0.0.0.0"){
-                    out.write(Register.json(Shortcut.AE, "arguments mismatch."))
-                    return
-                }
-                val result = Register(nickname, ip, email, password).submit()
-                out.write(result)
+                register(req)
             }
 
             "check_name" -> {
                 // http://localhost:8080/community/api/user/check_name?nickname=wcf
-                val nickname = req.getParameter("nickname")
-                val json = JSONObject()
-                if(nickname == null || nickname.isEmpty()){
-                    json["shortcut"] = "AE"
-                    json["msg"] = "arguments mismatch."
-                } else {
-                    when(Register.checkNickname(req.getParameter("nickname"))){
-                        false -> {
-                            json["shortcut"] = "OK"
-                            json["msg"] = "The nickname $nickname is not registered"
-                        }
-                        true -> {
-                            json["shortcut"] = "UR"
-                            json["msg"] = "The nickname $nickname has been registered"
-                        }
-                    }
-                }
-                out.write(json.toJSONString())
+                checkName(req)
             }
 
             "info" -> {
                 // http://47.102.200.155:8080/community/api/user/info?id=2008153477&token=712AA3EB5A560EEFFDBF1638A7587767
-                val id = req.getParameter("id")
-                val token = req.getParameter("token")
-                if(id.isNullOrEmpty() || token.isNullOrEmpty() || ip.isEmpty() || ip == "0.0.0.0") {
-                    out.write(json(Shortcut.AE, "arguments mismatch"))
-                    return
-                }
-                out.write(UserInfo.get(id, token))
+                info(req)
             }
 
             "change_info" -> {
                 // http://localhost:8080/community/api/user/change_info?token=2922598E94BCE57F9534909CC0404F97&id=720468899&nickname=wcf&email=1533144693@qq.com
-                val id = req.getParameter("id")
-                val token = req.getParameter("token")
-
-                if(ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(json(Shortcut.AE, "argument mismatch."))
-                    return
-                }
-
-                val changeUserInfo = ChangeUserInfo(id, token, ip)
-
-                if (!req.getParameter("nickname").isNullOrEmpty()){
-                    changeUserInfo.changedItem[UserInfoType.Nickname] = req.getParameter("nickname")
-                }
-
-                if (!req.getParameter("email").isNullOrEmpty()){
-                    changeUserInfo.changedItem[UserInfoType.Email] = req.getParameter("email")
-                }
-
-                out.write(changeUserInfo.submit())
+                changeInfo(req)
             }
 
             "change_portrait" -> {
-                out.write(PortraitUpdater(req).submit())
+                // http://localhost:8080/community/api/user/change_portrait
+                changePortrait(req)
             }
 
             "change_detail_info" -> {
                 // http://localhost:8080/community/api/user/change_detail_info?id=1285609993&token=E0DC9F89E9C06F36072C27138833230B&params=personal_signature::helloworld&params=key::value
-                val map = req.parameterMap
-                val id = map["id"]?.get(0)
-                val token = map["token"]?.get(0)
-
-                if(ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()){
-                    out.write(json(Shortcut.AE, "argument mismatch."))
-                    return
-                }
-
-                val changeDetailInfo = ChangeDetailInfo(id, token, ip)
-
-                val params = map["params"]?: arrayOf()
-                for(item in params) {
-                    try {
-                        val key = item.split("::")[0]
-                        val value = item.split("::")[1]
-                        changeDetailInfo.changedItem[key] = value
-                    } catch (e: IndexOutOfBoundsException) {
-                        e.printStackTrace()
-                        continue
-                    }
-                }
-                if (changeDetailInfo.changedItem.size > 0) {
-                    out.write(changeDetailInfo.submit())
-                } else {
-                    out.write(json(Shortcut.OTHER, "Nothing changed"))
-                }
+                changeDetailInfo(req)
             }
 
             "change_password" -> {
                 // http://localhost:8080/community/api/user/change_password?id=2008153477&old=123456&new=123456789
-                val id = req.getParameter("id")
-                val oldPassword = req.getParameter("old")
-                val newPassword = req.getParameter("new")
-
-                if(ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || newPassword.isNullOrEmpty() || oldPassword.isNullOrEmpty()){
-                    out.write(json(Shortcut.AE, "argument mismatch."))
-                    return
-                }
-
-                out.write(ChangePassword(id, oldPassword, newPassword, ip).submit())
+                changePassword(req)
             }
 
             "test" -> {
                 // http://localhost:8080/community/api/user/test
-                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-                val conf = FileReadUtil.readJson(jsonFile)
-                out.write(conf.toJSONString() ?: json(Shortcut.OTHER, "Failed"))
+                test()
             }
 
             else -> {
                 out.write(json(Shortcut.AE, "invalid request."))
+            }
+        }
+    }
+
+
+    private fun test() {
+        out.write(CONF.root + "\n")
+        out.write(CONF.conf.server)
+    }
+
+    private fun changePassword(req: HttpServletRequest) {
+        val id = req.getParameter("id")
+        val oldPassword = req.getParameter("old")
+        val newPassword = req.getParameter("new")
+
+        if (ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || newPassword.isNullOrEmpty() || oldPassword.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        out.write(ChangePassword(id, oldPassword, newPassword, ip).submit())
+    }
+
+    private fun changeDetailInfo(req: HttpServletRequest) {
+        val map = req.parameterMap
+        val id = map["id"]?.get(0)
+        val token = map["token"]?.get(0)
+
+        if (ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        val changeDetailInfo = ChangeDetailInfo(id, token, ip)
+
+        val params = map["params"] ?: arrayOf()
+        for (item in params) {
+            try {
+                val key = item.split("::")[0]
+                val value = item.split("::")[1]
+                changeDetailInfo.changedItem[key] = value
+            } catch (e: IndexOutOfBoundsException) {
+                e.printStackTrace()
+                continue
+            }
+        }
+        if (changeDetailInfo.changedItem.size > 0) {
+            out.write(changeDetailInfo.submit())
+        } else {
+            out.write(json(Shortcut.OTHER, "Nothing changed"))
+        }
+    }
+
+    private fun changePortrait(req: HttpServletRequest) {
+        out.write(PortraitUpdater(req).submit())
+    }
+
+    private fun changeInfo(req: HttpServletRequest) {
+        val id = req.getParameter("id")
+        val token = req.getParameter("token")
+
+        if (ip.isEmpty() || ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "argument mismatch."))
+            return
+        }
+
+        val changeUserInfo = ChangeUserInfo(id, token, ip)
+
+        if (!req.getParameter("nickname").isNullOrEmpty()) {
+            changeUserInfo.changedItem[UserInfoType.Nickname] = req.getParameter("nickname")
+        }
+
+        if (!req.getParameter("email").isNullOrEmpty()) {
+            changeUserInfo.changedItem[UserInfoType.Email] = req.getParameter("email")
+        }
+
+        out.write(changeUserInfo.submit())
+    }
+
+    private fun info(req: HttpServletRequest) {
+        val id = req.getParameter("id")
+        val token = req.getParameter("token")
+        if (id.isNullOrEmpty() || token.isNullOrEmpty() || ip.isEmpty() || ip == "0.0.0.0") {
+            out.write(json(Shortcut.AE, "arguments mismatch"))
+            return
+        }
+        out.write(UserInfo.get(id, token))
+    }
+
+    private fun checkName(req: HttpServletRequest) {
+        val nickname = req.getParameter("nickname")
+        val json = JSONObject()
+        if (nickname == null || nickname.isEmpty()) {
+            json["shortcut"] = "AE"
+            json["msg"] = "arguments mismatch."
+        } else {
+            when (Register.checkNickname(req.getParameter("nickname"))) {
+                false -> {
+                    json["shortcut"] = "OK"
+                    json["msg"] = "The nickname $nickname is not registered"
+                }
+                true -> {
+                    json["shortcut"] = "UR"
+                    json["msg"] = "The nickname $nickname has been registered"
+                }
+            }
+        }
+        out.write(json.toJSONString())
+    }
+
+    private fun register(req: HttpServletRequest) {
+        val nickname = req.getParameter("nickname")
+        val email = req.getParameter("email")
+        val password = req.getParameter("password")
+        if (nickname.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty() || ip == "0.0.0.0") {
+            out.write(Register.json(Shortcut.AE, "arguments mismatch."))
+            return
+        }
+        val result = Register(nickname, ip, email, password).submit()
+        out.write(result)
+    }
+
+    private fun autoLogin(req: HttpServletRequest) {
+        val json = JSONObject()
+        val id = req.getParameter("id")
+        val token = req.getParameter("token")
+        val platform: LoginPlatform = when (req.getParameter("platform")) {
+            "mobile" -> LoginPlatform.MOBILE
+            "pc" -> LoginPlatform.PC
+            "web" -> LoginPlatform.WEB
+            "pad" -> LoginPlatform.PAD
+            else -> {
+                json["shortcut"] = "AE"
+                json["msg"] = "platform not allowed."
+                out.write(json.toJSONString())
+                return
+            }
+        }
+        if (ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty()) {
+            out.write(json(Shortcut.AE, "arguments mismatch."))
+            return
+        }
+        val auto = AutoLogin(ip, id, token, platform)
+        out.write(auto.submit())
+    }
+
+    private fun login(req: HttpServletRequest) {
+        val json = JSONObject()
+        val platform: LoginPlatform = when (req.getParameter("platform")) {
+            "mobile" -> LoginPlatform.MOBILE
+            "pc" -> LoginPlatform.PC
+            "web" -> LoginPlatform.WEB
+            "pad" -> LoginPlatform.PAD
+            else -> {
+                json["shortcut"] = "AE"
+                json["msg"] = "platform not allowed."
+                out.write(json.toJSONString())
+                return
+            }
+        }
+        val login = Login(ip, platform)
+        when (req.getParameter("login_type")) {
+            "id" -> {
+                login.loginType = LoginType.ID
+                login.id = req.getParameter("id")
+                login.password = req.getParameter("password")
+                out.write(login.submit())
+            }
+            "nickname" -> {
+                login.loginType = LoginType.NICKNAME
+                login.nickname = req.getParameter("nickname")
+                login.password = req.getParameter("password")
+                out.write(login.submit())
+            }
+            "third_party" -> {
+                login.loginType = LoginType.THIRD_PARTY
+                login.id = req.getParameter("id")
+                login.apiKey = req.getParameter("api_key")
+                out.write(login.submit())
+            }
+            else -> {
+                json["shortcut"] = "AE"
+                json["msg"] = "invalid login_type."
+                out.write(json.toJSONString())
+                return
             }
         }
     }
@@ -253,8 +298,6 @@ class APIPublicUser: HttpServlet() {
 
 
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
-        ip = IP.getIPAddr(req!!)
-        resp?.writer?.write("API: APIPublicUser\nIP: $ip\n")
         doPost(req, resp)
     }
 
@@ -282,6 +325,7 @@ class APIPublicUser: HttpServlet() {
             }
 
             "test" -> {
+                // http://localhost:8080/community/api/public/user/test
                 test()
             }
 
@@ -293,9 +337,8 @@ class APIPublicUser: HttpServlet() {
 
 
     private fun test() {
-        val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-        val conf = FileReadUtil.readJson(jsonFile)
-        out.write(conf.toJSONString() ?: json(Shortcut.OTHER, "Failed"))
+        out.write(CONF.root + "\n")
+        out.write(CONF.conf.server)
     }
 
     private fun getPortrait(req: HttpServletRequest?, resp: HttpServletResponse?) {
@@ -313,11 +356,8 @@ class APIPublicUser: HttpServlet() {
             val rs = ps.executeQuery()
             if (rs.next()) {
                 val portrait = rs.getString("portrait")
-                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-                val conf = FileReadUtil.readJson(jsonFile)
-                val path = conf.getString("root") +"/${conf.getString("portrait")}/$portrait"
+                val path = conf.portrait + "/" + portrait
                 val inputStream = FileInputStream(path)
-
                 resp!!.reset()
                 val os = resp.outputStream
                 var len: Int
@@ -419,8 +459,6 @@ class APIBlog: HttpServlet() {
 
 
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
-//        val reqIP = APIUser.getIPAddr(req!!)?:"0.0.0.0"
-//        resp?.writer?.write("API: APIBlog\nIP: $reqIP\n")
         doPost(req, resp)
     }
 
@@ -440,18 +478,15 @@ class APIBlog: HttpServlet() {
             "test" -> {
                 // http://localhost:8080/community/api/blog/test
                 test()
-                return
             }
 
             "create" -> {
                 create(req)
-                return
             }
 
             "get" -> {
                 // http://localhost:8080/community/api/blog/get?id=746235507&type=json
                 getBlog(req)
-                return
             }
 
 
@@ -460,18 +495,15 @@ class APIBlog: HttpServlet() {
                 // http://localhost:8080/community/api/blog/list?type=id&from=1293637237&count=8 # id 为 `from` 之后日期的 count 条记录 &tag=?
                 // http://localhost:8080/community/api/blog/list?type=time&date=2019/8/25-03:24:52&count=2 # date 及之前日期的 count 条记录 &tag=?
                 getBlogList(req)
-                return
             }
 
             "picture" -> {
                 // http://localhost:8080/community/api/blog/picture?id=700642438&index=0
                 getBlogPic(req, resp)
-                return
             }
 
             else -> {
                 out.write(json(Shortcut.AE, "invalid request"))
-                return
             }
         }
     }
@@ -571,7 +603,7 @@ class APIBlog: HttpServlet() {
 
         try {
             val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
+            val ps = conn.prepareStatement("select * from blog where blog_id = ? and status = 'normal' limit 1")
             ps.setString(1, blogId)
             val rs = ps.executeQuery()
             if (rs.next()) {
@@ -638,9 +670,7 @@ class APIBlog: HttpServlet() {
             ps.setString(1, blogId)
             val rs = ps.executeQuery()
             if (rs.next()) {
-                val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-                val conf = FileReadUtil.readJson(jsonFile)
-                val path = conf.getString("root") +"/${conf.getString("blog_pics")}/$blogId/$picKey"
+                val path = conf.blog + "/$blogId/$picKey"
                 val inputStream = FileInputStream(path)
 
                 resp!!.reset()
@@ -860,9 +890,8 @@ class APIBlog: HttpServlet() {
     }
 
     private fun test() {
-        val jsonFile = File(this.servletContext.getRealPath("/conf/dir"))
-        val conf = FileReadUtil.readJson(jsonFile)
-        out.write(conf.toJSONString() ?: json(Shortcut.OTHER, "Failed"))
+        out.write(CONF.root + "\n")
+        out.write(CONF.conf.server)
     }
 
 

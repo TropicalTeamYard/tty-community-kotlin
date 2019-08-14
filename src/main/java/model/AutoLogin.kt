@@ -5,7 +5,7 @@ import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.Shortcut
 import util.log.Log
-import util.phrase.Value
+import util.Value
 import java.sql.SQLException
 import java.util.*
 import kotlin.collections.HashMap

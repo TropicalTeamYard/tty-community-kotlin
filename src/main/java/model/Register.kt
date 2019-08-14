@@ -6,7 +6,7 @@ import util.enums.LoginPlatform
 import util.enums.Shortcut
 import util.log.Log
 import util.log.Token
-import util.phrase.Value
+import util.Value
 import java.sql.SQLException
 import java.util.*
 
@@ -43,7 +43,7 @@ class Register(
             ps.setString(7, email)
             ps.execute()
             ps.close()
-            ps = conn.prepareStatement("insert into user_detail (id, portrait, follower, following, personal_signature, account_status, exp, log) values (?, ?, ?, ?, ?, ?, ?, ?)")
+            ps = conn.prepareStatement("insert into user_detail (id, portrait, follower, following, personal_signature, account_status, exp, log, topic) values (?, ?, ?, ?, ?, ?, ?, ?, ?)")
             ps.setString(1, userId)
             ps.setString(2, "default")
             ps.setString(3, "000000")
@@ -52,6 +52,7 @@ class Register(
             ps.setString(6, "normal::0")
             ps.setInt(7, 20)
             ps.setString(8, "init\n")
+            ps.setString(9, "ALL")
             ps.execute()
             ps.close()
             ps = conn.prepareStatement("select id from user where nickname = ? limit 1")

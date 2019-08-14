@@ -3,7 +3,7 @@ package model
 import com.alibaba.fastjson.JSONObject
 import util.conn.MySQLConn
 import util.enums.Shortcut
-import util.phrase.Value
+import util.Value
 import java.sql.SQLException
 
 class UserInfo(

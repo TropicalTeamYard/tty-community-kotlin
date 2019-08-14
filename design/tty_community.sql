@@ -24,6 +24,7 @@ create table user_detail(
     user_group integer not null default 0,
     exp integer not null default 20,
     data blob,
+    topic blob not null,
     log longblob not null,
     settings json
 );

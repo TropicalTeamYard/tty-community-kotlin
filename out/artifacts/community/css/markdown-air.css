@@ -158,7 +158,7 @@ img {
   margin: 0 auto;
   width: auto;
   object-fit: contain;
-  max-width: 590px;
+  max-width: 100%;
 }
 
 a,

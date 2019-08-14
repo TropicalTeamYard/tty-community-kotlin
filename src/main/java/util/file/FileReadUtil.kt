@@ -5,7 +5,7 @@ import java.io.*
 import java.nio.charset.StandardCharsets
 
 object FileReadUtil {
-    private fun readAll(file: File): String {
+    fun readAll(file: File): String {
         try {
             val fileReader = FileReader(file)
             val reader = InputStreamReader(FileInputStream(file), StandardCharsets.UTF_8)

@@ -4,23 +4,22 @@ import org.apache.commons.fileupload.FileItem
 import org.apache.commons.fileupload.FileUploadException
 import org.apache.commons.fileupload.disk.DiskFileItemFactory
 import org.apache.commons.fileupload.servlet.ServletFileUpload
-import servlet.APIUser
+import util.CONF.Companion.conf
+import util.Value
 import util.conn.MySQLConn
 import util.enums.Shortcut
 import util.file.FileReadUtil
 import util.log.Log
-import util.phrase.Value.json
-import util.phrase.Value.random
+import util.Value.json
+import util.Value.random
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.sql.SQLException
 import java.util.*
 import javax.servlet.http.HttpServletRequest
-import kotlin.collections.HashMap
 
 class PortraitUpdater(private val req: HttpServletRequest) {
-    private val conf = FileReadUtil.readJson(File(req.servletContext.getRealPath("/conf/dir")))
     private val factory = DiskFileItemFactory()
     private val fileUpload = ServletFileUpload(factory)
     private var list: MutableList<FileItem>? = null
@@ -71,7 +70,7 @@ class PortraitUpdater(private val req: HttpServletRequest) {
                                 if (field == "portrait") {
                                     try {
                                         val file = File(name)
-                                        val outFile = File(conf.getString("root") + "/${conf.getString("portrait")}", file.name)
+                                        val outFile = File(conf.portrait, file.name)
                                         outFile.parentFile.mkdirs()
                                         outFile.createNewFile()
 

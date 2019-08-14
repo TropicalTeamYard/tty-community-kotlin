@@ -7,7 +7,7 @@ import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType
 import util.enums.Shortcut
-import util.phrase.Value
+import util.Value
 import java.sql.PreparedStatement
 import java.sql.SQLException
 import java.util.*
