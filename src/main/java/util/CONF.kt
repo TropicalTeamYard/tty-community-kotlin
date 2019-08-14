@@ -21,7 +21,7 @@ class CONF(
     }
 
     companion object {
-        private val mode = MODE.DEBUG
+        private val mode = MODE.RELEASE
 
         val root: String
             get() {

@@ -2,12 +2,20 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
+      <artifact name="community" />
       <artifact name="community:exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Register.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Register.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/CONF.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/CONF.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/Shortcut.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/enums/Shortcut.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +67,15 @@
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="user_detail: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="community@server" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
@@ -77,6 +94,9 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="TTY-Community-Kotlin" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -327,6 +347,16 @@
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7845066a" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@30b12e12" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7845066a" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@4051b7de" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@66c013a5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
@@ -339,6 +369,13 @@
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@66c013a5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@41a28c5b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@32e21dab" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@66c013a5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@41a28c5b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@32e21dab" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@d0921cb" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />

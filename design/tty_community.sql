@@ -25,6 +25,7 @@ create table user_detail(
     exp integer not null default 20,
     data blob,
     topic blob not null,
+    school text,
     log longblob not null,
     settings json
 );

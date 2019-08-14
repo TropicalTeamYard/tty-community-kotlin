@@ -5,6 +5,8 @@ import util.log.Log
 import util.conn.MySQLConn
 import util.enums.Shortcut
 import util.Value
+import util.enums.LoginPlatform
+import util.log.Token
 import java.sql.SQLException
 import java.util.*
 import kotlin.collections.HashMap
@@ -91,13 +93,6 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     }
 }
 
-class ChangePortrait(val id: String, private val token: String, var ip: String) {
-    private val date = Date()
-    fun submit(): String{
-        TODO()
-    }
-}
-
 class ChangePassword(private var id: String, private var oldPassword: String, private var newPassword: String, var ip: String) {
 
     private val conn = MySQLConn.connection
@@ -109,13 +104,15 @@ class ChangePassword(private var id: String, private var oldPassword: String, pr
             ps.setString(1, id)
             val rs = ps.executeQuery()
             if (rs.next()){
+                val token = Token.getToken(id, LoginPlatform.MOBILE, "7894556", Date(), false)
                 val password = rs.getString("password")
                 if (password == oldPassword){
                     rs.close()
                     ps.close()
-                    ps = conn.prepareStatement("update user set password = ? where id = ?")
+                    ps = conn.prepareStatement("update user set password = ?, token = ? where id = ?")
                     ps.setString(1, newPassword)
-                    ps.setString(2, id)
+                    ps.setString(2, token)
+                    ps.setString(3, id)
                     ps.executeUpdate()
                     ps.close()
 

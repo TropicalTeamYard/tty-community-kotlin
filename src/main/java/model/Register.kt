@@ -9,6 +9,7 @@ import util.log.Token
 import util.Value
 import java.sql.SQLException
 import java.util.*
+import java.util.regex.Pattern
 
 
 class Register(
@@ -18,7 +19,11 @@ class Register(
     private val password: String
 ) {
     fun submit(): String {
-        //TODO CHECK WHETHER USER INFO IS VALID
+        //DONE CHECK WHETHER USER INFO IS VALID
+        if (!nickname.checkNicknameValid() || !email.checkEmailValid()) {
+            return json(Shortcut.AIF, "the incorrect format of username or email")
+        }
+
         val conn = MySQLConn.connection
         try {
             var ps = conn.prepareStatement("select * from user where nickname = ?")
@@ -107,5 +112,14 @@ class Register(
             if(data!=null){map["data"] = JSONObject(data as Map<String, Any>?)}
             return map.toJSONString()
         }
+
+        private fun String.checkNicknameValid(): Boolean{
+            return Pattern.matches("^[a-zA-Z0-9\\u4e00-\\u9fa5]+$", this)
+        }
+
+        private fun String.checkEmailValid(): Boolean {
+            return Pattern.matches("^[A-Za-z0-9\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+\$", this)
+        }
+
     }
 }

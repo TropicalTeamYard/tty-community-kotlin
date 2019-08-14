@@ -5,5 +5,6 @@ enum class Shortcut{
     UNE, UPE,
     TE,
     BNE,
+    AIF,
     OTHER
 }
