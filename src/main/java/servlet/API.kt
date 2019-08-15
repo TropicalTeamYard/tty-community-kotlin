@@ -617,7 +617,7 @@ class APIBlog: HttpServlet() {
                 data["author_id"] = rs.getString("author_id")
                 data["nickname"] = User.getNickname(data["author_id"]?:"000000")
                 data["title"] = rs.getString("title")
-                data["introduction"] = rs.getString("introduction")
+                data["introduction"] = rs.getString("introduction").replace("####blog_id####", blogId)
                 val content = rs.getBlob("content").string().replace("####blog_id####", blogId)
                 data["tag"] = rs.getString("tag")
                 data["comment"] = rs.getBlob("comment").string()
@@ -746,7 +746,7 @@ class APIBlog: HttpServlet() {
 
                     val blogList = getBlogs(ps)
 
-                    val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
+                    val json = jsonBlogOutline(Shortcut.OK, "get blog list successfully.", blogList)
                     out.write(json)
 
                     return
@@ -768,7 +768,7 @@ class APIBlog: HttpServlet() {
                                 ps.setString(2, "%$tag%")
                                 ps.setInt(3, count)
                                 val blogList = getBlogs(ps)
-                                val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
+                                val json = jsonBlogOutline(Shortcut.OK, "get blog list successfully.", blogList)
                                 out.write(json)
                                 return
                             } else {
@@ -826,7 +826,7 @@ class APIBlog: HttpServlet() {
             val author = rs.getString("author_id")
             val nickname = User.getNickname(author)
             val title = rs.getString("title").replace("####nickname####", nickname)
-            val introduction = rs.getString("introduction")
+            val introduction = rs.getString("introduction").replace("####blog_id####", blogId)
             val tag = rs.getString("tag")
             val lastActiveTime = rs.getTimestamp("last_active_time")
             val blog = Blog.Outline(

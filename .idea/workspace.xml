@@ -8,34 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/Value.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/phrase/BlogRequestPhrase.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/phrase/IP.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/phrase/Markdown2Html.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/phrase/PortraitUpdater.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/html/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/html/template.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Blog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Blog.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Value.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Value.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/phrase/BlogRequestPhrase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/BlogRequestParse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/phrase/IP.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/IP.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/phrase/Markdown2Html.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/Markdown2Html.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/phrase/PortraitUpdater.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/PortraitUpdater.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/html/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/html/template.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -393,7 +368,7 @@
       <workItem from="1565264905151" duration="25487000" />
       <workItem from="1565349979005" duration="32330000" />
       <workItem from="1565681523260" duration="39204000" />
-      <workItem from="1565848870158" duration="6023000" />
+      <workItem from="1565848870158" duration="11711000" />
     </task>
     <servers />
   </component>
