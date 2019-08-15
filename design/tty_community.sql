@@ -17,8 +17,8 @@ create table user_detail(
     _id integer primary key auto_increment,
     id varchar(32) not null unique,
     portrait text not null,
-    follower text not null,
-    following text not null,
+    follower blob not null,
+    following blob not null,
     personal_signature text not null,
     account_status text not null,
     user_group integer not null default 0,
@@ -34,6 +34,7 @@ create table blog(
     _id integer primary key auto_increment,
     blog_id varchar(32) not null unique,
     author_id varchar(32) not null,
+    type integer not null default 0,
     title text not null,
     introduction text not null,
     content blob not null,
@@ -41,7 +42,7 @@ create table blog(
     comment blob not null,
     likes blob not null,
     last_edit_time datetime not null,
-    last_active_time datetime not null, #todo
+    last_active_time datetime not null,
     status text not null,
     data blob,
     log longblob not null

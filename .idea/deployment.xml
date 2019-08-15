@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Ubuntu">
+  <component name="PublishConfigData" showNewOnTargetInSync="false">
     <serverData>
       <paths name="47.102.200.155">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/" local="$PROJECT_DIR$/out/artifacts" web="/" />
           </mappings>
-        </serverdata>
-      </paths>
-      <paths name="Ubuntu">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/app/apache-tomcat-8.5.43/webapps/community" local="$PROJECT_DIR$" web="/community" />
-          </mappings>
+          <excludedPaths>
+            <excludedPath path="/docs" />
+            <excludedPath path="/examples" />
+            <excludedPath path="/host-manager" />
+            <excludedPath path="/manager" />
+            <excludedPath path="/ROOT" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

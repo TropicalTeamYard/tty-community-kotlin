@@ -3,20 +3,25 @@ package servlet
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import model.*
+import model.Blog.Companion.Type.Companion.parse
+import model.Blog.Companion.Type.Companion.value
+import util.Value
 import util.CONF
 import util.CONF.Companion.conf
-import util.Value
+import util.Value.string
+import util.Value.json
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType
 import util.enums.Shortcut
-import util.file.FileReadUtil
 import util.log.Log
-import util.phrase.*
-import util.Value.json
-import java.io.File
+import util.parse.BlogRequestParse
+import util.parse.IP
+import util.parse.Markdown2Html
+import util.parse.PortraitUpdater
 import java.io.FileInputStream
 import java.io.PrintWriter
+import java.sql.PreparedStatement
 import java.sql.SQLException
 import java.sql.Timestamp
 import javax.servlet.annotation.WebServlet
@@ -481,6 +486,7 @@ class APIBlog: HttpServlet() {
             }
 
             "create" -> {
+                // http://localhost:8080/community/api/blog/create
                 create(req)
             }
 
@@ -513,19 +519,18 @@ class APIBlog: HttpServlet() {
         val date = java.util.Date()
         val time = Timestamp(date.time)
         val params: HashMap<String, String>
-        val reqMaps = BlogRequestPhrase(req!!)
+        val reqMaps = BlogRequestParse(req!!)
         params = reqMaps.getField()
-
         val id = params["id"]
         val token = params["token"]
-        val type = params["type"]
+        val type = params["type"].parse
         val title = params["title"]
         val introduction = params["introduction"]
         val content = params["content"]
         val tag = params["tag"]
         val filesCount = params["file_count"]
 
-        if (ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty() || type.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || tag.isNullOrEmpty() || filesCount.isNullOrEmpty()) {
+        if (ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || tag.isNullOrEmpty() || filesCount.isNullOrEmpty()) {
             out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
@@ -540,20 +545,21 @@ class APIBlog: HttpServlet() {
             if (rs.next() && token == Value.getMD5(rs.getString("token"))) {
                 rs.close()
                 ps.close()
-                ps = conn.prepareStatement("insert into blog (blog_id, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                ps = conn.prepareStatement("insert into blog (blog_id, type, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
                 ps.setString(1, blogId)
-                ps.setString(2, id)
-                ps.setString(3, title)
-                ps.setString(4, introduction)
-                ps.setString(5, content)
-                ps.setString(6, tag)
-                ps.setTimestamp(7, time) // last_edit_time
-                ps.setTimestamp(8, time) // last_active_time
-                ps.setString(9, "normal") // status
-                ps.setString(10, "files:$filesCount") // data
-                ps.setString(11, "init\n") // log
-                ps.setString(12, "") // comment
-                ps.setString(13, "") // likes
+                ps.setInt(2, type.value)
+                ps.setString(3, id)
+                ps.setString(4, title)
+                ps.setString(5, introduction)
+                ps.setString(6, content)
+                ps.setString(7, tag)
+                ps.setTimestamp(8, time) // last_edit_time
+                ps.setTimestamp(9, time) // last_active_time
+                ps.setString(10, "normal") // status
+                ps.setString(11, "") // data
+                ps.setString(12, "init\n") // log
+                ps.setString(13, "") // comment
+                ps.setString(14, "") // likes
                 ps.execute()
                 ps.close()
                 ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
@@ -612,16 +618,17 @@ class APIBlog: HttpServlet() {
                 data["nickname"] = User.getNickname(data["author_id"]?:"000000")
                 data["title"] = rs.getString("title")
                 data["introduction"] = rs.getString("introduction")
-                val content = Value.blob2String(rs.getBlob("content")).replace("####blog_id####", blogId)
+                val content = rs.getBlob("content").string().replace("####blog_id####", blogId)
                 data["tag"] = rs.getString("tag")
-                data["comment"] = Value.blob2String(rs.getBlob("comment"))
-                data["likes"] = Value.blob2String(rs.getBlob("likes"))
+                data["comment"] = rs.getBlob("comment").string()
+                data["likes"] = rs.getBlob("likes").string()
                 data["last_edit_time"] = Value.getTime(rs.getTimestamp("last_edit_time"))
-                data["data"] = Value.blob2String(rs.getBlob("data"))
+                data["last_active_time"] = Value.getTime(rs.getTimestamp("last_active_time"))
+                data["data"] = rs.getBlob("data").string()
 
                 when (type) {
                     ShowBlogType.JSON -> {
-                        data["content"] = Markdown2Html.parse(content)
+                        data["content"] = content
                         out.write(json(Shortcut.OK, "return blog successfully", data))
                     }
 
@@ -634,6 +641,7 @@ class APIBlog: HttpServlet() {
                             .replace("####title####", "${data["title"]}")
                             .replace("####nickname####", "${data["nickname"]}")
                             .replace("####last_edit_time####", "${data["last_edit_time"]}")
+                            .replace("####last_active_time####", "${data["last_active_time"]}")
                             .replace("####introduction####", "${data["introduction"]}")
                             .replace("####content####", "${data["content"]}")
 
@@ -730,38 +738,13 @@ class APIBlog: HttpServlet() {
             val conn = MySQLConn.connection
             when (type) {
                 GetBlogByType.Time -> {
-                    val blogList = ArrayList<Blog.Outline>()
-                    var index = 0
-                    val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time <= ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
+
+                    val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time <= ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
                     ps.setTimestamp(1, Timestamp(date!!.time))
                     ps.setString(2, "%$tag%")
                     ps.setInt(3, count)
-                    val rs = ps.executeQuery()
-                    while (rs.next()) {
-                        val blogId = rs.getString("blog_id")
-                        val author = rs.getString("author_id")
-                        val nickname = User.getNickname(author)
-                        val title = rs.getString("title").replace("####nickname####", nickname)
-                        val introduction = rs.getString("introduction")
-                        val allTag = rs.getString("tag")
-                        val lastActiveTime = rs.getTimestamp("last_active_time")
-                        val blog = Blog.Outline(
-                            blogId,
-                            author,
-                            title,
-                            introduction,
-                            allTag,
-                            lastActiveTime,
-                            nickname
-                        )
-                        blog.index = index
-                        index++
 
-                        blogList.add(blog)
-
-                    }
-                    rs.close()
-                    ps.close()
+                    val blogList = getBlogs(ps)
 
                     val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
                     out.write(json)
@@ -771,12 +754,8 @@ class APIBlog: HttpServlet() {
 
                 GetBlogByType.Id -> {
 
-                    val blogList = ArrayList<Blog.Outline>()
-                    var index = 0
-
                     when {
                         from != null -> {
-
                             val ps1 = conn.prepareStatement("select last_active_time from blog where blog_id = ?")
                             ps1.setString(1, from)
                             val rs1 = ps1.executeQuery()
@@ -784,40 +763,14 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time > ? and status = 'normal' and tag like ? order by last_active_time limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time > ? and status = 'normal' and tag like ? order by last_active_time limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setString(2, "%$tag%")
                                 ps.setInt(3, count)
-                                val rs = ps.executeQuery()
-                                while (rs.next()) {
-                                    val blogId = rs.getString("blog_id")
-                                    val author = rs.getString("author_id")
-                                    val nickname = User.getNickname(author)
-                                    val title = rs.getString("title").replace("####nickname####", nickname)
-                                    val introduction = rs.getString("introduction")
-                                    val allTag = rs.getString("tag")
-                                    val lastActiveTime = rs.getTimestamp("last_active_time")
-                                    val blog = Blog.Outline(
-                                        blogId,
-                                        author,
-                                        title,
-                                        introduction,
-                                        allTag,
-                                        lastActiveTime,
-                                        nickname
-                                    )
-                                    blog.index = index
-                                    index++
-
-                                    blogList.add(blog)
-
-                                }
-                                rs.close()
-                                ps.close()
+                                val blogList = getBlogs(ps)
                                 val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
                                 out.write(json)
                                 return
-
                             } else {
                                 rs1.close()
                                 ps1.close()
@@ -833,37 +786,12 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, title, introduction, tag, last_active_time from blog where last_active_time < ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
+                                val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time < ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setString(2, "%$tag%")
                                 ps.setInt(3, count)
-                                val rs = ps.executeQuery()
-                                while (rs.next()) {
-                                    val blogId = rs.getString("blog_id")
-                                    val author = rs.getString("author_id")
-                                    val nickname = User.getNickname(author)
-                                    val title = rs.getString("title").replace("####nickname####", nickname)
-                                    val introduction = rs.getString("introduction")
-                                    val allTag = rs.getString("tag")
-                                    val lastActiveTime = rs.getTimestamp("last_active_time")
-                                    val blog = Blog.Outline(
-                                        blogId,
-                                        author,
-                                        title,
-                                        introduction,
-                                        allTag,
-                                        lastActiveTime,
-                                        nickname
-                                    )
-                                    blog.index = index
-                                    index++
-
-                                    blogList.add(blog)
-
-                                }
-                                rs.close()
-                                ps.close()
-                                val json = jsonBlogOutline(Shortcut.OK, "return blog list successfully.", blogList)
+                                val blogList = getBlogs(ps)
+                                val json = jsonBlogOutline(Shortcut.OK, "get blog list successfully.", blogList)
                                 out.write(json)
                                 return
 
@@ -886,7 +814,40 @@ class APIBlog: HttpServlet() {
             out.write(json(Shortcut.OTHER, "SQL ERROR"))
         }
 
+    }
 
+    private fun getBlogs(ps: PreparedStatement): ArrayList<Blog.Outline> {
+        val blogList = ArrayList<Blog.Outline>()
+        var index = 0
+        val rs = ps.executeQuery()
+        while (rs.next()) {
+            val blogId = rs.getString("blog_id")
+            val type = rs.getInt("type")
+            val author = rs.getString("author_id")
+            val nickname = User.getNickname(author)
+            val title = rs.getString("title").replace("####nickname####", nickname)
+            val introduction = rs.getString("introduction")
+            val tag = rs.getString("tag")
+            val lastActiveTime = rs.getTimestamp("last_active_time")
+            val blog = Blog.Outline(
+                blogId,
+                type.toString(),
+                author,
+                title,
+                introduction,
+                tag,
+                lastActiveTime,
+                nickname
+            )
+            blog.index = index
+            index++
+
+            blogList.add(blog)
+
+        }
+        rs.close()
+        ps.close()
+        return blogList
     }
 
     private fun test() {

@@ -1,4 +1,4 @@
-package util.phrase
+package util.parse
 
 import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.html.HtmlRenderer

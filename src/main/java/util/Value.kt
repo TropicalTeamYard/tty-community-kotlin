@@ -12,7 +12,6 @@ import java.sql.SQLException
 import java.text.SimpleDateFormat
 import kotlin.experimental.and
 import java.io.IOException
-import java.io.FileInputStream
 import java.text.ParseException
 import java.util.*
 import kotlin.collections.HashMap
@@ -26,15 +25,15 @@ object Value {
         }
 
     @Throws(SQLException::class, IOException::class)
-    fun blob2String(blob: Blob): String {
-        val reString: String
-        val inputStream = blob.binaryStream
+    fun Blob.string(): String {
+        val str: String
+        val inputStream = binaryStream
         val byteArrayInputStream = inputStream as ByteArrayInputStream
         val byteData = ByteArray(byteArrayInputStream.available()) //byteArrayInputStream.available()返回此输入流的字节数
         byteArrayInputStream.read(byteData, 0, byteData.size) //将输入流中的内容读到指定的数组
-        reString = String(byteData, StandardCharsets.UTF_8) //再转为String，并使用指定的编码方式
+        str = String(byteData, StandardCharsets.UTF_8) //再转为String，并使用指定的编码方式
         inputStream.close()
-        return reString
+        return str
     }
 
     fun getTime(date: Date): String {

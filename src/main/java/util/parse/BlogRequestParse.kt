@@ -1,17 +1,16 @@
-package util.phrase
+package util.parse
 
 import org.apache.commons.fileupload.FileItem
 import org.apache.commons.fileupload.FileUploadException
 import org.apache.commons.fileupload.disk.DiskFileItemFactory
 import org.apache.commons.fileupload.servlet.ServletFileUpload
 import util.CONF.Companion.conf
-import util.file.FileReadUtil
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import javax.servlet.http.HttpServletRequest
 
-class BlogRequestPhrase (req: HttpServletRequest){
+class BlogRequestParse (req: HttpServletRequest){
     private val files = HashMap<String, File>()
     private val factory = DiskFileItemFactory()
     private val fileUpload = ServletFileUpload(factory)
