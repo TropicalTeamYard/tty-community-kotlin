@@ -11,26 +11,28 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeDetailInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeDetailInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/DetailInfoType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/UserInfoType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/AutoLogin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/AutoLogin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/log/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/log/Log.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/BlogRequestParse.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Login.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Login.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Register.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Register.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/UserInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/UserInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/API.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/CONF.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/CONF.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/API.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/APITopic.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/Value.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Value.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/conn/MySQLConn.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/conn/MySQLConn.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/LoginPlatform.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/enums/LoginPlatform.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/Shortcut.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/enums/Shortcut.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/log/Log.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/log/Log.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/parse/BlogRequestParse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/BlogRequestParse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/parse/PortraitUpdater.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/PortraitUpdater.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/parse/BlogRequestParse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/BlogRequestParser.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +58,41 @@
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="topic: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="community@server" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
@@ -68,6 +105,13 @@
         <item name="community@server" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="community@server" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="topic: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -117,7 +161,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/css" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/temp/tty_community_topic.sql" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -136,18 +180,12 @@
     <key name="KotlinExtractSuperclassDialog.RECENT_KEYS">
       <recent name="model" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util\log" />
-      <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\servlet" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
-    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="model" />
+      <recent name="util.enums" />
+      <recent name="servlet" />
       <recent name="util" />
       <recent name="util.phrase" />
-      <recent name="util.file" />
-      <recent name="util.enums" />
-      <recent name="util.conn" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\web\css" />
@@ -157,6 +195,12 @@
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="util" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util\log" />
+      <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\servlet" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -328,39 +372,39 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3220041f" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@78c116cc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3220041f" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@4a2423a6" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@78c116cc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@5fff05a7" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3220041f" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@64fb38e7" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@78c116cc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@3b902e2a" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7cae064" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@23d46234" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7cae064" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3e3785fa" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@23d46234" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@22268121" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7cae064" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3e3785fa" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@4f57d82a" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@23d46234" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@22268121" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3f89c9e5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7cae064" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3e3785fa" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@4f57d82a" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@39deed76" type="9fbbdea:ServiceModel$ServiceNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@23d46234" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@22268121" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3f89c9e5" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@1de33b0f" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -401,7 +445,8 @@
       <workItem from="1565264905151" duration="25487000" />
       <workItem from="1565349979005" duration="32330000" />
       <workItem from="1565681523260" duration="39204000" />
-      <workItem from="1565848870158" duration="13584000" />
+      <workItem from="1565848870158" duration="15928000" />
+      <workItem from="1565886363834" duration="3629000" />
     </task>
     <servers />
   </component>

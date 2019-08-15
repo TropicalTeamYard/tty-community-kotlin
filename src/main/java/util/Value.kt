@@ -14,6 +14,7 @@ import java.sql.SQLException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.HashMap
 import kotlin.experimental.and
 
 object Value {
@@ -95,4 +96,17 @@ object Value {
 
     fun random() = ("${Date().time}${(10000000..99999999).random()}".hashCode() and Integer.MAX_VALUE).toString()
 
+    fun Map<String, Array<String>>.getFields(): HashMap<String, String> {
+        val fields = HashMap<String, String>()
+        for (item in this) {
+            val key = item.key
+            val value = item.value[0]
+            if (value.isEmpty()) {
+                continue
+            }
+            fields[item.key] = item.value[0]
+        }
+
+        return fields
+    }
 }

@@ -1,10 +1,10 @@
 package util.log
 
-import model.UserInfoType
 import util.Value
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType
+import util.enums.UserInfoType
 import java.util.*
 
 object Log {
@@ -36,15 +36,7 @@ object Log {
         logUser(id, log)
     }
 
-    fun changeUserInfo(
-        id: String,
-        date: Date,
-        ip: String,
-        status: Boolean,
-        before: String? = null,
-        after: String? = null,
-        target: UserInfoType? = null
-    ) {
+    fun changeUserInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: UserInfoType? = null) {
         val log = "user::change_info::${
         when (status) {
             true -> "success::time=${Value.getTime(date)}::ip=$ip::target=${target
@@ -65,15 +57,7 @@ object Log {
         logUser(id, log)
     }
 
-    fun changeUserDetailInfo(
-        id: String,
-        date: Date,
-        ip: String,
-        status: Boolean,
-        before: String? = null,
-        after: String? = null,
-        target: String? = null
-    ) {
+    fun changeUserDetailInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: String? = null) {
         val log = "user::change_info::ip=$ip::${
         when (status) {
             true -> "success::time=${Value.getTime(date)}::target=${target ?: "default"}::before=$before::after=$after"
@@ -93,7 +77,6 @@ object Log {
         logUser(id, log)
     }
 
-
     fun createBlog(id: String, date: Date, ip: String, status: Boolean, blogId: String? = null) {
         val user = "blog::create::${
         when (status) {
@@ -110,6 +93,27 @@ object Log {
         }
 
 
+    }
+
+    fun editBlog() {
+        // TODO
+    }
+
+
+    fun createTopic(id: String, date: Date, ip: String, status: Boolean, topicId: String? = null, name: String? = null) {
+        val user = "topic::create::${
+        when (status) {
+            true -> "success::ip=$ip::date=${Value.getTime(date)}::topicId=$topicId::name=$name"
+            false -> "failed::ip=$ip::date=${Value.getTime(date)}"
+        }
+        }\n"
+
+        logUser(id, user)
+
+        if (status && topicId != null && name != null) {
+            val blog = "topic::create::success::date=${Value.getTime(date)}::ip=$ip::admin=$id::topicId=$topicId::name=$name\n"
+            logTopic(topicId, blog)
+        }
     }
 
 
@@ -130,12 +134,15 @@ object Log {
         ps.executeUpdate()
         ps.close()
     }
-}
 
-
-internal object Token {
-    //id platform secret time
-    fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date, status: Boolean): String {
-        return "$id::${platform.name}::$secret::${Value.getTime(time)}::$status"
+    private fun logTopic(topicId: String, log: String) {
+        val conn = MySQLConn.connection
+        val ps = conn.prepareStatement("update topic set log = concat(?, log) where topic_id = ?")
+        ps.setString(1, log)
+        ps.setString(2, topicId)
+        ps.executeUpdate()
+        ps.close()
     }
 }
+
+

@@ -52,7 +52,7 @@ create table topic(
     _id integer auto_increment primary key,
     topic_id varchar(32) not null unique,
     name varchar(32) not null unique,
-    introduce text not null,
+    introduction text not null,
     picture text not null,
     follower blob not null,
     parent varchar(32) not null,
