@@ -10,7 +10,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import javax.servlet.http.HttpServletRequest
 
-class BlogRequestParse (req: HttpServletRequest){
+class BlogRequestParse(req: HttpServletRequest) {
     private val files = HashMap<String, File>()
     private val factory = DiskFileItemFactory()
     private val fileUpload = ServletFileUpload(factory)

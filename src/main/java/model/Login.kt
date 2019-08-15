@@ -1,13 +1,13 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
-import util.log.Log
-import util.log.Token
+import util.Value
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType
 import util.enums.Shortcut
-import util.Value
+import util.log.Log
+import util.log.Token
 import java.sql.PreparedStatement
 import java.sql.SQLException
 import java.util.*
@@ -24,18 +24,18 @@ class Login(
     var loginType: LoginType? = null
     private val loginTime = Date()
 
-    fun submit(): String{
+    fun submit(): String {
         val conn = MySQLConn.connection
-        if(ip.isEmpty()||ip == "0.0.0.0"
+        if (ip.isEmpty() || ip == "0.0.0.0"
             || loginType == null || (loginType == LoginType.ID && (id.isNullOrEmpty() || password.isNullOrEmpty()))
             || (loginType == LoginType.NICKNAME && (nickname.isNullOrEmpty()) || password.isNullOrEmpty())
             || (loginType == LoginType.THIRD_PARTY && (id.isNullOrEmpty() || apiKey.isNullOrEmpty()))
-        ){
+        ) {
             return json(Shortcut.AE, "arguments mismatch.")
         } else {
             try {
                 var ps: PreparedStatement? = null
-                when(loginType){
+                when (loginType) {
                     LoginType.ID -> {
                         ps = conn.prepareStatement("select * from user where id = ? and password = ? limit 1")
                         ps.setString(1, id)
@@ -53,9 +53,9 @@ class Login(
 
                 var rs = ps!!.executeQuery()
 
-                if(rs.next()){
+                if (rs.next()) {
                     val data = HashMap<String, String>()
-                    id = rs.getString("id")?:"null"
+                    id = rs.getString("id") ?: "null"
                     nickname = rs.getString("nickname")
                     data["id"] = id!!
                     data["nickname"] = nickname!!
@@ -63,20 +63,21 @@ class Login(
                     rs.close()
                     ps.close()
                     val token = Token.getToken(id!!, platform, "123456", loginTime, true)
-                    ps = conn.prepareStatement("update user set last_login_time = ?, last_login_ip = ?, token = ?  where id = ?")
+                    ps =
+                        conn.prepareStatement("update user set last_login_time = ?, last_login_ip = ?, token = ?  where id = ?")
                     ps.setString(1, Value.getTime(loginTime))
                     ps.setString(2, ip)
                     ps.setString(3, token)
                     ps.setString(4, id)
                     ps.executeUpdate()
                     Log.login(id!!, loginTime, ip, loginType!!, platform)
-                    data["token"] = Value.getMD5(token)?:"00000000000000000000000000000000"
+                    data["token"] = Value.getMD5(token) ?: "00000000000000000000000000000000"
                     ps.close()
                     return json(Shortcut.OK, "Ok, let's fun", data)
                 } else {
                     rs.close()
                     ps.close()
-                    when(loginType) {
+                    when (loginType) {
                         LoginType.ID -> {
                             Log.loginFailed(id!!, loginTime, ip, loginType!!, platform)
                         }
@@ -84,8 +85,8 @@ class Login(
                             ps = conn.prepareStatement("select id from user  where nickname = ?")
                             ps.setString(1, nickname)
                             rs = ps.executeQuery()
-                            if (rs.next()){
-                                id = rs.getString("id")?:"null"
+                            if (rs.next()) {
+                                id = rs.getString("id") ?: "null"
                                 Log.loginFailed(id!!, loginTime, ip, loginType!!, platform)
                             }
                             rs.close()
@@ -98,7 +99,7 @@ class Login(
                     return json(Shortcut.UPE, "wrong password.")
                 }
 
-            } catch (e: SQLException){
+            } catch (e: SQLException) {
                 e.printStackTrace()
                 return json(Shortcut.OTHER, "SQL ERROR")
             }
@@ -112,7 +113,9 @@ class Login(
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data!=null){map["data"] = JSONObject(data as Map<String, Any>?)}
+            if (data != null) {
+                map["data"] = JSONObject(data as Map<String, Any>?)
+            }
             return map.toJSONString()
         }
     }

@@ -1,8 +1,10 @@
 package model
 
+import util.Value
 import util.conn.MySQLConn
+import util.enums.Shortcut
 import java.sql.SQLException
-import java.util.Date
+import java.util.*
 
 class User {
     var id: String? = null
@@ -34,6 +36,32 @@ class User {
             }
 
             return nickname
+        }
+
+        fun checkAuthorization(id: String, token: String): Shortcut {
+            val conn = MySQLConn.connection
+            try {
+                val ps = conn.prepareStatement("select * from user where id = ?")
+                ps.setString(1, id)
+                val rs = ps.executeQuery()
+                return if (rs.next()) {
+                    if (Value.getMD5(rs.getString("token")) == token) {
+                        rs.close()
+                        ps.close()
+                        Shortcut.OK
+                    } else {
+                        rs.close()
+                        ps.close()
+                        Shortcut.TE
+                    }
+                } else {
+                    ps.close()
+                    Shortcut.UPE
+                }
+            } catch (e: SQLException) {
+                e.printStackTrace()
+                return Shortcut.OTHER
+            }
         }
     }
 }

@@ -5,11 +5,11 @@ import com.alibaba.fastjson.JSONObject
 import model.*
 import model.Blog.Companion.Type.Companion.parse
 import model.Blog.Companion.Type.Companion.value
-import util.Value
 import util.CONF
 import util.CONF.Companion.conf
-import util.Value.string
+import util.Value
 import util.Value.json
+import util.Value.string
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse
 
 
 @WebServlet(name = "api_user", urlPatterns = ["/api/user/*"])
-class APIUser: HttpServlet() {
+class APIUser : HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
 
@@ -40,7 +40,7 @@ class APIUser: HttpServlet() {
         doPost(req, resp)
     }
 
-    override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?){
+    override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
         resp?.characterEncoding = "utf-8"
         req?.characterEncoding = "utf-8"
         out = resp!!.writer
@@ -52,7 +52,7 @@ class APIUser: HttpServlet() {
             return
         }
 
-        when(route){
+        when (route) {
             "login" -> {
                 // http://localhost:8080/community/api/user/login?platform=web&login_type=id&id=2008153477&password=123456789
                 login(req)
@@ -297,12 +297,12 @@ class APIUser: HttpServlet() {
 }
 
 @WebServlet(name = "api_public_user", urlPatterns = ["/api/public/user/*"])
-class APIPublicUser: HttpServlet() {
+class APIPublicUser : HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
 
 
-    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
+    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
         doPost(req, resp)
     }
 
@@ -458,12 +458,12 @@ class APIPublicUser: HttpServlet() {
 }
 
 @WebServlet(name = "api_blog", urlPatterns = ["/api/blog/*"])
-class APIBlog: HttpServlet() {
+class APIBlog : HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
 
 
-    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?){
+    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
         doPost(req, resp)
     }
 
@@ -545,7 +545,8 @@ class APIBlog: HttpServlet() {
             if (rs.next() && token == Value.getMD5(rs.getString("token"))) {
                 rs.close()
                 ps.close()
-                ps = conn.prepareStatement("insert into blog (blog_id, type, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                ps =
+                    conn.prepareStatement("insert into blog (blog_id, type, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
                 ps.setString(1, blogId)
                 ps.setInt(2, type.value)
                 ps.setString(3, id)
@@ -565,7 +566,7 @@ class APIBlog: HttpServlet() {
                 ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
                 ps.setString(1, blogId)
                 rs = ps.executeQuery()
-                if(rs.next()) {
+                if (rs.next()) {
                     val data = HashMap<String, String>()
                     data["blogId"] = blogId
                     Log.createBlog(id, date, ip, true, blogId)
@@ -598,7 +599,7 @@ class APIBlog: HttpServlet() {
     private fun getBlog(req: HttpServletRequest?) {
         val map = req!!.parameterMap
         val blogId = map["id"]?.get(0)
-        val type = when(map["type"]?.get(0)) {
+        val type = when (map["type"]?.get(0)) {
             "json" -> ShowBlogType.JSON
             else -> ShowBlogType.HTML
         }
@@ -615,7 +616,7 @@ class APIBlog: HttpServlet() {
             if (rs.next()) {
                 val data = HashMap<String, String>()
                 data["author_id"] = rs.getString("author_id")
-                data["nickname"] = User.getNickname(data["author_id"]?:"000000")
+                data["nickname"] = User.getNickname(data["author_id"] ?: "000000")
                 data["title"] = rs.getString("title")
                 data["introduction"] = rs.getString("introduction").replace("####blog_id####", blogId)
                 val content = rs.getBlob("content").string().replace("####blog_id####", blogId)
@@ -717,19 +718,19 @@ class APIBlog: HttpServlet() {
     private fun getBlogList(req: HttpServletRequest?) {
         val map = req!!.parameterMap
         // type, count, date, from, to, tag
-        val type = when(map["type"]?.get(0)) {
+        val type = when (map["type"]?.get(0)) {
             "id" -> GetBlogByType.Id
             "time" -> GetBlogByType.Time
             else -> GetBlogByType.Default
         }
-        val tag: String = map["tag"]?.get(0)?:""
-        val count = map["count"]?.get(0)?.toInt()?:0
+        val tag: String = map["tag"]?.get(0) ?: ""
+        val count = map["count"]?.get(0)?.toInt() ?: 0
         val date = Value.getTime(map["date"]?.get(0))
         val from = map["from"]?.get(0)
         val to = map["to"]?.get(0)
 
 
-        if((type == GetBlogByType.Id && ((from.isNullOrEmpty() && to.isNullOrEmpty()) || count <= 0)) || (type == GetBlogByType.Time && (date == null || count <= 0)) || (type == GetBlogByType.Default)) {
+        if ((type == GetBlogByType.Id && ((from.isNullOrEmpty() && to.isNullOrEmpty()) || count <= 0)) || (type == GetBlogByType.Time && (date == null || count <= 0)) || (type == GetBlogByType.Default)) {
             out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
@@ -739,7 +740,8 @@ class APIBlog: HttpServlet() {
             when (type) {
                 GetBlogByType.Time -> {
 
-                    val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time <= ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
+                    val ps =
+                        conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time <= ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
                     ps.setTimestamp(1, Timestamp(date!!.time))
                     ps.setString(2, "%$tag%")
                     ps.setInt(3, count)
@@ -763,7 +765,8 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time > ? and status = 'normal' and tag like ? order by last_active_time limit ?")
+                                val ps =
+                                    conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time > ? and status = 'normal' and tag like ? order by last_active_time limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setString(2, "%$tag%")
                                 ps.setInt(3, count)
@@ -786,7 +789,8 @@ class APIBlog: HttpServlet() {
                                 val timestamp = rs1.getTimestamp("last_active_time")
                                 rs1.close()
                                 ps1.close()
-                                val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time < ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
+                                val ps =
+                                    conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time from blog where last_active_time < ? and status = 'normal' and tag like ? order by last_active_time desc limit ?")
                                 ps.setTimestamp(1, timestamp)
                                 ps.setString(2, "%$tag%")
                                 ps.setInt(3, count)
@@ -861,7 +865,7 @@ class APIBlog: HttpServlet() {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data != null){
+            if (data != null) {
                 map["data"] = JSONArray(data as List<Any>?)
             }
             return map.toJSONString()
@@ -874,6 +878,50 @@ class APIBlog: HttpServlet() {
 
     enum class ShowBlogType {
         JSON, HTML
+    }
+
+}
+
+@WebServlet(name = "api_topic", urlPatterns = ["/api/topic/*"])
+class APITopic : HttpServlet() {
+    private var ip: String = "0.0.0.0"
+    private lateinit var out: PrintWriter
+
+
+    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        doPost(req, resp)
+    }
+
+    override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
+        resp?.characterEncoding = "utf-8"
+        req?.characterEncoding = "utf-8"
+        out = resp!!.writer
+        ip = IP.getIPAddr(req!!)
+        val route = try {
+            req.requestURI.substring(21)
+        } catch (e: StringIndexOutOfBoundsException) {
+            out.write(json(Shortcut.AE, "invalid request"))
+            return
+        }
+
+        when (route) {
+
+
+            "test" -> {
+                // http://localhost:8080/community/api/topic/test
+                test()
+            }
+
+            else -> {
+                out.write(json(Shortcut.AE, "invalid request."))
+            }
+        }
+    }
+
+
+    private fun test() {
+        out.write(CONF.root + "\n")
+        out.write(CONF.conf.server)
     }
 
 }

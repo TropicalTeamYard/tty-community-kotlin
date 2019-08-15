@@ -1,11 +1,11 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
-import util.log.Log
-import util.conn.MySQLConn
-import util.enums.Shortcut
 import util.Value
+import util.conn.MySQLConn
 import util.enums.LoginPlatform
+import util.enums.Shortcut
+import util.log.Log
 import util.log.Token
 import java.sql.SQLException
 import java.util.*
@@ -16,21 +16,21 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     var changedItem: HashMap<UserInfoType, String> = HashMap()
     private val date = Date()
     var succeedItem: HashMap<String, String> = HashMap()
-    fun submit(): String{
+    fun submit(): String {
         val conn = MySQLConn.connection
         try {
             var ps = conn.prepareStatement("select  * from user where id = ? limit 1")
             ps.setString(1, id)
             val rs = ps.executeQuery()
-            if(rs.next()){
-                if(token == Value.getMD5(rs.getString("token"))){
+            if (rs.next()) {
+                if (token == Value.getMD5(rs.getString("token"))) {
                     val nicknameBefore = rs.getString("nickname")
                     val emailBefore = rs.getString("email")
                     rs.close()
                     ps.close()
 
-                    for(e in changedItem){
-                        when(e.key){
+                    for (e in changedItem) {
+                        when (e.key) {
                             UserInfoType.Email -> {
                                 ps = conn.prepareStatement("update user set email = ? where id = ?")
                                 ps.setString(1, e.value)
@@ -42,20 +42,29 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
                             }
                             UserInfoType.Nickname -> {
                                 val isNicknameRegistered = Register.checkNickname(e.value)
-                                if (!isNicknameRegistered){
+                                if (!isNicknameRegistered) {
                                     ps = conn.prepareStatement("update user set nickname = ? where id = ?")
                                     ps.setString(1, e.value)
                                     ps.setString(2, id)
                                     ps.executeUpdate()
                                     ps.close()
-                                    Log.changeUserInfo(id, date, ip, true, nicknameBefore, e.value, UserInfoType.Nickname)
+                                    Log.changeUserInfo(
+                                        id,
+                                        date,
+                                        ip,
+                                        true,
+                                        nicknameBefore,
+                                        e.value,
+                                        UserInfoType.Nickname
+                                    )
                                     succeedItem["nickname"] = e.value
                                 } else {
                                     Log.changeUserInfo(id, date, ip, false)
                                 }
 
                             }
-                            UserInfoType.Default -> {}
+                            UserInfoType.Default -> {
+                            }
                         }
                     }
 
@@ -81,11 +90,11 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     }
 
     companion object {
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String> ?= null): String {
+        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data!=null){
+            if (data != null) {
                 map["data"] = JSONObject(data as Map<String, Any>?)
             }
             return map.toJSONString()
@@ -93,20 +102,25 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
     }
 }
 
-class ChangePassword(private var id: String, private var oldPassword: String, private var newPassword: String, var ip: String) {
+class ChangePassword(
+    private var id: String,
+    private var oldPassword: String,
+    private var newPassword: String,
+    var ip: String
+) {
 
     private val conn = MySQLConn.connection
     private val date = Date()
 
-    fun submit(): String{
+    fun submit(): String {
         try {
             var ps = conn.prepareStatement("select * from user where id = ? limit 1")
             ps.setString(1, id)
             val rs = ps.executeQuery()
-            if (rs.next()){
+            if (rs.next()) {
                 val token = Token.getToken(id, LoginPlatform.MOBILE, "7894556", Date(), false)
                 val password = rs.getString("password")
-                if (password == oldPassword){
+                if (password == oldPassword) {
                     rs.close()
                     ps.close()
                     ps = conn.prepareStatement("update user set password = ?, token = ? where id = ?")
@@ -136,11 +150,11 @@ class ChangePassword(private var id: String, private var oldPassword: String, pr
     }
 
     companion object {
-        private fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+        private fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data!=null){
+            if (data != null) {
                 map["data"] = JSONObject(data as Map<String, Any>?)
             }
             return map.toJSONString()
@@ -152,14 +166,14 @@ class ChangePassword(private var id: String, private var oldPassword: String, pr
 class ChangeDetailInfo(private var id: String, private var token: String, private var ip: String) {
     var changedItem = HashMap<String, String>()
     var successItem = HashMap<String, String>()
-    fun submit(): String{
+    fun submit(): String {
         val conn = MySQLConn.connection
         val date = Date()
         try {
             var ps = conn.prepareStatement("select token from user where id = ? limit 1")
             ps.setString(1, id)
             var rs = ps.executeQuery()
-            if (rs.next() && Value.getMD5(rs.getString("token")) == token){
+            if (rs.next() && Value.getMD5(rs.getString("token")) == token) {
                 rs.close()
                 ps.close()
                 ps = conn.prepareStatement("select * from user_detail where id = ? limit 1")
@@ -167,7 +181,7 @@ class ChangeDetailInfo(private var id: String, private var token: String, privat
                 rs = ps.executeQuery()
                 rs.next()
                 for (item in changedItem) {
-                    if(DetailInfoType.items.contains(item.key)) {
+                    if (DetailInfoType.items.contains(item.key)) {
                         val valueBefore = rs.getString(item.key)
                         val ps1 = conn.prepareStatement("update user_detail set ${item.key} = ? where id = ?")
                         ps1.setString(1, item.value)
@@ -197,7 +211,7 @@ class ChangeDetailInfo(private var id: String, private var token: String, privat
     }
 }
 
-enum class UserInfoType{
+enum class UserInfoType {
     Email, Nickname, Default
 }
 

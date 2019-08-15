@@ -1,5 +1,5 @@
 package util.enums
 
-enum class LoginPlatform{
+enum class LoginPlatform {
     WEB, PC, MOBILE, PAD
 }

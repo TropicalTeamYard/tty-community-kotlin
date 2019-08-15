@@ -3,19 +3,18 @@ package util
 import com.alibaba.fastjson.JSONObject
 import util.enums.Shortcut
 import util.file.FileReadUtil
-import java.io.*
+import java.io.ByteArrayInputStream
+import java.io.File
+import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.sql.Blob
 import java.sql.SQLException
-import java.text.SimpleDateFormat
-import kotlin.experimental.and
-import java.io.IOException
 import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
-import java.io.File
+import kotlin.experimental.and
 
 object Value {
 
@@ -50,7 +49,7 @@ object Value {
         return try {
             val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss")
             sdf.parse(s)
-        } catch (e: ParseException){
+        } catch (e: ParseException) {
             null
         }
     }
@@ -74,7 +73,7 @@ object Value {
 
         for (b in byteArray) {
             resultCharArray[index++] = hexDigits[b.toInt().ushr(4) and 0xf]
-            resultCharArray[index++] = hexDigits[(b and 0xf).toInt() ]
+            resultCharArray[index++] = hexDigits[(b and 0xf).toInt()]
         }
 
         return String(resultCharArray)
@@ -84,7 +83,7 @@ object Value {
         val map = JSONObject()
         map["shortcut"] = shortcut.name
         map["msg"] = msg
-        if(data != null){
+        if (data != null) {
             map["data"] = JSONObject(data as Map<String, Any>?)
         }
         return map.toJSONString()

@@ -47,3 +47,16 @@ create table blog(
     data blob,
     log longblob not null
 );
+
+create table topic(
+    _id integer auto_increment primary key,
+    topic_id varchar(32) not null unique,
+    name varchar(32) not null unique,
+    introduce text not null,
+    picture text not null,
+    follower blob not null,
+    parent varchar(32) not null,
+    admin varchar(32) not null,
+    status text not null,
+    log longblob not null
+);

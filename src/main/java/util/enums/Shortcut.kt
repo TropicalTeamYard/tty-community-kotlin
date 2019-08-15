@@ -1,6 +1,6 @@
 package util.enums
 
-enum class Shortcut{
+enum class Shortcut {
     AE, FE, UR, OK,
     UNE, UPE,
     TE,

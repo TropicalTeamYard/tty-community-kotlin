@@ -5,8 +5,7 @@ import util.Value
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.LoginType
-
-import java.util.Date
+import java.util.*
 
 object Log {
     fun register(id: String, date: Date, ip: String, nickname: String) {
@@ -15,12 +14,14 @@ object Log {
     }
 
     fun login(id: String, date: Date, ip: String, loginType: LoginType, loginPlatform: LoginPlatform) {
-        val log = "user::login::success::time=${Value.getTime(date)}::login_type=${loginType.name}::platform=${loginPlatform.name}::ip=$ip\n"
+        val log =
+            "user::login::success::time=${Value.getTime(date)}::login_type=${loginType.name}::platform=${loginPlatform.name}::ip=$ip\n"
         logUser(id, log)
     }
 
     fun loginFailed(id: String, date: Date, ip: String, loginType: LoginType, loginPlatform: LoginPlatform) {
-        val log = "user::login::failed::time=${Value.getTime(date)}::login_type=${loginType.name}::platform=${loginPlatform.name}::ip=$ip\n"
+        val log =
+            "user::login::failed::time=${Value.getTime(date)}::login_type=${loginType.name}::platform=${loginPlatform.name}::ip=$ip\n"
         logUser(id, log)
     }
 
@@ -30,35 +31,53 @@ object Log {
     }
 
     fun autoLoginFailed(id: String, date: Date, ip: String, loginPlatform: LoginPlatform) {
-        val log = "user::auto_login::invalid_token::time=${Value.getTime(date)}::platform=${loginPlatform.name}::ip=$ip\n"
+        val log =
+            "user::auto_login::invalid_token::time=${Value.getTime(date)}::platform=${loginPlatform.name}::ip=$ip\n"
         logUser(id, log)
     }
 
-    fun changeUserInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: UserInfoType? = null)  {
+    fun changeUserInfo(
+        id: String,
+        date: Date,
+        ip: String,
+        status: Boolean,
+        before: String? = null,
+        after: String? = null,
+        target: UserInfoType? = null
+    ) {
         val log = "user::change_info::${
-            when(status){
-                true -> "success::time=${Value.getTime(date)}::ip=$ip::target=${target?:UserInfoType.Default.name}::before=$before::after=$after"
-                false -> "failed::time=${Value.getTime(date)}::ip=$ip::target=${target?:UserInfoType.Default.name}"
-            }
+        when (status) {
+            true -> "success::time=${Value.getTime(date)}::ip=$ip::target=${target
+                ?: UserInfoType.Default.name}::before=$before::after=$after"
+            false -> "failed::time=${Value.getTime(date)}::ip=$ip::target=${target ?: UserInfoType.Default.name}"
+        }
         }\n"
         logUser(id, log)
     }
 
     fun changePortrait(id: String, date: Date, ip: String, status: Boolean, after: String? = null) {
         val log = "user::change_portrait::${
-            when(status){
-                true -> "success::time=${Value.getTime(date)}::ip=$ip::after=$after"
-                false -> "failed::time=${Value.getTime(date)}::ip=$ip"
-            }
+        when (status) {
+            true -> "success::time=${Value.getTime(date)}::ip=$ip::after=$after"
+            false -> "failed::time=${Value.getTime(date)}::ip=$ip"
+        }
         }\n"
         logUser(id, log)
     }
 
-    fun changeUserDetailInfo(id: String, date: Date, ip: String, status: Boolean, before: String? = null, after: String? = null, target: String? = null)  {
+    fun changeUserDetailInfo(
+        id: String,
+        date: Date,
+        ip: String,
+        status: Boolean,
+        before: String? = null,
+        after: String? = null,
+        target: String? = null
+    ) {
         val log = "user::change_info::ip=$ip::${
-        when(status){
-            true -> "success::time=${Value.getTime(date)}::target=${target?:"default"}::before=$before::after=$after"
-            false -> "failed::time=${Value.getTime(date)}::target=${target?:"default"}"
+        when (status) {
+            true -> "success::time=${Value.getTime(date)}::target=${target ?: "default"}::before=$before::after=$after"
+            false -> "failed::time=${Value.getTime(date)}::target=${target ?: "default"}"
         }
         }\n"
         logUser(id, log)
@@ -66,22 +85,21 @@ object Log {
 
     fun changePassword(id: String, date: Date, ip: String, status: Boolean) {
         val log = "user::change_password::${
-            when(status){
-                true -> "success"
-                false -> "failed"
-            }
+        when (status) {
+            true -> "success"
+            false -> "failed"
+        }
         }::ip=$ip::date=${Value.getTime(date)}\n"
         logUser(id, log)
     }
 
 
-
-    fun createBlog(id: String, date: Date, ip: String, status: Boolean, blogId: String? = null){
+    fun createBlog(id: String, date: Date, ip: String, status: Boolean, blogId: String? = null) {
         val user = "blog::create::${
-            when(status){
-                true -> "success::ip=$ip::date=${Value.getTime(date)}::blogId=$blogId"
-                false -> "failed::ip=$ip::date=${Value.getTime(date)}"
-            }
+        when (status) {
+            true -> "success::ip=$ip::date=${Value.getTime(date)}::blogId=$blogId"
+            false -> "failed::ip=$ip::date=${Value.getTime(date)}"
+        }
         }\n"
 
         logUser(id, user)
@@ -95,9 +113,7 @@ object Log {
     }
 
 
-
-
-    private fun logBlog(blogId:String, log: String){
+    private fun logBlog(blogId: String, log: String) {
         val conn = MySQLConn.connection
         val ps = conn.prepareStatement("update blog set log = concat(?, log) where blog_id = ?")
         ps.setString(1, log)
@@ -117,8 +133,7 @@ object Log {
 }
 
 
-
-internal object Token{
+internal object Token {
     //id platform secret time
     fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date, status: Boolean): String {
         return "$id::${platform.name}::$secret::${Value.getTime(time)}::$status"

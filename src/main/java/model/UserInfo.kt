@@ -1,9 +1,9 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
+import util.Value
 import util.conn.MySQLConn
 import util.enums.Shortcut
-import util.Value
 import java.sql.SQLException
 
 class UserInfo(
@@ -27,7 +27,8 @@ class UserInfo(
                     val email: String = rs.getString("email")
                     rs.close()
                     ps.close()
-                    val ps1 = conn.prepareStatement("select portrait, personal_signature, user_group, exp from user_detail where id = ? limit 1")
+                    val ps1 =
+                        conn.prepareStatement("select portrait, personal_signature, user_group, exp from user_detail where id = ? limit 1")
                     ps1.setString(1, id)
                     val rs1 = ps1.executeQuery()
                     if (rs1.next()) {

@@ -1,12 +1,12 @@
 package model
 
 import com.alibaba.fastjson.JSONObject
+import util.Value
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.Shortcut
 import util.log.Log
 import util.log.Token
-import util.Value
 import java.sql.SQLException
 import java.util.*
 import java.util.regex.Pattern
@@ -38,7 +38,8 @@ class Register(
             ps.close()
             val registerTime = Date()
             val userId = idGenerator(registerTime, nickname)
-            ps = conn.prepareStatement("insert into user (id, nickname, password, token, last_login_ip, last_login_time, email) VALUES (?, ?, ?, ?, ?, ?, ?)")
+            ps =
+                conn.prepareStatement("insert into user (id, nickname, password, token, last_login_ip, last_login_time, email) VALUES (?, ?, ?, ?, ?, ?, ?)")
             ps.setString(1, userId)
             ps.setString(2, nickname)
             ps.setString(3, password)
@@ -48,7 +49,8 @@ class Register(
             ps.setString(7, email)
             ps.execute()
             ps.close()
-            ps = conn.prepareStatement("insert into user_detail (id, portrait, follower, following, personal_signature, account_status, exp, log, topic) values (?, ?, ?, ?, ?, ?, ?, ?, ?)")
+            ps =
+                conn.prepareStatement("insert into user_detail (id, portrait, follower, following, personal_signature, account_status, exp, log, topic) values (?, ?, ?, ?, ?, ?, ?, ?, ?)")
             ps.setString(1, userId)
             ps.setString(2, "default")
             ps.setString(3, "000000")
@@ -64,7 +66,7 @@ class Register(
             ps.setString(1, nickname)
             rs = ps.executeQuery()
             val id: String
-            return if(rs.next()){
+            return if (rs.next()) {
                 id = rs.getString("id")
                 Log.register(id, registerTime, registerIP, nickname)
                 rs.close()
@@ -85,7 +87,7 @@ class Register(
         ("${registerTime.time}$nickname${(10..99).random()}".hashCode() and Integer.MAX_VALUE).toString()
 
     companion object {
-        fun checkNickname(nickname: String): Boolean{
+        fun checkNickname(nickname: String): Boolean {
             val conn = MySQLConn.connection
             try {
                 val ps = conn.prepareStatement("select * from user where nickname = ?")
@@ -105,15 +107,17 @@ class Register(
             }
         }
 
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>?=null): String {
+        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
             val map = JSONObject()
             map["shortcut"] = shortcut.name
             map["msg"] = msg
-            if(data!=null){map["data"] = JSONObject(data as Map<String, Any>?)}
+            if (data != null) {
+                map["data"] = JSONObject(data as Map<String, Any>?)
+            }
             return map.toJSONString()
         }
 
-        private fun String.checkNicknameValid(): Boolean{
+        private fun String.checkNicknameValid(): Boolean {
             return Pattern.matches("^[a-zA-Z0-9\\u4e00-\\u9fa5]+$", this)
         }
 
