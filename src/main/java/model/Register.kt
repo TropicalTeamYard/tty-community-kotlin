@@ -2,6 +2,7 @@ package model
 
 import com.alibaba.fastjson.JSONObject
 import util.Value
+import util.Value.json
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.Shortcut
@@ -100,21 +101,12 @@ class Register(
                 }
                 rs.close()
                 ps.close()
+                // nick can be registered
                 return false
             } catch (e: SQLException) {
                 e.printStackTrace()
                 return true
             }
-        }
-
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
-            val map = JSONObject()
-            map["shortcut"] = shortcut.name
-            map["msg"] = msg
-            if (data != null) {
-                map["data"] = JSONObject(data as Map<String, Any>?)
-            }
-            return map.toJSONString()
         }
 
         private fun String.checkNicknameValid(): Boolean {

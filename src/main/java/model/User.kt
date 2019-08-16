@@ -4,16 +4,14 @@ import util.Value
 import util.conn.MySQLConn
 import util.enums.Shortcut
 import java.sql.SQLException
-import java.util.*
 
-class User {
-    var id: String? = null
-    var nickname: String? = null
-    var password: String? = null
-    var token: String? = null
-    var lastLoginIP: String? = null
-    var lastLoginTime: Date? = null
-    var log: String? = null
+class User(
+    var id: String,
+    var nickname: String,
+    var portrait: String,
+    var password: String,
+    var token: String
+) {
 
     companion object {
         fun getNickname(id: String): String {
@@ -26,13 +24,13 @@ class User {
                 if (rs.next()) {
                     nickname = rs.getString("nickname")
                 } else {
-                    nickname = "`UNDEFINED`"
+                    nickname = "UNDEFINED"
                 }
                 rs.close()
                 ps.close()
             } catch (e: SQLException) {
                 e.printStackTrace()
-                nickname = "`UNDEFINED`"
+                nickname = "UNDEFINED"
             }
 
             return nickname

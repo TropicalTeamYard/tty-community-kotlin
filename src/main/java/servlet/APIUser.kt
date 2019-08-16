@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject
 import model.*
 import util.CONF
 import util.Value
+import util.Value.json
 import util.enums.LoginPlatform
 import util.enums.LoginType
 import util.enums.Shortcut
@@ -206,7 +207,7 @@ class APIUser : HttpServlet() {
         val email = req.getParameter("email")
         val password = req.getParameter("password")
         if (nickname.isNullOrEmpty() || email.isNullOrEmpty() || password.isNullOrEmpty() || ip == "0.0.0.0") {
-            out.write(Register.json(Shortcut.AE, "arguments mismatch."))
+            out.write(json(Shortcut.AE, "arguments mismatch."))
             return
         }
         val result = Register(nickname, ip, email, password).submit()

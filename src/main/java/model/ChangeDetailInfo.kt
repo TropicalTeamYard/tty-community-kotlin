@@ -1,6 +1,7 @@
 package model
 
 import util.Value
+import util.Value.json
 import util.conn.MySQLConn
 import util.enums.Shortcut
 import util.log.Log
@@ -42,20 +43,16 @@ class ChangeDetailInfo(private var id: String, private var token: String, privat
 
                 rs.close()
                 ps.close()
-                return ChangeUserInfo.json(
-                    Shortcut.OK,
-                    "change user info succeed",
-                    successItem
-                )
+                return json(Shortcut.OK, "change user info succeed", successItem)
 
             } else {
                 rs.close()
                 ps.close()
-                return ChangeUserInfo.json(Shortcut.TE, "invalid token.")
+                return json(Shortcut.TE, "invalid token.")
             }
         } catch (e: SQLException) {
             e.printStackTrace()
-            return ChangeUserInfo.json(Shortcut.OTHER, "SQL ERROR")
+            return json(Shortcut.OTHER, "SQL ERROR")
         }
     }
 }

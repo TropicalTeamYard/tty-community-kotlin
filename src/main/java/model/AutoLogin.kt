@@ -1,7 +1,7 @@
 package model
 
-import com.alibaba.fastjson.JSONObject
 import util.Value
+import util.Value.json
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.Shortcut
@@ -48,24 +48,12 @@ class AutoLogin(
                 }
             } else {
                 ps.close()
-                return json(Shortcut.UPE, "user $id not exist.")
+                return json(Shortcut.UNE, "user $id not exist.")
             }
         } catch (e: SQLException) {
             e.printStackTrace()
             return json(Shortcut.OTHER, "SQL ERROR")
         }
 
-    }
-
-    companion object {
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
-            val map = JSONObject()
-            map["shortcut"] = shortcut.name
-            map["msg"] = msg
-            if (data != null) {
-                map["data"] = JSONObject(data as Map<String, Any>?)
-            }
-            return map.toJSONString()
-        }
     }
 }

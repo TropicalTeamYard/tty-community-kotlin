@@ -2,6 +2,7 @@ package model
 
 import com.alibaba.fastjson.JSONObject
 import util.Value
+import util.Value.json
 import util.conn.MySQLConn
 import util.enums.Shortcut
 import util.enums.UserInfoType
@@ -47,15 +48,7 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
                                     ps.setString(2, id)
                                     ps.executeUpdate()
                                     ps.close()
-                                    Log.changeUserInfo(
-                                        id,
-                                        date,
-                                        ip,
-                                        true,
-                                        nicknameBefore,
-                                        e.value,
-                                        UserInfoType.Nickname
-                                    )
+                                    Log.changeUserInfo(id, date, ip, true, nicknameBefore, e.value, UserInfoType.Nickname)
                                     succeedItem["nickname"] = e.value
                                 } else {
                                     Log.changeUserInfo(id, date, ip, false)
@@ -88,16 +81,5 @@ class ChangeUserInfo(var id: String, var token: String, var ip: String) {
         }
     }
 
-    companion object {
-        fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
-            val map = JSONObject()
-            map["shortcut"] = shortcut.name
-            map["msg"] = msg
-            if (data != null) {
-                map["data"] = JSONObject(data as Map<String, Any>?)
-            }
-            return map.toJSONString()
-        }
-    }
 }
 

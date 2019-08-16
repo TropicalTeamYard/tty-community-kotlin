@@ -1,6 +1,6 @@
 package model
 
-import com.alibaba.fastjson.JSONObject
+import util.Value.json
 import util.conn.MySQLConn
 import util.enums.LoginPlatform
 import util.enums.Shortcut
@@ -8,7 +8,6 @@ import util.log.Log
 import util.log.Token
 import java.sql.SQLException
 import java.util.*
-import kotlin.collections.HashMap
 
 class ChangePassword(
     private var id: String,
@@ -55,18 +54,6 @@ class ChangePassword(
         } catch (e: SQLException) {
             e.printStackTrace()
             return json(Shortcut.OTHER, "SQL ERROR")
-        }
-    }
-
-    companion object {
-        private fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
-            val map = JSONObject()
-            map["shortcut"] = shortcut.name
-            map["msg"] = msg
-            if (data != null) {
-                map["data"] = JSONObject(data as Map<String, Any>?)
-            }
-            return map.toJSONString()
         }
     }
 

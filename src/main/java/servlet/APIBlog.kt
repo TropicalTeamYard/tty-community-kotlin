@@ -1,13 +1,12 @@
 package servlet
 
-import com.alibaba.fastjson.JSONArray
-import com.alibaba.fastjson.JSONObject
 import model.Blog
 import model.Blog.Companion.Type.Companion.parse
 import model.Blog.Companion.Type.Companion.value
 import model.User
 import util.CONF
 import util.Value
+import util.Value.json
 import util.Value.string
 import util.conn.MySQLConn
 import util.enums.Shortcut
@@ -43,7 +42,7 @@ class APIBlog : HttpServlet() {
         val route = try {
             req.requestURI.substring(20)
         } catch (e: StringIndexOutOfBoundsException) {
-            out.write(Value.json(Shortcut.AE, "invalid request"))
+            out.write(json(Shortcut.AE, "invalid request"))
             return
         }
 
@@ -77,7 +76,7 @@ class APIBlog : HttpServlet() {
             }
 
             else -> {
-                out.write(Value.json(Shortcut.AE, "invalid request"))
+                out.write(json(Shortcut.AE, "invalid request"))
             }
         }
     }
@@ -99,7 +98,7 @@ class APIBlog : HttpServlet() {
         val filesCount = params["file_count"]
 
         if (ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || tag.isNullOrEmpty() || filesCount.isNullOrEmpty()) {
-            out.write(Value.json(Shortcut.AE, "argument mismatch."))
+            out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
 
@@ -141,23 +140,23 @@ class APIBlog : HttpServlet() {
                     rs.close()
                     ps.close()
                     reqMaps.getBlogFiles(blogId)
-                    out.write(Value.json(Shortcut.OK, "you have posted the blog successfully.", data))
+                    out.write(json(Shortcut.OK, "you have posted the blog successfully.", data))
                 } else {
                     rs.close()
                     ps.close()
-                    out.write(Value.json(Shortcut.OTHER, "CREATE BLOG FAILED"))
+                    out.write(json(Shortcut.OTHER, "CREATE BLOG FAILED"))
                     return
                 }
             } else {
                 Log.createBlog(id, date, ip, false)
-                out.write(Value.json(Shortcut.TE, "invalid token"))
+                out.write(json(Shortcut.TE, "invalid token"))
                 rs.close()
                 ps.close()
                 return
             }
 
         } catch (e: SQLException) {
-            out.write(Value.json(Shortcut.OTHER, "SQL ERROR"))
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
             e.printStackTrace()
             return
         }
@@ -171,8 +170,9 @@ class APIBlog : HttpServlet() {
             "json" -> ShowBlogType.JSON
             else -> ShowBlogType.HTML
         }
+
         if (blogId.isNullOrEmpty()) {
-            out.write(Value.json(Shortcut.AE, "argument mismatch"))
+            out.write(json(Shortcut.AE, "argument mismatch"))
             return
         }
 
@@ -198,7 +198,7 @@ class APIBlog : HttpServlet() {
                 when (type) {
                     ShowBlogType.JSON -> {
                         data["content"] = content
-                        out.write(Value.json(Shortcut.OK, "get blog successfully", data))
+                        out.write(json(Shortcut.OK, "get blog successfully", data))
                     }
 
                     ShowBlogType.HTML -> {
@@ -223,11 +223,11 @@ class APIBlog : HttpServlet() {
             } else {
                 rs.close()
                 ps.close()
-                out.write(Value.json(Shortcut.BNE, "Blog $blogId does not exist"))
+                out.write(json(Shortcut.BNE, "blog $blogId not found"))
             }
         } catch (e: SQLException) {
             e.printStackTrace()
-            out.write(Value.json(Shortcut.OTHER, "SQL ERROR"))
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
         }
 
     }
@@ -237,7 +237,7 @@ class APIBlog : HttpServlet() {
         val blogId = map["id"]?.get(0)
         val picKey = map["key"]?.get(0)
         if (blogId.isNullOrEmpty() || picKey.isNullOrEmpty()) {
-            out.write(Value.json(Shortcut.AE, "argument mismatch."))
+            out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
 
@@ -268,7 +268,7 @@ class APIBlog : HttpServlet() {
                 rs.close()
                 ps.close()
             } else {
-                out.write(Value.json(Shortcut.BNE, "the blog $blogId does not found."))
+                out.write(json(Shortcut.BNE, "blog $blogId not found."))
                 rs.close()
                 ps.close()
             }
@@ -276,10 +276,10 @@ class APIBlog : HttpServlet() {
 
         } catch (e: SQLException) {
             e.printStackTrace()
-            out.write(Value.json(Shortcut.OTHER, "SQL ERROR"))
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
         } catch (e: Exception) {
             e.printStackTrace()
-            out.write(Value.json(Shortcut.OTHER, "UNKNOWN EXCEPTION"))
+            out.write(json(Shortcut.OTHER, "UNKNOWN EXCEPTION"))
         }
     }
 
@@ -299,7 +299,7 @@ class APIBlog : HttpServlet() {
 
 
         if ((type == GetBlogByType.Id && ((from.isNullOrEmpty() && to.isNullOrEmpty()) || count <= 0)) || (type == GetBlogByType.Time && (date == null || count <= 0)) || (type == GetBlogByType.Default)) {
-            out.write(Value.json(Shortcut.AE, "argument mismatch."))
+            out.write(json(Shortcut.AE, "argument mismatch."))
             return
         }
 
@@ -316,7 +316,7 @@ class APIBlog : HttpServlet() {
 
                     val blogList = getBlogs(ps)
 
-                    val json = jsonBlogOutline(Shortcut.OK, "get blog list successfully.", blogList)
+                    val json = json(Shortcut.OK, "get blog list successfully.", blogList)
                     out.write(json)
 
                     return
@@ -339,16 +339,17 @@ class APIBlog : HttpServlet() {
                                 ps.setString(2, "%$tag%")
                                 ps.setInt(3, count)
                                 val blogList = getBlogs(ps)
-                                val json = jsonBlogOutline(Shortcut.OK, "get blog list successfully.", blogList)
+                                val json = json(Shortcut.OK, "get blog list successfully.", blogList)
                                 out.write(json)
                                 return
                             } else {
                                 rs1.close()
                                 ps1.close()
-                                out.write(Value.json(Shortcut.BNE, "blog $from not found."))
+                                out.write(json(Shortcut.BNE, "blog $from not found."))
                                 return
                             }
                         }
+
                         to != null -> {
                             val ps1 = conn.prepareStatement("select last_active_time from blog where blog_id = ?")
                             ps1.setString(1, to)
@@ -363,14 +364,14 @@ class APIBlog : HttpServlet() {
                                 ps.setString(2, "%$tag%")
                                 ps.setInt(3, count)
                                 val blogList = getBlogs(ps)
-                                val json = jsonBlogOutline(Shortcut.OK, "get blog list successfully.", blogList)
+                                val json = json(Shortcut.OK, "get blog list successfully.", blogList)
                                 out.write(json)
                                 return
 
                             } else {
                                 rs1.close()
                                 ps1.close()
-                                out.write(Value.json(Shortcut.BNE, "blog $from not found."))
+                                out.write(json(Shortcut.BNE, "blog $to not found."))
                                 return
                             }
                         }
@@ -383,7 +384,7 @@ class APIBlog : HttpServlet() {
             }
         } catch (e: SQLException) {
             e.printStackTrace()
-            out.write(Value.json(Shortcut.OTHER, "SQL ERROR"))
+            out.write(json(Shortcut.OTHER, "SQL ERROR"))
         }
 
     }
@@ -425,19 +426,6 @@ class APIBlog : HttpServlet() {
     private fun test() {
         out.write(CONF.root + "\n")
         out.write(CONF.conf.server)
-    }
-
-
-    companion object {
-        fun jsonBlogOutline(shortcut: Shortcut, msg: String, data: ArrayList<Blog.Outline>? = null): String {
-            val map = JSONObject()
-            map["shortcut"] = shortcut.name
-            map["msg"] = msg
-            if (data != null) {
-                map["data"] = JSONArray(data as List<Any>?)
-            }
-            return map.toJSONString()
-        }
     }
 
     enum class GetBlogByType {

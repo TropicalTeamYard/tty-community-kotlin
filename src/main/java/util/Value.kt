@@ -1,6 +1,8 @@
 package util
 
+import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
+import com.google.gson.Gson
 import util.enums.Shortcut
 import util.file.FileReadUtil
 import java.io.ByteArrayInputStream
@@ -18,11 +20,6 @@ import kotlin.collections.HashMap
 import kotlin.experimental.and
 
 object Value {
-
-    val time: String
-        get() {
-            return getTime(Date())
-        }
 
     @Throws(SQLException::class, IOException::class)
     fun Blob.string(): String {
@@ -80,13 +77,26 @@ object Value {
         return String(resultCharArray)
     }
 
-    fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>? = null): String {
+    fun json(shortcut: Shortcut, msg: String, data: HashMap<String, String>): String {
         val map = JSONObject()
         map["shortcut"] = shortcut.name
         map["msg"] = msg
-        if (data != null) {
-            map["data"] = JSONObject(data as Map<String, Any>?)
-        }
+        map["data"] = JSONObject(data as Map<String, Any>?)
+        return map.toJSONString()
+    }
+
+    fun json(shortcut: Shortcut, msg: String, list: List<Any>): String {
+        val map = JSONObject()
+        map["shortcut"] = shortcut.name
+        map["msg"] = msg
+        map["data"] = JSONArray(list)
+        return map.toJSONString()
+    }
+
+    fun json(shortcut: Shortcut, msg: String): String {
+        val map = JSONObject()
+        map["shortcut"] = shortcut.name
+        map["msg"] = msg
         return map.toJSONString()
     }
 
@@ -104,7 +114,7 @@ object Value {
             if (value.isEmpty()) {
                 continue
             }
-            fields[item.key] = item.value[0]
+            fields[key] = value
         }
 
         return fields

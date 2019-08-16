@@ -1,5 +1,6 @@
 package model
 
+import com.google.gson.Gson
 import java.util.*
 
 interface Blog {
@@ -33,18 +34,21 @@ interface Blog {
         override val introduction: String,
         override val tag: String,
         override val lastActiveTime: Date,
-        override val nickname: String
+        override val nickname: String,
+        var content: String,
+        comment: String,
+        likes: String,
+        var status: String,
+        var lastEditTime: Date
     ) : Blog {
-        var content: String = ""
-        var comment: String = ""
-        var likes = ""
-        var status = "deleted::0"
-        var data: String? = null
-        var lastEditTime: Date? = null
+        val comment: Comment = gson.fromJson(comment, Comment::class.java)
+        val likes: String = gson.fromJson(likes, String::class.java)
     }
 
+    class Comment(val id: String, val nickname: String, val time: String)
+
     companion object {
-        class Tag(val id: String, val text: String)
+        val gson = Gson()
 
         enum class Type {
             Short, Pro, Other;
@@ -80,4 +84,6 @@ interface Blog {
             }
         }
     }
+
+
 }
