@@ -1,20 +1,17 @@
 package model
 
-import exception.ProjThrowable
+import exception.ShortcutThrowable
+import util.Value.string
 import util.conn.MySQLConn
 import java.sql.Timestamp
 import java.util.*
 import kotlin.collections.ArrayList
-import util.Value.string
 
 interface Topic {
     val id: String
     val name: String
     val parent: String
     val introduction: String
-
-    fun map(): HashMap<String, String> =
-        hashMapOf(Pair("id", id), Pair("name", name), Pair("parent", parent), Pair("introduction", introduction))
 
     class Outline(
         override val id: String,
@@ -33,7 +30,7 @@ interface Topic {
         val admin: String,
         val status: String,
         lastActiveTime: Timestamp
-    ): Topic {
+    ) : Topic {
         val follower: List<String> = follower.split("|")
         val lastActiveTime: Date = Date(lastActiveTime.time)
     }
@@ -41,7 +38,8 @@ interface Topic {
     companion object {
         fun similarTopic(name: String): ArrayList<Outline> {
             val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("select topic_id, name, parent, introduction from topic where name like ? or introduction like ?")
+            val ps =
+                conn.prepareStatement("select topic_id, name, parent, introduction from topic where name like ? or introduction like ?")
             ps.setString(1, "%$name%")
             ps.setString(2, "%$name%")
             val list = ArrayList<Outline>()
@@ -59,10 +57,11 @@ interface Topic {
             return list
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun findOutlineByName(name: String): Outline {
             val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("select topic_id, name, parent, introduction from topic where name = ? limit 1")
+            val ps =
+                conn.prepareStatement("select topic_id, name, parent, introduction from topic where name = ? limit 1")
             ps.setString(1, name)
             val rs = ps.executeQuery()
             if (rs.next()) {
@@ -75,14 +74,15 @@ interface Topic {
             } else {
                 rs.close()
                 ps.close()
-                throw ProjThrowable.TNE("topic $name not found")
+                throw ShortcutThrowable.TNE("topic $name not found")
             }
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun findOutlineById(id: String): Outline {
             val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("select topic_id, name, parent, introduction from topic where topic_id = ? limit 1")
+            val ps =
+                conn.prepareStatement("select topic_id, name, parent, introduction from topic where topic_id = ? limit 1")
             ps.setString(1, id)
             val rs = ps.executeQuery()
             if (rs.next()) {
@@ -95,23 +95,23 @@ interface Topic {
             } else {
                 rs.close()
                 ps.close()
-                throw ProjThrowable.TNE("topic $id not found")
+                throw ShortcutThrowable.TNE("topic $id not found")
             }
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun findParentById(childId: String): Outline {
             val childTopic = findOutlineById(childId)
             return findOutlineById(childTopic.parent)
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun findParentByName(chileName: String): Outline {
             val childTopic = findOutlineByName(chileName)
             return findOutlineById(childTopic.parent)
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun findChildrenById(parentId: String): ArrayList<Outline> {
             val parentTopic = findOutlineById(parentId)
 
@@ -133,16 +133,17 @@ interface Topic {
             return list
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun findChildrenByName(parentName: String): ArrayList<Outline> {
             val parentTopic = findOutlineByName(parentName)
             return findChildrenById(parentTopic.id)
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun getDetailById(id: String): Detail {
             val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("select name, parent, introduction, picture, follower, admin, last_active_time, status from topic where topic_id = ? limit 1")
+            val ps =
+                conn.prepareStatement("select name, parent, introduction, picture, follower, admin, last_active_time, status from topic where topic_id = ? limit 1")
             ps.setString(1, id)
             val rs = ps.executeQuery()
             if (rs.next()) {
@@ -160,14 +161,15 @@ interface Topic {
             } else {
                 rs.close()
                 ps.close()
-                throw ProjThrowable.TNE("topic $id not found")
+                throw ShortcutThrowable.TNE("topic $id not found")
             }
         }
 
-        @Throws(ProjThrowable::class)
+        @Throws(ShortcutThrowable::class)
         fun getDetailByName(name: String): Detail {
             val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("select topic_id, parent, introduction, picture, follower, admin, last_active_time, status from topic where name = ? limit 1")
+            val ps =
+                conn.prepareStatement("select topic_id, parent, introduction, picture, follower, admin, last_active_time, status from topic where name = ? limit 1")
             ps.setString(1, name)
             val rs = ps.executeQuery()
             if (rs.next()) {
@@ -185,10 +187,18 @@ interface Topic {
             } else {
                 rs.close()
                 ps.close()
-                throw ProjThrowable.TNE("topic $name not found")
+                throw ShortcutThrowable.TNE("topic $name not found")
             }
         }
 
+        fun log(topicId: String, log: String) {
+            val conn = MySQLConn.connection
+            val ps = conn.prepareStatement("update topic set log = concat(?, log) where topic_id = ?")
+            ps.setString(1, log)
+            ps.setString(2, topicId)
+            ps.executeUpdate()
+            ps.close()
+        }
     }
 
 }

@@ -1,19 +1,19 @@
 package servlet
 
+import exception.Shortcut
+import exception.ShortcutThrowable
 import model.Blog
 import model.Blog.Companion.Type.Companion.parse
-import model.Blog.Companion.Type.Companion.value
 import model.User
 import util.CONF
 import util.Value
 import util.Value.json
 import util.Value.string
 import util.conn.MySQLConn
-import util.enums.Shortcut
 import util.log.Log
-import util.parse.BlogRequestParser
 import util.parse.IP
 import util.parse.Markdown2Html
+import util.parse.MultipleForm
 import java.io.FileInputStream
 import java.io.PrintWriter
 import java.sql.PreparedStatement
@@ -54,7 +54,7 @@ class APIBlog : HttpServlet() {
 
             "create" -> {
                 // http://localhost:8080/community/api/blog/create
-                create(req)
+                createBlog(req)
             }
 
             "get" -> {
@@ -82,85 +82,49 @@ class APIBlog : HttpServlet() {
     }
 
 
-    private fun create(req: HttpServletRequest?) {
-        val date = java.util.Date()
-        val time = Timestamp(date.time)
-        val params: HashMap<String, String>
-        val reqMaps = BlogRequestParser(req!!)
-        params = reqMaps.getField()
-        val id = params["id"]
-        val token = params["token"]
-        val type = params["type"].parse
-        val title = params["title"]
-        val introduction = params["introduction"]
-        val content = params["content"]
-        val tag = params["tag"]
-        val filesCount = params["file_count"]
-
-        if (ip == "0.0.0.0" || id.isNullOrEmpty() || token.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || tag.isNullOrEmpty() || filesCount.isNullOrEmpty()) {
-            out.write(json(Shortcut.AE, "argument mismatch."))
-            return
-        }
-
-        val blogId = ("$ip$id$token${date.time}${(1000..9999).random()}".hashCode() and Integer.MAX_VALUE).toString()
-
+    @Throws(ShortcutThrowable::class)
+    private fun createBlog(req: HttpServletRequest) {
+        val multipleForm = MultipleForm(req).build()
         try {
-            val conn = MySQLConn.connection
-            var ps = conn.prepareStatement("select * from user where id = ? limit 1")
-            ps.setString(1, id)
-            var rs = ps.executeQuery()
-            if (rs.next() && token == Value.getMD5(rs.getString("token"))) {
-                rs.close()
-                ps.close()
-                ps =
-                    conn.prepareStatement("insert into blog (blog_id, type, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-                ps.setString(1, blogId)
-                ps.setInt(2, type.value)
-                ps.setString(3, id)
-                ps.setString(4, title)
-                ps.setString(5, introduction)
-                ps.setString(6, content)
-                ps.setString(7, tag)
-                ps.setTimestamp(8, time) // last_edit_time
-                ps.setTimestamp(9, time) // last_active_time
-                ps.setString(10, "normal") // status
-                ps.setString(11, "") // data
-                ps.setString(12, "init\n") // log
-                ps.setString(13, "") // comment
-                ps.setString(14, "") // likes
-                ps.execute()
-                ps.close()
-                ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
-                ps.setString(1, blogId)
-                rs = ps.executeQuery()
-                if (rs.next()) {
-                    val data = HashMap<String, String>()
-                    data["blogId"] = blogId
-                    Log.createBlog(id, date, ip, true, blogId)
-                    rs.close()
-                    ps.close()
-                    reqMaps.getBlogFiles(blogId)
-                    out.write(json(Shortcut.OK, "you have posted the blog successfully.", data))
-                } else {
-                    rs.close()
-                    ps.close()
-                    out.write(json(Shortcut.OTHER, "CREATE BLOG FAILED"))
-                    return
-                }
-            } else {
-                Log.createBlog(id, date, ip, false)
-                out.write(json(Shortcut.TE, "invalid token"))
-                rs.close()
-                ps.close()
-                return
+            val fields = multipleForm.fields
+
+            val author = fields["author"]
+            val token = fields["token"]
+            val type = fields["type"].parse
+            val title = fields["title"]
+            val introduction = fields["introduction"]
+            val content = fields["content"]
+            val tag = fields["tag"]
+            val timestamp = Timestamp(java.util.Date().time)
+
+            if (ip == "0.0.0.0" || author.isNullOrEmpty() || token.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || tag.isNullOrEmpty()) {
+                throw ShortcutThrowable.AE("argument mismatch in basic params")
             }
 
-        } catch (e: SQLException) {
-            out.write(json(Shortcut.OTHER, "SQL ERROR"))
-            e.printStackTrace()
-            return
-        }
+            when (User.checkToken(author, token)) {
+                Shortcut.OK -> {
+                    val blog = Blog.create(type, author, title, introduction, content, tag, timestamp)
+                    multipleForm.saveFiles(CONF.conf.blog + "/" + blog.blogId)
+                    Log.createBlog(author, timestamp, ip, true, blog.blogId)
+                    throw ShortcutThrowable.OK("blog created", blog)
+                }
 
+                Shortcut.TE -> {
+                    throw ShortcutThrowable.TE()
+                }
+
+                Shortcut.UNE -> {
+                    throw ShortcutThrowable.UNE()
+                }
+
+                else -> {
+                    throw ShortcutThrowable.OTHER("error when checking the user")
+                }
+            }
+        } catch (info: ShortcutThrowable) {
+            multipleForm.close()
+            out.write(info.json())
+        }
     }
 
     private fun getBlog(req: HttpServletRequest?) {
@@ -183,36 +147,37 @@ class APIBlog : HttpServlet() {
             val rs = ps.executeQuery()
             if (rs.next()) {
                 val data = HashMap<String, String>()
-                data["author_id"] = rs.getString("author_id")
-                data["nickname"] = User.getNickname(data["author_id"] ?: "000000")
-                data["title"] = rs.getString("title")
-                data["introduction"] = rs.getString("introduction").replace("####blog_id####", blogId)
-                val content = rs.getBlob("content").string().replace("####blog_id####", blogId)
-                data["tag"] = rs.getString("tag")
-                data["comment"] = rs.getBlob("comment").string()
-                data["likes"] = rs.getBlob("likes").string()
-                data["last_edit_time"] = Value.getTime(rs.getTimestamp("last_edit_time"))
-                data["last_active_time"] = Value.getTime(rs.getTimestamp("last_active_time"))
-                data["data"] = rs.getBlob("data").string()
+                val author = rs.getString("author_id")
+                val title = rs.getString("title")
+                val introduction = rs.getString("introduction").replace("####blog_id####", blogId)
+                var content = rs.getBlob("content").string().replace("####blog_id####", blogId)
+                val tag = rs.getString("tag")
+                val comment = rs.getBlob("comment").string()
+                val likes = rs.getBlob("likes").string()
+                val lastEditTime = Value.getTime(rs.getTimestamp("last_edit_time"))
+                val lastActiveTime = Value.getTime(rs.getTimestamp("last_active_time"))
 
                 when (type) {
                     ShowBlogType.JSON -> {
-                        data["content"] = content
                         out.write(json(Shortcut.OK, "get blog successfully", data))
                     }
 
                     ShowBlogType.HTML -> {
-                        data["content"] = Markdown2Html.parse(content)
+                        content = Markdown2Html.parse(content)
                         var html = Value.htmlTemplate()
                         val style = Value.markdownAirCss()
-                        html = html.replace("####title-author####", "${data["title"]}-${data["nickname"]}")
+                        val nickname = User.getNicknameById(author)
+                        nickname?.let {
+                            html = html.replace("####nickname####", nickname)
+                        }
+
+                        html = html.replace("####title-author####", "$title-$nickname")
                             .replace("####style####", style)
-                            .replace("####title####", "${data["title"]}")
-                            .replace("####nickname####", "${data["nickname"]}")
-                            .replace("####last_edit_time####", "${data["last_edit_time"]}")
-                            .replace("####last_active_time####", "${data["last_active_time"]}")
-                            .replace("####introduction####", "${data["introduction"]}")
-                            .replace("####content####", "${data["content"]}")
+                            .replace("####title####", title)
+                            .replace("####last_edit_time####", lastEditTime)
+                            .replace("####last_active_time####", lastActiveTime)
+                            .replace("####introduction####", introduction)
+                            .replace("####content####", content)
 
                         out.write(html)
                     }
@@ -397,7 +362,7 @@ class APIBlog : HttpServlet() {
             val blogId = rs.getString("blog_id")
             val type = rs.getInt("type")
             val author = rs.getString("author_id")
-            val nickname = User.getNickname(author)
+            val nickname = User.getNicknameById(author) ?: "[RESET]"
             val title = rs.getString("title").replace("####nickname####", nickname)
             val introduction = rs.getString("introduction").replace("####blog_id####", blogId)
             val tag = rs.getString("tag")

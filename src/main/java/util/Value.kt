@@ -2,15 +2,13 @@ package util
 
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
-import com.google.gson.Gson
-import util.enums.Shortcut
+import exception.Shortcut
 import util.file.FileReadUtil
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import java.sql.Blob
 import java.sql.SQLException
 import java.text.ParseException
@@ -52,16 +50,13 @@ object Value {
         }
     }
 
-    fun getMD5(input: String): String? {
-        return try {
-            val messageDigest = MessageDigest.getInstance("MD5")
-            val inputByteArray = input.toByteArray()
-            messageDigest.update(inputByteArray)
-            val resultByteArray = messageDigest.digest()
-            byteArrayToHex(resultByteArray)
-        } catch (e: NoSuchAlgorithmException) {
-            null
-        }
+    fun getMD5(input: String): String {
+        val messageDigest = MessageDigest.getInstance("MD5")
+        val inputByteArray = input.toByteArray()
+        messageDigest.update(inputByteArray)
+        val resultByteArray = messageDigest.digest()
+        return byteArrayToHex(resultByteArray)
+
     }
 
     private fun byteArrayToHex(byteArray: ByteArray): String {

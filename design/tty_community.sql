@@ -9,7 +9,7 @@ create table user(
     token text not null,
     password text not null,
     last_login_ip text not null,
-    last_login_time text not null,
+    last_login_time timestamp not null,
     email text not null
 );
 

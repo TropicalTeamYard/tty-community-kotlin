@@ -1,6 +1,11 @@
 package model
 
 import com.google.gson.Gson
+import exception.ShortcutThrowable
+import model.Blog.Companion.Type.Companion.value
+import util.conn.MySQLConn
+import java.sql.SQLException
+import java.sql.Timestamp
 import java.util.*
 
 interface Blog {
@@ -79,11 +84,88 @@ interface Blog {
                             }
                         }
                     }
-
-
             }
         }
+
+        @Throws(ShortcutThrowable::class)
+        fun create(
+            type: Type,
+            author: String,
+            title: String,
+            introduction: String,
+            content: String,
+            tag: String,
+            time: Timestamp
+        ): Outline {
+            try {
+                val conn = MySQLConn.connection
+                val blogId =
+                    ("$author$content${time.time}$tag${(1000..9999).random()}".hashCode() and Integer.MAX_VALUE).toString()
+                val ps =
+                    conn.prepareStatement("insert into blog (blog_id, type, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comment, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                ps.setString(1, blogId)
+                ps.setInt(2, type.value)
+                ps.setString(3, author)
+                ps.setString(4, title)
+                ps.setString(5, introduction)
+                ps.setString(6, content)
+                ps.setString(7, tag) // id of topic
+                ps.setTimestamp(8, time) // last_edit_time
+                ps.setTimestamp(9, time) // last_active_time
+                ps.setString(10, "normal") // status
+                ps.setString(11, "") // data
+                ps.setString(12, "init\n") // log
+                ps.setString(13, "") // comment
+                ps.setString(14, "") // likes
+                ps.execute()
+                ps.close()
+                return getOutlineById(blogId)
+            } catch (e: SQLException) {
+                e.printStackTrace()
+                throw ShortcutThrowable.OTHER("SQL ERROR")
+            }
+        }
+
+        @Throws(ShortcutThrowable::class)
+        fun getOutlineById(id: String): Outline {
+            try {
+                val conn = MySQLConn.connection
+                val ps = conn.prepareStatement("select * from blog where blog_id = ? limit 1")
+                ps.setString(1, id)
+                val rs = ps.executeQuery()
+                if (rs.next()) {
+                    val author = rs.getString("author_id")
+                    val nickname = User.getNicknameById(author)
+                    val blogId = rs.getString("blog_id")
+                    val type = rs.getInt("type")
+                    val tag = rs.getString("tag")
+                    val lastActiveTime = rs.getTimestamp("last_active_time")
+                    val introduction = rs.getString("introduction").replace("####blog_id####", blogId)
+                    var title = rs.getString("title")
+                    rs.close()
+                    ps.close()
+                    nickname?.let {
+                        title = title.replace("####nickname####", it)
+                        return Outline(blogId, type.toString(), author, title, introduction, tag, lastActiveTime, it)
+                    }
+                    throw ShortcutThrowable.UNE()
+                } else {
+                    rs.close()
+                    ps.close()
+                    throw ShortcutThrowable.BNE()
+                }
+            } catch (e: SQLException) {
+                throw ShortcutThrowable.OTHER("SQL ERROR")
+            }
+        }
+
+        fun log(blogId: String, log: String) {
+            val conn = MySQLConn.connection
+            val ps = conn.prepareStatement("update blog set log = concat(?, log) where blog_id = ?")
+            ps.setString(1, log)
+            ps.setString(2, blogId)
+            ps.executeUpdate()
+            ps.close()
+        }
     }
-
-
 }

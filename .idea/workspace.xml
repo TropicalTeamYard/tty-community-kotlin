@@ -2,65 +2,103 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="community" />
       <artifact name="community:exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/community_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/community_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/wcf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/wcf.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTY_COMMUNITY.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TTY_COMMUNITY.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/AutoLogin$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/AutoLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/AutoLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion$Tag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$AE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$AIF.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$BNE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$OK.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$OTHER.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$PME.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$TE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$TNE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$UNE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$UPE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable$UR.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/exception/ProjThrowable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/AutoLogin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Comment.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion$Type$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion$Type$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion$Type.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion$Type.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeDetailInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeDetailInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Login$Companion.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Login.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Register$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Register$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Register.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeDetailInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangePassword.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo$WhenMappings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/ChangeUserInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/DetailInfoItems.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Login$WhenMappings.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Login.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Message$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Register$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Register.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$DefaultImpls.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Detail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Outline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Outline.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/UserInfo$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/UserInfo$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/UserInfo$Companion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/UserInfo.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$GetBlogByType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$ShowBlogType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$WhenMappings.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIPublicUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIPublicUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic$FindType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic$FindType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/Value.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/enums/Shortcut.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/enums/Shortcut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/enums/LoginPlatform.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/enums/LoginType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/enums/RegisterType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/enums/Shortcut.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/enums/UserInfoType.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/log/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/log/Log.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/log/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/log/Token.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/PortraitUpdater.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/PortraitUpdater.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/AutoLogin.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/AutoLogin.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/BlogRequestParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/PortraitUpdater.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/exception/ProjThrowable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exception/ShortcutThrowable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/AutoLogin.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Blog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Blog.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeDetailInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ChangeDetailInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangePassword.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ChangePassword.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Login.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Login.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Register.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Register.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeDetailInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangePassword.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/ChangeUserInfo.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/DetailInfoItems.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Login.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Message.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exception/Message.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Register.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Topic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Topic.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/UserInfo.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/APIBlog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/APIBlog.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/APIPublicUser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/APIPublicUser.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/APITopic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/APITopic.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/APIUser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/APIUser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/CONF.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/CONF.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/Value.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Value.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/Shortcut.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/enums/Shortcut.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/LoginPlatform.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/LoginType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/RegisterType.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/Shortcut.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/exception/Shortcut.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/UserGroup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/enums/UserGroup.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/enums/UserInfoType.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/file/FileReadUtil.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/file/FileReadUtil.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/log/Log.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/log/Log.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/log/Token.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/log/Token.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/parse/BlogRequestParser.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/parse/PortraitUpdater.kt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -112,6 +150,24 @@
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="user: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="jdbc:mysql:" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="localhost:3306" type="cc8827a6:DatabaseStructure$DbGroup" />
+        <item name="tty_community" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="user_detail: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="community@server" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
@@ -124,20 +180,6 @@
         <item name="community@server" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="community@server" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="blog: table" type="285a2a93:MysqlImplModel$Table" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="community@server" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="topic: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -145,6 +187,13 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="user: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="community@server" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="user_detail: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -214,11 +263,11 @@
       <recent name="model" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="exception" />
       <recent name="model" />
       <recent name="util.enums" />
       <recent name="servlet" />
       <recent name="util" />
-      <recent name="util.phrase" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\web\css" />
@@ -409,6 +458,16 @@
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@78c116cc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@e7a0cbb" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@78c116cc" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@3bb5a8cd" type="9fbbdea:ServiceModel$ServiceNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
               <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@23d46234" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
@@ -469,7 +528,7 @@
       <workItem from="1565349979005" duration="32330000" />
       <workItem from="1565681523260" duration="39204000" />
       <workItem from="1565848870158" duration="15928000" />
-      <workItem from="1565886363834" duration="24806000" />
+      <workItem from="1565886363834" duration="62217000" />
     </task>
     <servers />
   </component>

@@ -25,6 +25,8 @@ class CONF(
     companion object {
         private val mode = MODE.RELEASE
 
+        val secretKey = "123456"
+
         val root: String
             get() {
                 val url = CONF::class.java.classLoader.getResource("./")

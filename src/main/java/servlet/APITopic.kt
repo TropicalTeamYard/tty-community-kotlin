@@ -1,16 +1,16 @@
 package servlet
 
-import exception.ProjThrowable
-import model.Message
+import exception.Message
+import exception.Shortcut
+import exception.ShortcutThrowable
 import model.Topic
 import model.Topic.Companion.similarTopic
 import util.CONF
 import util.Value.getFields
-import util.enums.Shortcut
 import util.parse.IP
 import java.io.PrintWriter
 import java.sql.SQLException
-import java.util.ArrayList
+import java.util.*
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -35,7 +35,7 @@ class APITopic : HttpServlet() {
         val route = try {
             req.requestURI.substring(21)
         } catch (e: StringIndexOutOfBoundsException) {
-            out.write(Message(Shortcut.AE, "invalid request",null).json())
+            out.write(Message(Shortcut.AE, "invalid request", null).json())
             return
         }
 
@@ -68,7 +68,7 @@ class APITopic : HttpServlet() {
                  * http://47.102.200.155:8080/community/api/topic/find?name=ALL
                  * @field name
                  * find the topic which match to the name
-                */
+                 */
                 val name = fields["name"]
                 find(name)
             }
@@ -156,7 +156,7 @@ class APITopic : HttpServlet() {
     private fun find(name: String?) {
         try {
             if (name.isNullOrEmpty()) {
-                throw ProjThrowable.AE()
+                throw ShortcutThrowable.AE()
             }
 
             throw findTopicOutlineByName(name, FindType.EQUALS)
@@ -165,7 +165,7 @@ class APITopic : HttpServlet() {
             e.printStackTrace()
             out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
             return
-        } catch (info: ProjThrowable) {
+        } catch (info: ShortcutThrowable) {
             out.write(info.json())
         }
 
@@ -174,7 +174,7 @@ class APITopic : HttpServlet() {
     private fun similar(name: String?) {
         try {
             if (name.isNullOrEmpty()) {
-                throw ProjThrowable.AE()
+                throw ShortcutThrowable.AE()
             }
 
             throw findTopicOutlineByName(name, FindType.LIKE)
@@ -182,7 +182,7 @@ class APITopic : HttpServlet() {
         } catch (e: SQLException) {
             e.printStackTrace()
             out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
-        } catch (info: ProjThrowable) {
+        } catch (info: ShortcutThrowable) {
             out.write(info.json())
         }
     }
@@ -190,7 +190,7 @@ class APITopic : HttpServlet() {
     private fun parent(id: String?) {
         try {
             if (id.isNullOrEmpty()) {
-                throw ProjThrowable.AE()
+                throw ShortcutThrowable.AE()
             }
 
             throw findTopicOutlineById(id, FindType.Parent)
@@ -198,7 +198,7 @@ class APITopic : HttpServlet() {
         } catch (e: SQLException) {
             e.printStackTrace()
             out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
-        } catch (info: ProjThrowable) {
+        } catch (info: ShortcutThrowable) {
             out.write(info.json())
         }
     }
@@ -206,15 +206,14 @@ class APITopic : HttpServlet() {
     private fun child(id: String?) {
         try {
             if (id.isNullOrEmpty()) {
-                throw ProjThrowable.AE()
+                throw ShortcutThrowable.AE()
             }
 
             throw findTopicOutlineById(id, FindType.Child)
-
         } catch (e: SQLException) {
             e.printStackTrace()
             out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
-        } catch (info: ProjThrowable) {
+        } catch (info: ShortcutThrowable) {
             out.write(info.json())
         }
     }
@@ -224,28 +223,28 @@ class APITopic : HttpServlet() {
         out.println(CONF.conf.server)
     }
 
-    private fun findTopicOutlineByName(name: String, type: FindType): ProjThrowable {
-        var info: ProjThrowable
+    private fun findTopicOutlineByName(name: String, type: FindType): ShortcutThrowable {
+        var info: ShortcutThrowable
 
-        when(type) {
+        when (type) {
             FindType.EQUALS -> {
                 try {
                     val topic = Topic.findOutlineByName(name)
-                    info = ProjThrowable.OK("success get topic", topic)
-                } catch (e: ProjThrowable) {
+                    info = ShortcutThrowable.OK("success get topic", topic)
+                } catch (e: ShortcutThrowable) {
                     info = e
                 }
             }
             FindType.LIKE -> {
                 val list: ArrayList<Topic.Outline> = similarTopic(name)
-                info = ProjThrowable.OK("success get topic list", list)
+                info = ShortcutThrowable.OK("success get topic list", list)
             }
 
             FindType.Child -> {
                 try {
                     val list = Topic.findChildrenByName(name)
-                    info = ProjThrowable.OK("success get parent topic", list)
-                } catch (e: ProjThrowable) {
+                    info = ShortcutThrowable.OK("success get child topics", list)
+                } catch (e: ShortcutThrowable) {
                     info = e
                 }
             }
@@ -253,22 +252,21 @@ class APITopic : HttpServlet() {
             FindType.Parent -> {
                 try {
                     val topic = Topic.findParentByName(name)
-                    info = ProjThrowable.OK("success get parent topic", topic.map())
-                } catch (e: ProjThrowable) {
+                    info = ShortcutThrowable.OK("success get parent topic", topic)
+                } catch (e: ShortcutThrowable) {
                     info = e
                 }
             }
         }
 
-
         return info
     }
 
-    private fun findTopicOutlineById(id: String, type: FindType): ProjThrowable {
+    private fun findTopicOutlineById(id: String, type: FindType): ShortcutThrowable {
         return try {
             val topic = Topic.findOutlineById(id)
             findTopicOutlineByName(topic.name, type)
-        } catch (e: ProjThrowable) {
+        } catch (e: ShortcutThrowable) {
             e
         }
     }

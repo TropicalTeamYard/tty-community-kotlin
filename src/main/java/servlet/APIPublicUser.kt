@@ -1,9 +1,9 @@
 package servlet
 
+import exception.Shortcut
 import util.CONF
 import util.Value
 import util.conn.MySQLConn
-import util.enums.Shortcut
 import util.parse.IP
 import java.io.FileInputStream
 import java.io.PrintWriter

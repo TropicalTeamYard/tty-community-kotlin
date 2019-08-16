@@ -1343,7 +1343,7 @@
     </column>
     <column id="321" parent="279" name="last_login_time">
       <Position>7</Position>
-      <DataType>text|0s</DataType>
+      <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
