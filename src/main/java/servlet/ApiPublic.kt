@@ -36,17 +36,17 @@ class ApiPublic : HttpServlet() {
 
         when (route) {
             "info" -> {
-                // http://localhost:8080/community/api/public/user/info
+                // http://localhost:8080/community/api/public/info
                 getPublicInfo(req)
             }
 
             "portrait" -> {
-                // http://localhost:8080/community/api/public/user/portrait?id=2008153477
+                // http://localhost:8080/community/api/public/portrait?id=2008153477
                 getPortrait(req, resp)
             }
 
             "test" -> {
-                // http://localhost:8080/community/api/public/user/test
+                // http://localhost:8080/community/api/public/test
                 test()
             }
 

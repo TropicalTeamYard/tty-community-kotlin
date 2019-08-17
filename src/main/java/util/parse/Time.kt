@@ -1,5 +1,6 @@
 package util.parse
 
+import util.CONF
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,7 +13,7 @@ object Time {
         }
 
         return try {
-            val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss", Locale.CHINA)
+            val sdf = SimpleDateFormat(CONF.dateFormat, Locale.CHINA)
             sdf.parse(s)
         } catch (e: ParseException) {
             null
@@ -22,7 +23,7 @@ object Time {
 
     fun getTime(date: Date): String {
         val time: String
-        val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss", Locale.CHINA)
+        val sdf = SimpleDateFormat(CONF.dateFormat, Locale.CHINA)
         time = sdf.format(date)
         return time
     }
@@ -72,18 +73,17 @@ object Time {
                     2, 3, 4, 5, 6 -> {
                         val dayOfMonth = otherCalendar.get(Calendar.WEEK_OF_MONTH)
                         val todayOfMonth = todayCalendar.get(Calendar.WEEK_OF_MONTH)
-                        if (dayOfMonth == todayOfMonth) {//表示是同一周
+                        result = if (dayOfMonth == todayOfMonth) {//表示是同一周
                             val dayOfWeek = otherCalendar.get(Calendar.DAY_OF_WEEK)
                             if (dayOfWeek != 1) {//判断当前是不是星期日     如想显示为：周日 12:09 可去掉此判断
-                                result =
-                                    dayNames[otherCalendar.get(Calendar.DAY_OF_WEEK) - 1] + getHourAndMin(
-                                        timestamp
-                                    )
+                                dayNames[otherCalendar.get(Calendar.DAY_OF_WEEK) - 1] + getHourAndMin(
+                                    timestamp
+                                )
                             } else {
-                                result = getTime(timestamp, timeFormat)
+                                getTime(timestamp, timeFormat)
                             }
                         } else {
-                            result = getTime(timestamp, timeFormat)
+                            getTime(timestamp, timeFormat)
                         }
                     }
                     else -> result = getTime(timestamp, timeFormat)

@@ -1,7 +1,10 @@
 package util
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import util.file.FileReadUtil
 import java.io.File
+import java.text.DateFormat
 
 class CONF(
     path: String,
@@ -26,11 +29,17 @@ class CONF(
     }
 
     companion object {
-        private val mode = MODE.DEBUG
+        private val mode = MODE.RELEASE
 
-        
+        const val dateFormat = "yyyy/MM/dd-HH:mm:ss"
 
         const val secretKey = "123456"
+
+        val gson: Gson = GsonBuilder()
+            .setDateFormat(dateFormat)
+            .create()
+
+
 
         val root: String
             get() {

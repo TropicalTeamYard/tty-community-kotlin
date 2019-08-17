@@ -1,6 +1,5 @@
 package model
 
-import com.google.gson.Gson
 import enums.Shortcut
 import model.log.Log
 import util.CONF
@@ -761,7 +760,7 @@ class User {
             }
         }
 
-        private val gson = Gson()
+        private val gson = CONF.gson
 
         enum class LoginType {
             ID, NICKNAME

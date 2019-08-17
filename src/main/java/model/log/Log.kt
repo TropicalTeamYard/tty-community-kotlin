@@ -1,16 +1,16 @@
 package model.log
 
-import com.google.gson.Gson
 import model.Blog
 import model.Topic
 import model.User
 import model.User.Companion.LoginPlatform
 import model.User.Companion.LoginType
+import util.CONF
 import util.Value
 import java.util.*
 
 object Log {
-    private val gson = Gson()
+    private val gson = CONF.gson
 
     fun register(id: String, date: Date, ip: String, nickname: String) {
         val log = "user::register::nickname=$nickname::time=${Value.getTime(date)}::ip=$ip\n"

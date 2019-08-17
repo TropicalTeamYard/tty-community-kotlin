@@ -93,8 +93,12 @@ class ApiBlog : HttpServlet() {
                     message.write()
                 }
                 BlogContentType.HTML -> {
-                    message.data?.let {
-                        out.write(it.parseHtml())
+                    val html = message.data?.parseHtml()
+                    if (html != null) {
+                        out.write(html)
+                    } else {
+                        //todo write the 404 page
+                        Message<Any>(Shortcut.BNE, "blog $blogId not found").write()
                     }
                 }
             }
@@ -110,10 +114,13 @@ class ApiBlog : HttpServlet() {
             return
         }
 
+        val status = BlogStatus.NORMAL
+
         val conn = MySQLConn.connection
         try {
-            val ps = conn.prepareStatement("select data from blog where blog_id = ? and status = 'normal' limit 1")
+            val ps = conn.prepareStatement("select data from blog where blog_id = ? and status <= ? limit 1")
             ps.setString(1, blogId)
+            ps.setInt(2, status.value())
             val rs = ps.executeQuery()
             if (rs.next()) {
                 val path = CONF.conf.blog + "/$blogId/$picKey"

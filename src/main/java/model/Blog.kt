@@ -1,6 +1,5 @@
 package model
 
-import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import enums.Shortcut
 import model.Blog.BlogType.Companion.parse
@@ -39,7 +38,7 @@ interface Blog {
         override val nickname: String,
         override val status: Int
     ) : Blog {
-        open fun parse() = apply {
+        fun parse() = apply {
             introduction = introduction.replace("####blog_id####", blogId)
             title = title.replace("####nickname####", nickname)
         }
@@ -59,11 +58,11 @@ interface Blog {
         comments: String,
         likes: String,
         var lastEditTime: Date
-    ) : Outline(blogId, type, author, title, introduction, tag, lastActiveTime, nickname, status) {
+    ): Blog {
         val comments: ArrayList<Comment> = gson.fromJson(comments, object : TypeToken<ArrayList<Comment>>() {}.type)
         val likes: ArrayList<Like> = gson.fromJson(likes, object : TypeToken<ArrayList<Like>>() {}.type)
 
-        override fun parse() = apply {
+        fun parse() = apply {
             // todo
             introduction = introduction.replace("####blog_id####", blogId)
             title = title.replace("####nickname####", nickname)
@@ -76,14 +75,16 @@ interface Blog {
             val style = Value.markdownAirCss()
 
             return html
-                .replace("####nickname####", nickname)
                 .replace("####title-author####", "$title-$nickname")
                 .replace("####style####", style)
                 .replace("####title####", title)
+                .replace("####introduction####", introduction)
                 .replace("####last_edit_time####", lastEditTime.getFormattedTime())
                 .replace("####last_active_time####", lastActiveTime.getFormattedTime())
-                .replace("####introduction####", introduction)
                 .replace("####content####", content)
+                .replace("####nickname####", nickname)
+                .replace("####blog_id####", blogId)
+
         }
     }
 
@@ -91,7 +92,7 @@ interface Blog {
     data class Like(val id: String, val nickname: String)
 
     companion object {
-        val gson = Gson()
+        val gson = CONF.gson
 
         // checked
         private fun create(type: BlogType, author: String, title: String, introduction: String, content: String, tag: String, time: Timestamp, status: BlogStatus = BlogStatus.NORMAL): Message<Outline> {
@@ -186,7 +187,7 @@ interface Blog {
         private fun getOutlineById(id: String, blogStatus: BlogStatus = BlogStatus.NORMAL): Outline? {
             try {
                 val conn = MySQLConn.connection
-                val ps = conn.prepareStatement("select * from blog where blog_id = ? and status = ? limit 1")
+                val ps = conn.prepareStatement("select * from blog where blog_id = ? and status <= ? limit 1")
                 ps.setString(1, id)
                 ps.setInt(2, blogStatus.value())
                 val rs = ps.executeQuery()
@@ -219,7 +220,7 @@ interface Blog {
             try {
                 val conn = MySQLConn.connection
                 val timestamp = Timestamp(time.time)
-                val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time, status from blog where last_active_time <= ? and status = ? and tag like ? order by last_active_time desc limit ?")
+                val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time, status from blog where last_active_time <= ? and status <= ? and tag like ? order by last_active_time desc limit ?")
                 ps.setTimestamp(1, timestamp)
                 ps.setInt(2, blogStatus.value())
                 ps.setString(3, if(topic.isEmpty()) {"%%"} else {topic})
@@ -253,7 +254,7 @@ interface Blog {
                 val conn = MySQLConn.connection
                 getOutlineById(id, blogStatus)?.let {
                     val timestamp = Timestamp(it.lastActiveTime.time)
-                    val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time, status from blog where last_active_time < ? and status = ? and tag like ? order by last_active_time desc limit ?")
+                    val ps = conn.prepareStatement("select blog_id, author_id, type, title, introduction, tag, last_active_time, status from blog where last_active_time < ? and status <= ? and tag like ? order by last_active_time desc limit ?")
                     ps.setTimestamp(1, timestamp)
                     ps.setInt(2, blogStatus.value())
                     ps.setString(3, if(topic.isEmpty()) {"%%"} else {topic})
@@ -288,7 +289,7 @@ interface Blog {
         fun getDetailById(blogId: String, blogStatus: BlogStatus = BlogStatus.NORMAL): Message<Detail> {
             try {
                 val conn = MySQLConn.connection
-                val ps = conn.prepareStatement("select * from blog where blog_id = ? and status = ? limit 1")
+                val ps = conn.prepareStatement("select * from blog where blog_id = ? and status <= ? limit 1")
                 ps.setString(1, blogId)
                 ps.setInt(2, blogStatus.value())
                 val rs = ps.executeQuery()
@@ -365,9 +366,9 @@ interface Blog {
         NORMAL, DELETED, HIGH_PERMISSION, ALL;
         fun value() = when(this) {
             NORMAL -> 0
-            DELETED -> -1
-            HIGH_PERMISSION -> 2
-            ALL -> 3
+            DELETED -> 5
+            HIGH_PERMISSION -> 7
+            ALL -> 9
         }
 
         fun string() = value().toString()
@@ -375,9 +376,9 @@ interface Blog {
         companion object {
             fun String.parse() = when(this) {
                 "0" -> NORMAL
-                "-1" -> DELETED
-                "2" -> HIGH_PERMISSION
-                "3" -> ALL
+                "5" -> DELETED
+                "7" -> HIGH_PERMISSION
+                "9" -> ALL
                 else -> NORMAL
             }
         }

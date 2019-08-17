@@ -41,7 +41,7 @@ object Value {
 
     fun getTime(date: Date): String {
         val time: String
-        val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss")
+        val sdf = SimpleDateFormat(CONF.dateFormat)
         time = sdf.format(date)
         return time
     }
@@ -51,7 +51,7 @@ object Value {
             return null
         }
         return try {
-            val sdf = SimpleDateFormat("yyyy/MM/dd-HH:mm:ss")
+            val sdf = SimpleDateFormat(CONF.dateFormat)
             sdf.parse(s)
         } catch (e: ParseException) {
             null

@@ -1,7 +1,7 @@
 package model
 
-import com.google.gson.Gson
 import enums.Shortcut
+import util.CONF
 
 class Message<T>(val shortcut: Shortcut, val msg: String, val data: T? = null) {
     fun json(): String {
@@ -9,6 +9,6 @@ class Message<T>(val shortcut: Shortcut, val msg: String, val data: T? = null) {
     }
 
     companion object {
-        private val gson = Gson()
+        private val gson = CONF.gson
     }
 }
