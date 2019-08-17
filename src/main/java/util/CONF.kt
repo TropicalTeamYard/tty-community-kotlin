@@ -1,6 +1,5 @@
 package util
 
-import util.enums.MODE
 import util.file.FileReadUtil
 import java.io.File
 
@@ -22,10 +21,16 @@ class CONF(
         file = "$path/$file"
     }
 
-    companion object {
-        private val mode = MODE.RELEASE
+    enum class MODE {
+        DEBUG, RELEASE
+    }
 
-        val secretKey = "123456"
+    companion object {
+        private val mode = MODE.DEBUG
+
+        
+
+        const val secretKey = "123456"
 
         val root: String
             get() {
@@ -56,3 +61,4 @@ class CONF(
             }
     }
 }
+

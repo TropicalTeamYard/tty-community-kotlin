@@ -1,13 +1,11 @@
 package model
 
 import com.google.gson.Gson
-import exception.Shortcut
-import exception.ShortcutThrowable
+import enums.Shortcut
+import model.log.Log
 import util.CONF
 import util.Value
 import util.conn.MySQLConn
-import util.log.Log
-import util.parse.IP
 import util.parse.MultipleForm
 import java.sql.SQLException
 import java.sql.Timestamp
@@ -21,37 +19,42 @@ class User {
     class LoginResult(var id: String, var nickname: String, val email: String, var token: String)
 
     class Updater(var id: String, var token: String, var ip: String) {
-        val shortcut = checkToken(id, token)
-        val conn = MySQLConn.connection
+        private val shortcut = checkToken(id, token)
+        private val conn = MySQLConn.connection
         private val items = ArrayList<Item>()
         var date = Date()
-        private var before: PrivateInfo? = null
-        private var after: PrivateInfo? = null
-
-        init {
-            try {
-                before = PrivateInfo.get(id, token)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+        private var before: Message<PrivateInfo> = PrivateInfo.get(id, token)
 
         fun add(item: Item) {
             items.add(item)
         }
 
-        fun result(): ArrayList<Item> {
-            try {
-                after = PrivateInfo.get(id, token)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            Log.changeUserInfo(id, date, ip, before, after)
+        fun result(): Message<ArrayList<Item>> {
+            val after: Message<PrivateInfo> = PrivateInfo.get(id, token)
 
-            return items
+            when(after.shortcut) {
+                Shortcut.OK -> {
+                    Log.changeUserInfo(id,date, ip, before.data, after.data)
+                    return Message(Shortcut.OK, "invalid token", items)
+                }
+
+                Shortcut.TE -> {
+                    return Message(Shortcut.TE, "invalid token")
+                }
+
+                Shortcut.UNE -> {
+                    return Message(Shortcut.UNE, "user $id not found")
+                }
+
+                else -> {
+                    return Message(Shortcut.OTHER, "error when checking the token")
+                }
+            }
+
         }
 
         data class Item(val key: String, val value: String, val status: Shortcut)
+
 
         fun nickname(value: String): Item {
             val key = "nickname"
@@ -76,7 +79,7 @@ class User {
                 } else {
                     Item(key, value, Shortcut.UNE)
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 Item(key, value, Shortcut.OTHER)
             }
@@ -101,7 +104,7 @@ class User {
                 } else {
                     Item(key, value, Shortcut.UNE)
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 Item(key, value, Shortcut.OTHER)
             }
@@ -123,7 +126,7 @@ class User {
                 } else {
                     Item(key, signature, Shortcut.UNE)
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 Item(key, signature, Shortcut.OTHER)
             }
@@ -148,7 +151,7 @@ class User {
                 } else {
                     Item(key, value, Shortcut.UNE)
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 Item(key, value, Shortcut.OTHER)
             }
@@ -171,7 +174,7 @@ class User {
                 } else {
                     Item(key, value, Shortcut.UNE)
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 Item(key, value, Shortcut.OTHER)
             }
@@ -185,7 +188,7 @@ class User {
         override val portrait: String,
         override val signature: String,
         override val userGroup: String,
-        override val exp: String,
+        override val exp: Int,
         override val school: String
     ) : SimpleUser, SimpleDetail {
 
@@ -201,26 +204,26 @@ class User {
         )
 
         companion object {
-            fun get(id: String, token: String): PrivateInfo {
+            fun get(id: String, token: String): Message<PrivateInfo> {
                 when (checkToken(id, token)) {
                     Shortcut.OK -> {
-                        val user = SimpleUser.get(id) ?: throw ShortcutThrowable.UNE()
+                        val user = SimpleUser.get(id) ?: return Message(Shortcut.UNE, "user $id not found")
 
-                        val detail = SimpleDetail.get(id) ?: throw throw ShortcutThrowable.UNE()
+                        val detail = SimpleDetail.get(id) ?: return Message(Shortcut.UNE, "user $id not found")
 
-                        return PrivateInfo(user, detail)
+                        return Message(Shortcut.OK, "success", PrivateInfo(user, detail))
                     }
 
                     Shortcut.TE -> {
-                        throw ShortcutThrowable.TE()
+                        return Message(Shortcut.TE, "invalid token")
                     }
 
                     Shortcut.UNE -> {
-                        throw ShortcutThrowable.UNE()
+                        return Message(Shortcut.UNE, "user $id not found")
                     }
 
                     else -> {
-                        throw ShortcutThrowable.OTHER("error when checking the token")
+                        return Message(Shortcut.OTHER, "error when checking the token")
                     }
                 }
             }
@@ -250,7 +253,6 @@ class User {
                     rs.close()
                     ps.close()
                 }
-
                 return null
             }
         }
@@ -260,14 +262,14 @@ class User {
         val portrait: String
         val signature: String
         val userGroup: String
-        val exp: String
+        val exp: Int
         val school: String
 
         class Detail(
             override val portrait: String,
             override val signature: String,
             override val userGroup: String,
-            override val exp: String,
+            override val exp: Int,
             override val school: String
         ) : SimpleDetail
 
@@ -282,7 +284,7 @@ class User {
                     val portrait = rs.getString("portrait")
                     val signature = rs.getString("personal_signature")
                     val userGroup = rs.getString("user_group")
-                    val exp = rs.getInt("exp").toString()
+                    val exp = rs.getInt("exp")
                     val school = rs.getString("school")
                     rs.close()
                     ps.close()
@@ -297,10 +299,12 @@ class User {
     }
 
     companion object {
-        fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date, status: Boolean): String {
+        // checked
+        private fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date, status: Boolean): String {
             return "$id::${platform.name}::$secret::${Value.getTime(time)}::$status"
         }
 
+        // checked
         fun getNicknameById(id: String): String? {
             val conn = MySQLConn.connection
             var nickname: String?
@@ -323,7 +327,8 @@ class User {
             return nickname
         }
 
-        fun getIdByNickname(nickname: String): String? {
+        // checked
+        private fun getIdByNickname(nickname: String): String? {
             val conn = MySQLConn.connection
             var id: String?
             try {
@@ -345,6 +350,7 @@ class User {
             return id
         }
 
+        // checked
         fun String.exist(): Boolean {
             val conn = MySQLConn.connection
             try {
@@ -366,19 +372,23 @@ class User {
             }
         }
 
+        // checked
         fun String.isNicknameValid(): Boolean {
             return Pattern.matches("^[a-zA-Z0-9\\u4e00-\\u9fa5]+$", this)
         }
 
+        // checked
         fun String.isEmailValid(): Boolean {
             return Pattern.matches("^[A-Za-z0-9\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+\$", this)
         }
 
+        // todo
         fun String.isSchoolValid(): Boolean {
             // todo check the school name valid
             return this.isNotEmpty()
         }
 
+        // checked
         fun checkToken(id: String, token: String): Shortcut {
             val conn = MySQLConn.connection
             try {
@@ -399,12 +409,13 @@ class User {
                     ps.close()
                     Shortcut.UNE
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 return Shortcut.OTHER
             }
         }
 
+        // checked
         private fun checkPassword(account: String, password: String, type: LoginType): Shortcut {
             val conn = MySQLConn.connection
             try {
@@ -449,71 +460,82 @@ class User {
                     }
                 }
 
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
                 return Shortcut.OTHER
             }
         }
 
+        // checked
         private fun updateLogin(id: String, ip: String, timestamp: Timestamp): Int {
-            val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("update user set last_login_ip = ?, last_login_time = ? where id = ?")
-            ps.setString(1, ip)
-            ps.setTimestamp(2, timestamp)
-            ps.setString(3, id)
-            val effect = ps.executeUpdate()
-            ps.close()
-            return effect
+            return try {
+                val conn = MySQLConn.connection
+                val ps = conn.prepareStatement("update user set last_login_ip = ?, last_login_time = ? where id = ?")
+                ps.setString(1, ip)
+                ps.setTimestamp(2, timestamp)
+                ps.setString(3, id)
+                val effect = ps.executeUpdate()
+                ps.close()
+                effect
+            } catch (e: Exception) {
+                e.printStackTrace()
+                0
+            }
         }
 
+        // checked
         private fun updateToken(id: String, token: String): Int {
-            val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("update user set token = ? where id = ?")
-            ps.setString(1, token)
-            ps.setString(2, id)
-            val effect = ps.executeUpdate()
-            ps.close()
-            return effect
+            return try {
+                val conn = MySQLConn.connection
+                val ps = conn.prepareStatement("update user set token = ? where id = ?")
+                ps.setString(1, token)
+                ps.setString(2, id)
+                val effect = ps.executeUpdate()
+                ps.close()
+                effect
+            } catch (e: Exception) {
+                e.printStackTrace()
+                0
+            }
+
         }
 
-        fun autoLogin(ip: String, id: String, token: String, platform: LoginPlatform): ShortcutThrowable {
+        // checked
+        fun autoLogin(ip: String, id: String, token: String, platform: LoginPlatform): Message<SimpleUser> {
             try {
                 val timestamp = Timestamp(Date().time)
                 when (checkToken(id, token)) {
                     Shortcut.OK -> {
                         updateLogin(id, ip, timestamp)
-                        val simple = SimpleUser.get(id) ?: return ShortcutThrowable.UNE()
-                        Log.autoLogin(id, timestamp, ip, platform, true)
-                        return ShortcutThrowable.OK("ok, let's fun", simple)
+                        SimpleUser.get(id)?.let {
+                            Log.autoLogin(id, timestamp, ip, platform, true)
+                            return Message(Shortcut.OK, "ok, let's fun", it)
+                        }
+                        return Message(Shortcut.UNE, "user $id not found")
                     }
 
                     Shortcut.TE -> {
                         Log.autoLogin(id, timestamp, ip, platform, false)
-                        return ShortcutThrowable.TE()
+                        return Message(Shortcut.TE, "invalid token")
                     }
 
                     Shortcut.UNE -> {
-                        return ShortcutThrowable.UNE()
+                        return Message(Shortcut.UNE, "user $id not found")
                     }
 
                     else -> {
-                        return ShortcutThrowable.OTHER("error when checking the token")
+                        return Message(Shortcut.OTHER, "error when checking the token")
                     }
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
-                return ShortcutThrowable.OTHER("SQL ERROR")
+                return Message(Shortcut.OTHER, "unknown error")
             }
 
         }
 
-        fun login(
-            account: String,
-            password: String,
-            type: LoginType,
-            platform: LoginPlatform,
-            ip: String
-        ): ShortcutThrowable {
+        // checked
+        fun login(account: String, password: String, type: LoginType, platform: LoginPlatform, ip: String): Message<LoginResult> {
             val time = Date()
             val id = when (type) {
                 LoginType.ID -> account
@@ -528,38 +550,35 @@ class User {
                         if (effect > 0 && user != null) {
                             val result = LoginResult(user.id, user.nickname, user.email, Value.getMD5(token))
                             Log.login(it, time, ip, type, platform, true)
-                            return ShortcutThrowable.OK("ok, let's fun", result)
+                            return Message(Shortcut.OK, "ok, let's fun", result)
                         }
                     }
-                    return ShortcutThrowable.UNE()
+                    return Message(Shortcut.UNE, "user $account not found")
                 }
                 Shortcut.UNE -> {
-                    return ShortcutThrowable.UNE()
+                    return Message(Shortcut.UNE, "user $account not found")
                 }
                 Shortcut.UPE -> {
                     id?.let {
                         Log.login(it, time, ip, type, platform, false)
                     }
-                    return ShortcutThrowable.UPE()
+                    return Message(Shortcut.UPE, "wrong password")
                 }
                 else -> {
-                    return ShortcutThrowable.OTHER("error when checking the password")
+                    return Message(Shortcut.OTHER, "unknown error")
                 }
             }
         }
 
-        fun register(nickname: String, ip: String, email: String, password: String): ShortcutThrowable {
-            if (!nickname.isNicknameValid() || !email.isEmailValid()) {
-                return ShortcutThrowable.AIF("incorrect format of nickname or email")
-            }
+        // checked
+        fun register(nickname: String, ip: String, email: String, password: String): Message<PrivateInfo> {
+            if (!nickname.isNicknameValid() || !email.isEmailValid()) { return Message(Shortcut.AIF, "incorrect format of nickname or email") }
 
-            if(nickname.exist()) {
-                return ShortcutThrowable.UR()
-            }
+            if(nickname.exist()) { return Message(Shortcut.UNE, "user $nickname not exist") }
 
             try {
                 val timestamp = Timestamp(Date().time)
-                val id = addUser(nickname, password, ip, email, timestamp)
+                val user = addUser(nickname, password, ip, email, timestamp)
                 val portrait = "default"
                 val follower = arrayListOf<String>()
                 val following = arrayListOf<String>()
@@ -567,130 +586,124 @@ class User {
                 val topic = arrayListOf<String>()
                 val status = "normal"
                 val school = ""
-                addDetail(id, portrait, follower, following, signature, status, topic, school)
-                val user = SimpleUser.get(id) ?: return ShortcutThrowable.UNE()
-                val detail = SimpleDetail.get(id) ?: return ShortcutThrowable.UNE()
-                Log.register(id, timestamp, ip, nickname)
-                return ShortcutThrowable.OK("ok, let's fun", PrivateInfo(user, detail))
-            } catch (e: SQLException) {
+                user?.let {
+                    val detail = addDetail(user.id, portrait, follower, following, signature, status, topic, school)
+                    Log.register(user.id, timestamp, ip, nickname)
+                    detail?.let {
+                        return Message(Shortcut.OK, "ok, let's fun", PrivateInfo(user, detail))
+                    }
+                }
+
+                return Message(Shortcut.OTHER, "unknown error")
+            } catch (e: Exception) {
                 e.printStackTrace()
-                return ShortcutThrowable.OTHER("SQL ERROR")
+                return Message(Shortcut.OTHER, "unknown error")
             }
         }
 
-        private fun addDetail(
-            id: String,
-            portrait: String,
-            follower: ArrayList<String>,
-            following: ArrayList<String>,
-            signature: String,
-            status: String,
-            topic: ArrayList<String>,
-            school: String
-        ) {
-            val conn = MySQLConn.connection
-            val ps =
-                conn.prepareStatement("insert into user_detail (id, portrait, follower, following, personal_signature, account_status, exp, log, topic, school) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
-            ps.setString(1, id)
-            ps.setString(2, portrait)
-            ps.setString(3, gson.toJson(follower))
-            ps.setString(4, gson.toJson(following))
-            ps.setString(5, signature)
-            ps.setString(6, status)
-            ps.setInt(7, 20)
-            ps.setString(8, "init\n")
-            ps.setString(9, gson.toJson(topic))
-            ps.setString(10, school)
-            ps.execute()
-            ps.close()
+        // checked
+        private fun addDetail(id: String, portrait: String, follower: ArrayList<String>, following: ArrayList<String>, signature: String, status: String, topic: ArrayList<String>, school: String): SimpleDetail.Detail? {
+            try {
+                val conn = MySQLConn.connection
+                val ps =
+                    conn.prepareStatement("insert into user_detail (id, portrait, follower, following, personal_signature, account_status, exp, log, topic, school) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+                ps.setString(1, id)
+                ps.setString(2, portrait)
+                ps.setString(3, gson.toJson(follower))
+                ps.setString(4, gson.toJson(following))
+                ps.setString(5, signature)
+                ps.setString(6, status)
+                ps.setInt(7, 20)
+                ps.setString(8, "init\n")
+                ps.setString(9, gson.toJson(topic))
+                ps.setString(10, school)
+                ps.execute()
+                ps.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return SimpleDetail.get(id)
         }
 
-        private fun addUser(
-            nickname: String,
-            password: String,
-            ip: String,
-            email: String,
-            timestamp: Timestamp
-        ): String {
-            val conn = MySQLConn.connection
+        // checked
+        private fun addUser(nickname: String, password: String, ip: String, email: String, timestamp: Timestamp): SimpleUser.User? {
             val id = newId(timestamp, nickname)
-            val token = getToken(id, LoginPlatform.MOBILE, CONF.secretKey, timestamp, false)
-            val ps =
-                conn.prepareStatement("insert into user (id, nickname, password, token, last_login_ip, last_login_time, email) VALUES (?, ?, ?, ?, ?, ?, ?)")
-            ps.setString(1, id)
-            ps.setString(2, nickname)
-            ps.setString(3, password)
-            ps.setString(4, token)
-            ps.setString(5, ip)
-            ps.setTimestamp(6, timestamp)
-            ps.setString(7, email)
-            ps.execute()
-            ps.close()
-            return id
+            try {
+                val conn = MySQLConn.connection
+                val token = getToken(id, LoginPlatform.MOBILE, CONF.secretKey, timestamp, false)
+                val ps =
+                    conn.prepareStatement("insert into user (id, nickname, password, token, last_login_ip, last_login_time, email) VALUES (?, ?, ?, ?, ?, ?, ?)")
+                ps.setString(1, id)
+                ps.setString(2, nickname)
+                ps.setString(3, password)
+                ps.setString(4, token)
+                ps.setString(5, ip)
+                ps.setTimestamp(6, timestamp)
+                ps.setString(7, email)
+                ps.execute()
+                ps.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return SimpleUser.get(id)
         }
 
-        @Throws(ShortcutThrowable::class)
-        fun changePortrait(req: HttpServletRequest): Boolean {
+        // checked
+        fun changePortrait(req: HttpServletRequest): Message<Any> {
             val conn = MySQLConn.connection
             val multipleForm: MultipleForm = MultipleForm(req).build()
-            try {
+
+            return try {
                 val fields = multipleForm.fields
                 val streams = multipleForm.streams
                 val id = fields["id"]
                 val token = fields["token"]
-                val ip = IP.getIPAddr(req)
+                val ip = Value.getIP(req)
                 val date = Date()
 
-                if (id.isNullOrEmpty() || token.isNullOrEmpty() || ip == "0.0.0.0") {
-                    throw ShortcutThrowable.AE()
-                }
+                if (id.isNullOrEmpty() || token.isNullOrEmpty() || ip == "0.0.0.0" || streams.isEmpty() || streams[0].field != "portrait") { return Message(Shortcut.AE, "argument mismatch") }
 
-                if (streams.isEmpty() || streams[0].field != "portrait") {
-                    throw ShortcutThrowable.AE()
-                }
-
-                when (User.checkToken(id, token)) {
+                when (checkToken(id, token)) {
                     Shortcut.OK -> {
-                        val name = "${id}_${Value.random()}"
-                        try {
-                            if (multipleForm.saveSingleFile(CONF.conf.portrait, name)) {
-                                val ps = conn.prepareStatement("update user_detail set portrait = ? where id = ?")
-                                ps.setString(1, name)
-                                ps.setString(2, id)
-                                ps.executeUpdate()
-                                ps.close()
-                                Log.changePortrait(id, date, ip, true, name)
-                                ShortcutThrowable.OK("portrait changed")
-                                return true
-                            } else {
-                                throw ShortcutThrowable.OTHER("save file error")
-                            }
-                        } catch (e: SQLException) {
-                            e.printStackTrace()
-                            throw ShortcutThrowable.OTHER("SQL ERROR")
+                        val filename = "${id}_${Value.random()}"
+                        if (multipleForm.saveSingleFile(CONF.conf.portrait, filename)) {
+                            val ps = conn.prepareStatement("update user_detail set portrait = ? where id = ?")
+                            ps.setString(1, filename)
+                            ps.setString(2, id)
+                            ps.executeUpdate()
+                            ps.close()
+                            Log.changePortrait(id, date, ip, true, filename)
+                            Message(Shortcut.OK, "portrait changed")
+                        } else {
+                            Message(Shortcut.OTHER, "save file error")
                         }
                     }
 
-                    Shortcut.UNE -> {
-                        throw ShortcutThrowable.UNE()
-                    }
                     Shortcut.TE -> {
-                        Log.changePortrait(id, date, ip, false)
-                        throw ShortcutThrowable.TE()
+                        Message(Shortcut.TE, "invalid token")
                     }
+
+                    Shortcut.UNE -> {
+                        Message(Shortcut.UNE, "user $id not found")
+                    }
+
                     else -> {
-                        throw ShortcutThrowable.OTHER("error when checking the user")
+                        Message(Shortcut.OTHER, "unknown error")
                     }
                 }
-            } catch (e: ShortcutThrowable) {
-                throw e
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Message(Shortcut.OTHER, "unknown error")
             } finally {
                 multipleForm.close()
             }
-
         }
 
-        fun changePassword(id: String, oldPassword: String, newPassword: String, ip: String): ShortcutThrowable {
+        // checked
+        fun changePassword(id: String, oldPassword: String, newPassword: String, ip: String): Message<Any> {
             val conn = MySQLConn.connection
             val timestamp = Timestamp(Date().time)
 
@@ -710,40 +723,45 @@ class User {
                         ps.setString(3, id)
                         ps.executeUpdate()
                         ps.close()
-
                         Log.changePassword(id, timestamp, ip, true)
-                        return ShortcutThrowable.OK("change password succeed")
+                        return Message(Shortcut.OK, "change password succeed")
                     } else {
                         rs.close()
                         ps.close()
                         Log.changePassword(id, timestamp, ip, false)
-                        return ShortcutThrowable.UPE("wrong password")
+                        return Message(Shortcut.UPE, "wrong password")
                     }
                 } else {
                     rs.close()
                     ps.close()
-                    return ShortcutThrowable.UNE("user $id has not been registered")
+                    return Message(Shortcut.UNE, "user $id has not been registered")
                 }
-            } catch (e: SQLException) {
+            } catch (e: Exception) {
                 e.printStackTrace()
-                return ShortcutThrowable.OTHER("SQL ERROR")
+                return Message(Shortcut.OTHER, "unknown error")
             }
 
         }
 
-        fun newId(registerTime: Date, nickname: String?) =
+        // checked
+        private fun newId(registerTime: Date, nickname: String?) =
             ("${registerTime.time}$nickname${(10..99).random()}".hashCode() and Integer.MAX_VALUE).toString()
 
+        // checked
         fun log(id: String, log: String) {
-            val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("update user_detail set log = concat(?, log) where id = ?")
-            ps.setString(1, log)
-            ps.setString(2, id)
-            ps.executeUpdate()
-            ps.close()
+            try {
+                val conn = MySQLConn.connection
+                val ps = conn.prepareStatement("update user_detail set log = concat(?, log) where id = ?")
+                ps.setString(1, log)
+                ps.setString(2, id)
+                ps.executeUpdate()
+                ps.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
-        val gson = Gson()
+        private val gson = Gson()
 
         enum class LoginType {
             ID, NICKNAME

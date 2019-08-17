@@ -34,16 +34,16 @@ create table blog(
     _id integer primary key auto_increment,
     blog_id varchar(32) not null unique,
     author_id varchar(32) not null,
-    type integer not null default 0,
+    type integer default 0 not null,
     title text not null,
     introduction text not null,
     content blob not null,
     tag text not null,
-    comment blob not null,
+    comments blob not null,
     likes blob not null,
     last_edit_time datetime not null,
     last_active_time datetime not null,
-    status text not null,
+    status integer not null,
     data blob,
     log longblob not null
 );
@@ -57,6 +57,6 @@ create table topic(
     follower blob not null,
     parent varchar(32) not null,
     admin varchar(32) not null,
-    status text not null,
+    status integer not null,
     log longblob not null
 );

@@ -1159,7 +1159,7 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="289" parent="277" name="comment">
+    <column id="289" parent="277" name="comments">
       <Position>9</Position>
       <DataType>blob|0s</DataType>
       <NotNull>1</NotNull>
@@ -1185,7 +1185,7 @@
     </column>
     <column id="293" parent="277" name="status">
       <Position>13</Position>
-      <DataType>text|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>

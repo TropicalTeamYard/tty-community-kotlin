@@ -2,33 +2,41 @@ package util
 
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
-import exception.Shortcut
+import enums.Shortcut
 import util.file.FileReadUtil
 import java.io.ByteArrayInputStream
 import java.io.File
-import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 import java.sql.Blob
-import java.sql.SQLException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.servlet.http.HttpServletRequest
 import kotlin.collections.HashMap
 import kotlin.experimental.and
 
 object Value {
+    const val DEFAULT_NICKNAME = "[RESET]"
 
-    @Throws(SQLException::class, IOException::class)
     fun Blob.string(): String {
-        val str: String
-        val inputStream = binaryStream
-        val byteArrayInputStream = inputStream as ByteArrayInputStream
-        val byteData = ByteArray(byteArrayInputStream.available()) //byteArrayInputStream.available()返回此输入流的字节数
-        byteArrayInputStream.read(byteData, 0, byteData.size) //将输入流中的内容读到指定的数组
-        str = String(byteData, StandardCharsets.UTF_8) //再转为String，并使用指定的编码方式
-        inputStream.close()
-        return str
+        return try {
+            val string: String
+            val inputStream = binaryStream
+            val byteArrayInputStream = inputStream as ByteArrayInputStream
+            val byteData = ByteArray(byteArrayInputStream.available()) //byteArrayInputStream.available()返回此输入流的字节数
+            byteArrayInputStream.read(byteData, 0, byteData.size) //将输入流中的内容读到指定的数组
+            string = String(byteData, StandardCharsets.UTF_8) //再转为String，并使用指定的编码方式
+            inputStream.close()
+            string
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    fun String?.value(default: Int = 0): Int {
+        try { this?.let { return it.toInt() } } catch (e: Exception) { }
+        return default
     }
 
     fun getTime(date: Date): String {
@@ -101,7 +109,7 @@ object Value {
 
     fun random() = ("${Date().time}${(10000000..99999999).random()}".hashCode() and Integer.MAX_VALUE).toString()
 
-    fun Map<String, Array<String>>.getFields(): HashMap<String, String> {
+    fun Map<String, Array<String>>.fields(): HashMap<String, String> {
         val fields = HashMap<String, String>()
         for (item in this) {
             val key = item.key
@@ -114,4 +122,34 @@ object Value {
 
         return fields
     }
+
+    fun getIP(request: HttpServletRequest): String {
+        var ip: String? = request.getHeader("x-forwarded-for")
+        if (ip != null && ip.isNotEmpty() && !"unknown".equals(ip, ignoreCase = true)) {
+            // 多次反向代理后会有多个ip值，第一个ip才是真实ip
+            if (ip.contains(",")) {
+                ip = ip.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+            }
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
+            ip = request.getHeader("Proxy-Client-IP")
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
+            ip = request.getHeader("WL-Proxy-Client-IP")
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
+            ip = request.getHeader("HTTP_CLIENT_IP")
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR")
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
+            ip = request.getHeader("X-Real-IP")
+        }
+        if (ip == null || ip.isEmpty() || "unknown".equals(ip, ignoreCase = true)) {
+            ip = request.remoteAddr
+        }
+        return ip ?: "0.0.0.0"
+    }
+
 }

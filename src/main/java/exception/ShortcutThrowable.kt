@@ -1,5 +1,10 @@
 package exception
 
+import model.Message
+import enums.Shortcut
+
+
+@Deprecated("")
 open class ShortcutThrowable(open val msg: String) : Exception() {
 
     open fun json(): String {
@@ -88,7 +93,7 @@ open class ShortcutThrowable(open val msg: String) : Exception() {
     }
 
     class OTHER(
-        override val msg: String = "UNKNOWN ERROR"
+        override val msg: String = "unknown error"
     ) : ShortcutThrowable(msg)
 
     /**

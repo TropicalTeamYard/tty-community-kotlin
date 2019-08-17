@@ -36,24 +36,31 @@ interface Topic {
     }
 
     companion object {
+
         fun similarTopic(name: String): ArrayList<Outline> {
-            val conn = MySQLConn.connection
-            val ps =
-                conn.prepareStatement("select topic_id, name, parent, introduction from topic where name like ? or introduction like ?")
-            ps.setString(1, "%$name%")
-            ps.setString(2, "%$name%")
             val list = ArrayList<Outline>()
-            val rs = ps.executeQuery()
-            while (rs.next()) {
-                val id = rs.getString("topic_id")
-                val n = rs.getString("name")
-                val parent = rs.getString("parent")
-                val introduction = rs.getString("introduction")
-                val topic = Outline(id, n, parent, introduction)
-                list.add(topic)
+            try {
+                val conn = MySQLConn.connection
+                val ps =
+                    conn.prepareStatement("select topic_id, name, parent, introduction from topic where name like ? or introduction like ?")
+                ps.setString(1, "%$name%")
+                ps.setString(2, "%$name%")
+
+                val rs = ps.executeQuery()
+                while (rs.next()) {
+                    val id = rs.getString("topic_id")
+                    val n = rs.getString("name")
+                    val parent = rs.getString("parent")
+                    val introduction = rs.getString("introduction")
+                    val topic = Outline(id, n, parent, introduction)
+                    list.add(topic)
+                }
+                rs.close()
+                ps.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            rs.close()
-            ps.close()
+
             return list
         }
 
@@ -192,12 +199,16 @@ interface Topic {
         }
 
         fun log(topicId: String, log: String) {
-            val conn = MySQLConn.connection
-            val ps = conn.prepareStatement("update topic set log = concat(?, log) where topic_id = ?")
-            ps.setString(1, log)
-            ps.setString(2, topicId)
-            ps.executeUpdate()
-            ps.close()
+            try {
+                val conn = MySQLConn.connection
+                val ps = conn.prepareStatement("update topic set log = concat(?, log) where topic_id = ?")
+                ps.setString(1, log)
+                ps.setString(2, topicId)
+                ps.executeUpdate()
+                ps.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
