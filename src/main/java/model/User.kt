@@ -1,7 +1,6 @@
 package model
 
 import enums.Shortcut
-import model.log.Log
 import util.CONF
 import util.Value
 import util.conn.MySQLConn
@@ -186,7 +185,7 @@ class User {
         override val email: String,
         override val portrait: String,
         override val signature: String,
-        override val userGroup: String,
+        override val userGroup: Int,
         override val exp: Int,
         override val school: String
     ) : SimpleUser, SimpleDetail {
@@ -207,23 +206,12 @@ class User {
                 when (checkToken(id, token)) {
                     Shortcut.OK -> {
                         val user = SimpleUser.get(id) ?: return Message(Shortcut.UNE, "user $id not found")
-
                         val detail = SimpleDetail.get(id) ?: return Message(Shortcut.UNE, "user $id not found")
-
                         return Message(Shortcut.OK, "success", PrivateInfo(user, detail))
                     }
-
-                    Shortcut.TE -> {
-                        return Message(Shortcut.TE, "invalid token")
-                    }
-
-                    Shortcut.UNE -> {
-                        return Message(Shortcut.UNE, "user $id not found")
-                    }
-
-                    else -> {
-                        return Message(Shortcut.OTHER, "error when checking the token")
-                    }
+                    Shortcut.TE -> return Message(Shortcut.TE, "invalid token")
+                    Shortcut.UNE -> return Message(Shortcut.UNE, "user $id not found")
+                    else -> return Message(Shortcut.OTHER, "error when checking the token")
                 }
             }
         }
@@ -238,21 +226,24 @@ class User {
 
         companion object {
             fun get(id: String): User? {
-                val conn = MySQLConn.connection
-                val ps = conn.prepareStatement("select nickname, email from user where id = ? limit 1")
-                ps.setString(1, id)
-                val rs = ps.executeQuery()
-                if (rs.next()) {
-                    val nickname = rs.getString("nickname")
-                    val email = rs.getString("email")
+                var user: User? = null
+                try {
+                    val conn = MySQLConn.connection
+                    val ps = conn.prepareStatement("select nickname, email from user where id = ? limit 1")
+                    ps.setString(1, id)
+                    val rs = ps.executeQuery()
+                    if (rs.next()) {
+                        val nickname = rs.getString("nickname")
+                        val email = rs.getString("email")
+                        user = User(id, nickname, email)
+                    }
                     rs.close()
                     ps.close()
-                    return User(id, nickname, email)
-                } else {
-                    rs.close()
-                    ps.close()
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-                return null
+
+                return user
             }
         }
     }
@@ -260,39 +251,41 @@ class User {
     interface SimpleDetail {
         val portrait: String
         val signature: String
-        val userGroup: String
+        val userGroup: Int
         val exp: Int
         val school: String
 
         class Detail(
             override val portrait: String,
             override val signature: String,
-            override val userGroup: String,
+            override val userGroup: Int,
             override val exp: Int,
             override val school: String
         ) : SimpleDetail
 
         companion object {
             fun get(id: String): Detail? {
-                val conn = MySQLConn.connection
-                val ps =
-                    conn.prepareStatement("select portrait, personal_signature, user_group, exp, school from user_detail where id = ? limit 1")
-                ps.setString(1, id)
-                val rs = ps.executeQuery()
-                if (rs.next()) {
-                    val portrait = rs.getString("portrait")
-                    val signature = rs.getString("personal_signature")
-                    val userGroup = rs.getString("user_group")
-                    val exp = rs.getInt("exp")
-                    val school = rs.getString("school")
+                var detail: Detail? = null
+                try {
+                    val conn = MySQLConn.connection
+                    val ps = conn.prepareStatement("select portrait, personal_signature, user_group, exp, school from user_detail where id = ? limit 1")
+                    ps.setString(1, id)
+                    val rs = ps.executeQuery()
+                    if (rs.next()) {
+                        val portrait = rs.getString("portrait")
+                        val signature = rs.getString("personal_signature")
+                        val userGroup = rs.getInt("user_group")
+                        val exp = rs.getInt("exp")
+                        val school = rs.getString("school")
+                        detail = Detail(portrait, signature, userGroup, exp, school)
+                    }
                     rs.close()
                     ps.close()
-                    return Detail(portrait, signature, userGroup, exp, school)
-                } else {
-                    rs.close()
-                    ps.close()
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-                return null
+
+                return detail
             }
         }
     }

@@ -3,7 +3,6 @@ package model
 import com.google.gson.reflect.TypeToken
 import enums.Shortcut
 import model.Blog.BlogType.Companion.parse
-import model.log.Log
 import util.CONF
 import util.Value
 import util.Value.string
@@ -27,7 +26,7 @@ interface Blog {
     val lastActiveTime: Date
     val status: Int
 
-    open class Outline(
+    class Outline(
         override val blogId: String,
         override val type: Int,
         override val author: String,
@@ -214,6 +213,7 @@ interface Blog {
             }
         }
 
+        // checked
         fun getBlogListByTime(time: Date, topic: String, count: Int, blogStatus: BlogStatus = BlogStatus.NORMAL): Message<ArrayList<Outline>> {
             val list = ArrayList<Outline>()
 
@@ -248,6 +248,7 @@ interface Blog {
             }
         }
 
+        // checked
         fun getBlogListById(id: String, topic: String, count: Int, blogStatus: BlogStatus = BlogStatus.NORMAL): Message<ArrayList<Outline>> {
             val list = ArrayList<Outline>()
             try {
@@ -395,11 +396,12 @@ interface Blog {
     enum class BlogListType {
         TIME, ID;
         companion object {
-            fun getType(string: String?) = when(string) {
+            fun parse(string: String?) = when(string) {
                 "time", "TIME" -> TIME
                 "id", "ID" -> ID
                 else -> null
             }
         }
     }
+
 }

@@ -1,8 +1,5 @@
-package model.log
+package model
 
-import model.Blog
-import model.Topic
-import model.User
 import model.User.Companion.LoginPlatform
 import model.User.Companion.LoginType
 import util.CONF

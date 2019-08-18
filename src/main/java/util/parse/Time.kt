@@ -46,8 +46,8 @@ object Time {
         val otherCalendar = Calendar.getInstance()
         otherCalendar.timeInMillis = timestamp
 
-        var timeFormat = "M月d日 HH:mm"
-        var yearTimeFormat = "yyyy年M月d日 HH:mm"
+        val timeFormat: String
+        val yearTimeFormat: String
         var amPm = ""
         val hour = otherCalendar.get(Calendar.HOUR_OF_DAY)//判断当前是不是星期日     如想显示为：周日 12:09 可去掉此判断
 

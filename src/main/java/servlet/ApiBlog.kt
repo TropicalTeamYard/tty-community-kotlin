@@ -15,7 +15,6 @@ import java.io.FileInputStream
 import java.io.PrintWriter
 import java.sql.PreparedStatement
 import java.sql.SQLException
-import java.sql.Timestamp
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -162,11 +161,11 @@ class ApiBlog : HttpServlet() {
     private fun getBlogList(req: HttpServletRequest) {
         val fields = req.parameterMap.fields()
         val tag = fields["tag"] ?: ""
-        val date = Value.getTime(fields["date"])
+        val time = Value.getTime(fields["time"])
         val id = fields["id"]
         val count = fields["count"].value(5)
 
-        when (BlogListType.getType(fields["type"])) {
+        when (BlogListType.parse(fields["type"])) {
             BlogListType.ID -> {
                 if (id.isNullOrEmpty()) {
                     Message<Any>(Shortcut.AE, "id can't be null").write()
@@ -175,10 +174,10 @@ class ApiBlog : HttpServlet() {
                 }
             }
             BlogListType.TIME -> {
-                if (date == null) {
+                if (time == null) {
                     Message<Any>(Shortcut.AE, "date can't be null").write()
                 } else {
-                    Blog.getBlogListByTime(date, tag, count).write()
+                    Blog.getBlogListByTime(time, tag, count).write()
                 }
             }
             else -> {
