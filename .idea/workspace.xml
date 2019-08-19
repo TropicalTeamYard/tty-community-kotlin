@@ -2,51 +2,27 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="community" />
       <artifact name="community:exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Comment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$comments$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$comments$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$likes$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$likes$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Like.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Like.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginPlatform.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginPlatform.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$LoginResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$LoginResult.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Detail.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater$Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater$Item.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/log/Log.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/Time.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/Time.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Blog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Blog.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/log/Log.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Log.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/parse/Time.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/parse/Time.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -184,7 +160,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/util/parse" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Markdown-Demo" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -197,7 +173,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.17556562" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
     <key name="KotlinExtractSuperclassDialog.RECENT_KEYS">
@@ -469,6 +445,19 @@
       <workItem from="1566014553937" duration="35196000" />
       <workItem from="1566058895726" duration="9952000" />
       <workItem from="1566134026376" duration="3822000" />
+      <workItem from="1566183113714" duration="390000" />
+      <workItem from="1566200099276" duration="920000" />
+      <workItem from="1566201043722" duration="75000" />
+      <workItem from="1566201132870" duration="43000" />
+      <workItem from="1566201189952" duration="23000" />
+      <workItem from="1566201226600" duration="79000" />
+      <workItem from="1566201326486" duration="1389000" />
+      <workItem from="1566203419492" duration="417000" />
+      <workItem from="1566203869252" duration="398000" />
+      <workItem from="1566204315364" duration="211000" />
+      <workItem from="1566204591522" duration="218000" />
+      <workItem from="1566204826735" duration="1105000" />
+      <workItem from="1566216267297" duration="3380000" />
     </task>
     <servers />
   </component>
