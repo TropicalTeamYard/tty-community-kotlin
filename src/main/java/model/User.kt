@@ -29,35 +29,25 @@ class User {
 
         fun result(): Message<ArrayList<Item>> {
             val after: Message<PrivateInfo> = PrivateInfo.get(id, token)
-
             return when(after.shortcut) {
                 Shortcut.OK -> {
                     Log.changeUserInfo(id,date, ip, before.data, after.data)
-                    Message(Shortcut.OK, "invalid token", items)
+                    Message(Shortcut.OK, "success change info", items)
                 }
                 Shortcut.TE -> Message(Shortcut.TE, "invalid token")
                 Shortcut.UNE -> Message(Shortcut.UNE, "user $id not found")
                 else -> Message(Shortcut.OTHER, "error when checking the token")
             }
-
         }
 
         data class Item(val key: String, val value: String, val status: Shortcut)
 
-
         fun nickname(value: String): Item {
             val key = "nickname"
-            if (shortcut != Shortcut.OK) {
-                return Item(key, value, shortcut)
-            }
-            if (!value.isNicknameValid()) {
-                return Item(key, value, Shortcut.AIF)
-            }
-            if (value.exist()) {
-                return Item(key, value, Shortcut.UR)
-            }
-
-            return try {
+            return if (shortcut != Shortcut.OK) Item(key, value, shortcut)
+            else if (!((2..15).contains(value.length) && value.isNicknameValid())) Item(key, value, Shortcut.AIF)
+            else if (value.exist()) Item(key, value, Shortcut.UR)
+            else try {
                 val ps = conn.prepareStatement("update user set nickname = ? where id = ?")
                 ps.setString(1, value)
                 ps.setString(2, id)
@@ -76,13 +66,9 @@ class User {
 
         fun email(value: String): Item {
             val key = "email"
-            if (shortcut != Shortcut.OK) {
-                return Item(key, value, shortcut)
-            }
-            if (!value.isEmailValid()) {
-                return Item(key, value, Shortcut.AIF)
-            }
-            return try {
+            return if (shortcut != Shortcut.OK) Item(key, value, shortcut)
+            else if (!value.isEmailValid()) Item(key, value, Shortcut.AIF)
+            else try {
                 val ps = conn.prepareStatement("update user set email = ? where id = ?")
                 ps.setString(1, value)
                 ps.setString(2, id)
@@ -99,38 +85,12 @@ class User {
             }
         }
 
-        fun signature(signature: String): Item {
+        fun signature(value: String): Item {
             val key = "signature"
-            if (shortcut != Shortcut.OK) {
-                return Item(key, signature, shortcut)
-            }
-            return try {
+            return if (shortcut != Shortcut.OK) Item(key, value, shortcut)
+            else if (!(2..20).contains(value.length)) Item(key, value, Shortcut.AIF)
+            else try {
                 val ps = conn.prepareStatement("update user_detail set personal_signature = ? where id = ?")
-                ps.setString(1, signature)
-                ps.setString(2, id)
-                val effect = ps.executeUpdate()
-                ps.close()
-                if (effect > 0) {
-                    Item(key, signature, Shortcut.OK)
-                } else {
-                    Item(key, signature, Shortcut.UNE)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Item(key, signature, Shortcut.OTHER)
-            }
-        }
-
-        fun school(value: String): Item {
-            val key = "school"
-            if (shortcut != Shortcut.OK) {
-                return Item(key, value, shortcut)
-            }
-            if (!value.isSchoolValid()) {
-                return Item(key, value, Shortcut.AIF)
-            }
-            return try {
-                val ps = conn.prepareStatement("update user_detail set school = ? where id = ?")
                 ps.setString(1, value)
                 ps.setString(2, id)
                 val effect = ps.executeUpdate()
@@ -146,14 +106,12 @@ class User {
             }
         }
 
-        @Deprecated("use ChangePortrait")
-        fun portrait(value: String): Item {
-            val key = "portrait"
-            if (shortcut != Shortcut.OK) {
-                return Item(key, value, shortcut)
-            }
-            return try {
-                val ps = conn.prepareStatement("update user_detail set portrait = ? where id = ?")
+        fun school(value: String): Item {
+            val key = "school"
+            return if (shortcut != Shortcut.OK) Item(key, value, shortcut)
+            else if (!value.isSchoolValid()) Item(key, value, Shortcut.AIF)
+            else try {
+                val ps = conn.prepareStatement("update user_detail set school = ? where id = ?")
                 ps.setString(1, value)
                 ps.setString(2, id)
                 val effect = ps.executeUpdate()
@@ -368,7 +326,7 @@ class User {
         // todo
         fun String.isSchoolValid(): Boolean {
             // todo check the school name valid
-            return this.isNotEmpty()
+            return (3..15).contains(this.length)
         }
 
         // checked

@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
+      <artifact name="community" />
       <artifact name="community:exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginPlatform.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginPlatform.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginType.class" afterDir="false" />
@@ -170,7 +169,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.17556562" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
@@ -458,6 +457,8 @@
       <workItem from="1566204591522" duration="218000" />
       <workItem from="1566204826735" duration="1105000" />
       <workItem from="1566216267297" duration="3380000" />
+      <workItem from="1566262893961" duration="648000" />
+      <workItem from="1566279242265" duration="3600000" />
     </task>
     <servers />
   </component>
