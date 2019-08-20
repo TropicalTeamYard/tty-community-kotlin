@@ -2,9 +2,8 @@ package util
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import util.file.FileReadUtil
+import util.file.FileUtil
 import java.io.File
-import java.text.DateFormat
 
 class CONF(
     path: String,
@@ -32,21 +31,14 @@ class CONF(
         private val mode = MODE.RELEASE
 
         const val dateFormat = "yyyy/MM/dd-HH:mm:ss"
-
         const val secretKey = "123456"
 
-        val gson: Gson = GsonBuilder()
-            .setDateFormat(dateFormat)
-            .create()
-
-
-
+        val gson: Gson = GsonBuilder().setDateFormat(dateFormat).create()
         val root: String
             get() {
                 val url = CONF::class.java.classLoader.getResource("./")
                 return File(File(url!!.path).parent).parent
             }
-
         val conf: CONF
             get() {
                 val conf = when (mode) {
@@ -57,7 +49,7 @@ class CONF(
                         File("$root/conf/path_release.json")
                     }
                 }
-                val json = FileReadUtil.readJson(conf)
+                val json = FileUtil.readJson(conf)
                 val root = json.getString("root")
                 val portrait = "portrait"
                 val blog = "blog"
@@ -68,6 +60,7 @@ class CONF(
                 val password = json.getString("password")
                 return CONF(root, portrait, blog, topic, file, server, user, password)
             }
+
     }
 }
 

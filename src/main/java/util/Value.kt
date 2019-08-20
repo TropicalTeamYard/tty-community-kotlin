@@ -3,7 +3,7 @@ package util
 import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import enums.Shortcut
-import util.file.FileReadUtil
+import util.file.FileUtil
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.nio.charset.StandardCharsets
@@ -103,9 +103,9 @@ object Value {
         return map.toJSONString()
     }
 
-    fun htmlTemplate(): String = FileReadUtil.readAll(File("${CONF.root}/html/template.html"))
+    fun htmlTemplate(): String = FileUtil.readAll(File("${CONF.root}/html/template.html"))
 
-    fun markdownAirCss(): String = FileReadUtil.readAll(File("${CONF.root}/css/markdown-air.css"))
+    fun markdownAirCss(): String = FileUtil.readAll(File("${CONF.root}/css/markdown-air.css"))
 
     fun random() = ("${Date().time}${(10000000..99999999).random()}".hashCode() and Integer.MAX_VALUE).toString()
 

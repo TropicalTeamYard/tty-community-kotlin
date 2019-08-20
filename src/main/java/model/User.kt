@@ -1,8 +1,10 @@
 package model
 
+import com.google.gson.reflect.TypeToken
 import enums.Shortcut
 import util.CONF
 import util.Value
+import util.Value.string
 import util.conn.MySQLConn
 import util.parse.MultipleForm
 import java.sql.SQLException
@@ -164,6 +166,76 @@ class User {
                 }
             }
         }
+    }
+
+    class PublicInfo(
+        val id: String,
+        val nickname: String,
+        val email: String,
+        val portrait: String,
+        follower: String,
+        following: String,
+        val signature: String,
+        val exp: Int,
+        topic: String,
+        val school: String
+    ) {
+        val follower: ArrayList<String> = gson.fromJson(follower, object : TypeToken<ArrayList<String>>(){}.type)
+        val following: ArrayList<String> = gson.fromJson(following, object : TypeToken<ArrayList<String>>(){}.type)
+        val topic: ArrayList<String> = gson.fromJson(topic, object : TypeToken<ArrayList<String>>(){}.type)
+
+        companion object {
+            // checked
+            fun get(id: String?): Message<PublicInfo> {
+                if (id.isNullOrEmpty()) {
+                    return Message(Shortcut.AE, "argument mismatch")
+                } else {
+                    val message: Message<PublicInfo>
+                    val conn = MySQLConn.connection
+                    try {
+                        val ps0 = conn.prepareStatement("select nickname, email from user where id = ? limit 1")
+                        ps0.setString(1, id)
+                        val rs0 = ps0.executeQuery()
+                        if (rs0.next()) {
+                            val nickname = rs0.getString("nickname")
+                            val email = rs0.getString("email")
+                            val ps1 =
+                                conn.prepareStatement("select portrait, follower, following, personal_signature, exp, topic, school from user_detail where id = ? limit 1")
+                            ps1.setString(1, id)
+                            val rs1 = ps1.executeQuery()
+                            if (rs1.next()) {
+                                val portrait = rs1.getString("portrait")
+                                val follower = rs1.getBlob("follower").string()
+                                val following = rs1.getBlob("following").string()
+                                val signature = rs1.getString("personal_signature")
+                                val exp = rs1.getInt("exp")
+                                val topic = rs1.getBlob("topic").string()
+                                val school = rs1.getString("school")
+                                message = Message(
+                                    Shortcut.OK,
+                                    "ok",
+                                    PublicInfo(id, nickname, email, portrait, follower, following, signature, exp, topic, school)
+                                )
+                            } else {
+                                message = Message(Shortcut.UNE, "user $id not found")
+                            }
+                            rs1.close()
+                            ps1.close()
+                        } else {
+                            message = Message(Shortcut.UNE, "user $id not found")
+                        }
+                        rs0.close()
+                        ps0.close()
+
+                        return message
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        return Message(Shortcut.OTHER, "unknown error")
+                    }
+                }
+            }
+        }
+
     }
 
     interface SimpleUser {
@@ -685,8 +757,28 @@ class User {
         }
 
         // checked
-        private fun newId(registerTime: Date, nickname: String?) =
-            ("${registerTime.time}$nickname${(10..99).random()}".hashCode() and Integer.MAX_VALUE).toString()
+        fun getPortrait(id: String?): String {
+            var portrait = "default"
+            if (id != null) {
+                val conn = MySQLConn.connection
+                try {
+                    val ps = conn.prepareStatement("select portrait from user_detail where id = ? limit 1")
+                    ps.setString(1, id)
+                    val rs = ps.executeQuery()
+                    if (rs.next()) {
+                        portrait = rs.getString("portrait")
+                    }
+                    rs.close()
+                    ps.close()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            return portrait
+        }
+
+        // checked
+        private fun newId(registerTime: Date, nickname: String?) = ("${registerTime.time}$nickname${(10..99).random()}".hashCode() and Integer.MAX_VALUE).toString()
 
         // checked
         fun log(id: String, log: String) {

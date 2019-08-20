@@ -25,19 +25,14 @@ class ApiBlog : HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
 
-    private fun <T> Message<T>.write() {
-        out.write(this.json())
-    }
+    private fun <T> Message<T>.write() { out.write(this.json()) }
 
-    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        doPost(req, resp)
-    }
-
+    override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) { doPost(req, resp) }
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        resp?.characterEncoding = "UTF-8"
-        req?.characterEncoding = "UTF-8"
-        out = resp!!.writer
-        ip = Value.getIP(req!!)
+        resp!!.characterEncoding = "UTF-8"
+        req!!.characterEncoding = "UTF-8"
+        out = resp.writer
+        ip = Value.getIP(req)
         val route = try {
             req.requestURI.substring(20)
         } catch (e: StringIndexOutOfBoundsException) {
@@ -46,36 +41,22 @@ class ApiBlog : HttpServlet() {
         }
 
         when (route) {
-            "test" -> {
-                // http://localhost:8080/community/api/blog/test
-                test()
-            }
+            // http://localhost:8080/community/api/blog/create
+            "create" -> Blog.create(req).write()
 
-            "create" -> {
-                // http://localhost:8080/community/api/blog/create
-                Blog.create(req).write()
-            }
+            // http://localhost:8080/community/api/blog/get?id=746235507&type=json
+            "get" -> getBlog(req)
 
-            "get" -> {
-                // http://localhost:8080/community/api/blog/get?id=746235507&type=json
-                getBlog(req)
-            }
+            // http://localhost:8080/community/api/blog/list?type=id&to=1293637237&count=8&tag=000000 # id 为 `to` 之前日期的 count 条记录 &tag=?
+            // http://localhost:8080/community/api/blog/list?type=time&time=2019/8/25-03:24:52&count=2&tag=000000 # date 及之前日期的 count 条记录 &tag=?
+            "list" -> getBlogList(req)
 
+            // http://localhost:8080/community/api/blog/picture?id=700642438&index=0
+            "picture" -> getBlogPic(req, resp)
 
-            "list" -> {
-                // http://localhost:8080/community/api/blog/list?type=id&to=1293637237&count=8 # id 为 `to` 之前日期的 count 条记录 &tag=?
-                // http://localhost:8080/community/api/blog/list?type=time&date=2019/8/25-03:24:52&count=2 # date 及之前日期的 count 条记录 &tag=?
-                getBlogList(req)
-            }
-
-            "picture" -> {
-                // http://localhost:8080/community/api/blog/picture?id=700642438&index=0
-                getBlogPic(req, resp)
-            }
-
-            else -> {
-                out.write(json(Shortcut.AE, "invalid request"))
-            }
+            // http://localhost:8080/community/api/blog/test
+            "test" -> test()
+            else -> Message<Any>(Shortcut.AE, "invalid request").write()
         }
     }
 
@@ -175,7 +156,7 @@ class ApiBlog : HttpServlet() {
             }
             BlogListType.TIME -> {
                 if (time == null) {
-                    Message<Any>(Shortcut.AE, "date can't be null").write()
+                    Message<Any>(Shortcut.AE, "time can't be null").write()
                 } else {
                     Blog.getBlogListByTime(time, tag, count).write()
                 }
@@ -187,33 +168,9 @@ class ApiBlog : HttpServlet() {
 
     }
 
-    private fun getBlogs(ps: PreparedStatement): ArrayList<Outline> {
-        val list = ArrayList<Outline>()
-        val rs = ps.executeQuery()
-        while (rs.next()) {
-            val blogId = rs.getString("blog_id")
-            val type = rs.getInt("type")
-            val author = rs.getString("author_id")
-            val nickname = User.getNicknameById(author) ?: Value.DEFAULT_NICKNAME
-            val title = rs.getString("title")
-            val introduction = rs.getString("introduction")
-            val tag = rs.getString("tag")
-            val lastActiveTime = rs.getTimestamp("last_active_time")
-            val blog = Outline(blogId, type, author, title, introduction, tag, lastActiveTime, nickname, 0)
-
-            list.add(blog)
-
-        }
-        rs.close()
-        ps.close()
-        return list
-    }
-
     private fun test() {
         out.write(CONF.root + "\n")
         out.write(CONF.conf.server)
     }
-
-
 
 }

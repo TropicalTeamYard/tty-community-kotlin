@@ -1,16 +1,12 @@
 package servlet
 
-import model.Message
 import enums.Shortcut
-import exception.ShortcutThrowable
+import model.Message
 import model.Topic
-import model.Topic.Companion.similarTopic
 import util.CONF
-import util.Value.fields
 import util.Value
+import util.Value.fields
 import java.io.PrintWriter
-import java.sql.SQLException
-import java.util.*
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -22,25 +18,27 @@ class ApiTopic : HttpServlet() {
     private var ip: String = "0.0.0.0"
     private lateinit var out: PrintWriter
 
+    private fun <T> Message<T>.write() {
+        out.write(this.json())
+    }
 
     override fun doGet(req: HttpServletRequest?, resp: HttpServletResponse?) {
         doPost(req, resp)
     }
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        resp?.characterEncoding = "utf-8"
-        req?.characterEncoding = "utf-8"
-        out = resp!!.writer
-        ip = Value.getIP(req!!)
+        resp!!.characterEncoding = "utf-8"
+        req!!.characterEncoding = "utf-8"
+        out = resp.writer
+        ip = Value.getIP(req)
         val route = try {
             req.requestURI.substring(21)
         } catch (e: StringIndexOutOfBoundsException) {
-            out.write(Message(Shortcut.AE, "invalid request", null).json())
+            Message(Shortcut.AE, "invalid request", null).write()
             return
         }
 
         val fields = req.parameterMap.fields()
-
         when (route) {
 
             "create" -> {
@@ -70,17 +68,17 @@ class ApiTopic : HttpServlet() {
                  * find the topic which match to the name
                  */
                 val name = fields["name"]
-                find(name)
+                find(name).write()
             }
 
             "similar" -> {
                 /**
-                 * http://47.102.200.155:8080/community/api/topic/similar
+                 * http://47.102.200.155:8080/community/api/topic/similar?name=al
                  * find the list of topic whose name or introduction similar to the name for user to select
                  */
 
                 val name = fields["name"]
-                similar(name)
+                similar(name).write()
             }
 
             "list" -> {
@@ -94,15 +92,20 @@ class ApiTopic : HttpServlet() {
 
             "parent" -> {
                 /**
+                 * http://47.102.200.155:8080/community/api/topic/parent?id=0000001
                  * @field id
                  */
                 val id = fields["id"]
-                parent(id)
+                parent(id).write()
             }
 
             "child" -> {
+                /**
+                 * http://47.102.200.155:8080/community/api/topic/child?id=0000001
+                 * @field id
+                 */
                 val id = fields["id"]
-                child(id)
+                child(id).write()
             }
 
             "follow" -> {
@@ -127,7 +130,7 @@ class ApiTopic : HttpServlet() {
             }
 
             "change_picture" -> {
-
+                TODO()
             }
 
             "change_info" -> {
@@ -149,69 +152,67 @@ class ApiTopic : HttpServlet() {
         TODO()
     }
 
-    private fun find(name: String?) {
-        try {
-            if (name.isNullOrEmpty()) {
-                throw ShortcutThrowable.AE()
-            }
-
-            throw findTopicOutlineByName(name, FindType.EQUALS)
-
-        } catch (e: SQLException) {
-            e.printStackTrace()
-            out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
-            return
-        } catch (info: ShortcutThrowable) {
-            out.write(info.json())
-        }
-
-    }
-
-    private fun similar(name: String?) {
-        try {
-            if (name.isNullOrEmpty()) {
-                throw ShortcutThrowable.AE()
-            }
-
-            throw findTopicOutlineByName(name, FindType.LIKE)
-
-        } catch (e: SQLException) {
-            e.printStackTrace()
-            out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
-        } catch (info: ShortcutThrowable) {
-            out.write(info.json())
+    // checked
+    private fun find(name: String?): Message<Topic.Outline> {
+        return if (name.isNullOrEmpty()) {
+            Message(Shortcut.AE, "argument mismatch")
+        } else {
+            findTopicOutlineByName(name, FindOutlineType.EQUALS)
         }
     }
 
-    private fun parent(id: String?) {
-        try {
-            if (id.isNullOrEmpty()) {
-                throw ShortcutThrowable.AE()
-            }
-
-            throw findTopicOutlineById(id, FindType.Parent)
-
-        } catch (e: SQLException) {
-            e.printStackTrace()
-            out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
-        } catch (info: ShortcutThrowable) {
-            out.write(info.json())
+    private fun parent(id: String?): Message<Topic.Outline> {
+        return if (id.isNullOrEmpty()) {
+            Message(Shortcut.AE, "")
+        } else {
+            findTopicOutlineById(id, FindOutlineType.Parent)
         }
     }
 
-    private fun child(id: String?) {
-        try {
-            if (id.isNullOrEmpty()) {
-                throw ShortcutThrowable.AE()
-            }
-
-            throw findTopicOutlineById(id, FindType.Child)
-        } catch (e: SQLException) {
-            e.printStackTrace()
-            out.write(Message(Shortcut.OTHER, "SQL ERROR", null).json())
-        } catch (info: ShortcutThrowable) {
-            out.write(info.json())
+    private fun similar(name: String?): Message<ArrayList<Topic.Outline>> {
+        return if (name.isNullOrEmpty()) {
+            Message(Shortcut.AE, "argument mismatch")
+        } else {
+            findTopicOutlineListByName(name, FindOutlineListType.LIKE)
         }
+    }
+
+    private fun child(id: String?): Message<ArrayList<Topic.Outline>> {
+        return if (id.isNullOrEmpty()) {
+            Message(Shortcut.AE, "")
+        } else {
+            findTopicOutlineListById(id, FindOutlineListType.Child)
+        }
+    }
+
+    // checked
+    private fun findTopicOutlineListById(id: String, type: FindOutlineListType): Message<ArrayList<Topic.Outline>> {
+        val topic = Topic.findOutlineById(id)
+        return if (topic != null) {
+            findTopicOutlineListByName(topic.name, type)
+        } else {
+            Message(Shortcut.TNE, "topic $id not found")
+        }
+    }
+
+    // checked
+    private fun findTopicOutlineListByName(name: String, type: FindOutlineListType): Message<ArrayList<Topic.Outline>> {
+        return try {
+            when (type) {
+                FindOutlineListType.LIKE -> Message(Shortcut.OK, "", Topic.similarTopic(name))
+                FindOutlineListType.Child -> {
+                    val info = Topic.findChildrenByName(name)
+                    if (info != null) {
+                        Message(Shortcut.OK, "", info)
+                    } else {
+                        Message(Shortcut.TNE, "topic $name not found")
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Message(Shortcut.OTHER, "unknown error")
+        }
+
     }
 
     private fun test() {
@@ -219,56 +220,39 @@ class ApiTopic : HttpServlet() {
         out.println(CONF.conf.server)
     }
 
-    private fun findTopicOutlineByName(name: String, type: FindType): ShortcutThrowable {
-        var info: ShortcutThrowable
-
-        when (type) {
-            FindType.EQUALS -> {
-                try {
-                    val topic = Topic.findOutlineByName(name)
-                    info = ShortcutThrowable.OK("success get topic", topic)
-                } catch (e: ShortcutThrowable) {
-                    info = e
-                }
-            }
-            FindType.LIKE -> {
-                val list: ArrayList<Topic.Outline> = similarTopic(name)
-                info = ShortcutThrowable.OK("success get topic list", list)
-            }
-
-            FindType.Child -> {
-                try {
-                    val list = Topic.findChildrenByName(name)
-                    info = ShortcutThrowable.OK("success get child topics", list)
-                } catch (e: ShortcutThrowable) {
-                    info = e
-                }
-            }
-
-            FindType.Parent -> {
-                try {
-                    val topic = Topic.findParentByName(name)
-                    info = ShortcutThrowable.OK("success get parent topic", topic)
-                } catch (e: ShortcutThrowable) {
-                    info = e
-                }
-            }
-        }
-
-        return info
-    }
-
-    private fun findTopicOutlineById(id: String, type: FindType): ShortcutThrowable {
+    // checked
+    private fun findTopicOutlineByName(name: String, type: FindOutlineType): Message<Topic.Outline> {
         return try {
-            val topic = Topic.findOutlineById(id)
+            val topic = when (type) {
+                FindOutlineType.EQUALS -> Topic.findOutlineByName(name)
+                FindOutlineType.Parent -> Topic.findParentByName(name)
+            }
+            if (topic != null) {
+                Message(Shortcut.OK, "ok", topic)
+            } else {
+                Message(Shortcut.TNE, "topic $name not found")
+            }
+        } catch (e: Exception) {
+            Message(Shortcut.OTHER, "unknown error")
+        }
+
+    }
+
+    // checked
+    private fun findTopicOutlineById(id: String, type: FindOutlineType): Message<Topic.Outline> {
+        val topic = Topic.findOutlineById(id)
+        return if (topic != null) {
             findTopicOutlineByName(topic.name, type)
-        } catch (e: ShortcutThrowable) {
-            e
+        } else {
+            Message(Shortcut.TNE, "topic $id not found")
         }
     }
 
-    enum class FindType {
-        EQUALS, LIKE, Child, Parent
+    enum class FindOutlineType {
+        EQUALS, Parent
+    }
+    enum class FindOutlineListType {
+        LIKE, Child
     }
 
 }
