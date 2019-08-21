@@ -57,6 +57,7 @@ create table topic(
     follower blob not null,
     parent varchar(32) not null,
     admin varchar(32) not null,
+    last_active_time timestamp not null,
     status integer not null,
     log longblob not null
 );

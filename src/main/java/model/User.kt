@@ -312,6 +312,37 @@ class User {
     }
 
     companion object {
+
+        fun topic(id: String): ArrayList<Topic.Outline>? {
+            try {
+                val conn = MySQLConn.connection
+                val ps = conn.prepareStatement("select topic from user_detail where id = ? limit 1")
+                ps.setString(1, id)
+                val rs = ps.executeQuery()
+                if (rs.next()) {
+                    val topic: ArrayList<String> = gson.fromJson(rs.getBlob("topic").string(), object : TypeToken<ArrayList<String>>(){}.type)
+                    rs.close()
+                    ps.close()
+
+                    val outlines = ArrayList<Topic.Outline>()
+                    for (topicId in topic) {
+                        Topic.findOutlineById(topicId)?.let {
+                            outlines.add(it)
+                        }
+                    }
+                    return outlines
+                } else {
+                    rs.close()
+                    ps.close()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return null
+        }
+
+
         // checked
         private fun getToken(id: String, platform: LoginPlatform, secret: String, time: Date, status: Boolean): String {
             return "$id::${platform.name}::$secret::${Value.getTime(time)}::$status"

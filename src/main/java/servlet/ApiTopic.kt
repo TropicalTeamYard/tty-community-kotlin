@@ -3,9 +3,11 @@ package servlet
 import enums.Shortcut
 import model.Message
 import model.Topic
+import model.User
 import util.CONF
 import util.Value
 import util.Value.fields
+import util.conn.MySQLConn
 import java.io.PrintWriter
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
@@ -83,11 +85,12 @@ class ApiTopic : HttpServlet() {
 
             "list" -> {
                 /**
-                 * http://47.102.200.155:8080/community/api/topic/list
+                 * http://47.102.200.155:8080/community/api/topic/list?id=2008153477
                  * @field id
                  * the following topic list of the user's id, the info is public for everyone
                  */
-                TODO()
+                val id = fields["id"]
+                list(id).write()
             }
 
             "parent" -> {
@@ -152,6 +155,19 @@ class ApiTopic : HttpServlet() {
         TODO()
     }
 
+    private fun list(id: String?): Message<ArrayList<Topic.Outline>> {
+        return if(id.isNullOrEmpty()) {
+            Message(Shortcut.AE, "argument mismatch")
+        } else {
+            val outlines = User.topic(id)
+            if (outlines != null) {
+                Message(Shortcut.OK, "ok", outlines)
+            } else {
+                Message(Shortcut.OTHER, "unknown error")
+            }
+        }
+    }
+
     // checked
     private fun find(name: String?): Message<Topic.Outline> {
         return if (name.isNullOrEmpty()) {
@@ -161,6 +177,7 @@ class ApiTopic : HttpServlet() {
         }
     }
 
+    // checked
     private fun parent(id: String?): Message<Topic.Outline> {
         return if (id.isNullOrEmpty()) {
             Message(Shortcut.AE, "")
@@ -169,6 +186,7 @@ class ApiTopic : HttpServlet() {
         }
     }
 
+    // checked
     private fun similar(name: String?): Message<ArrayList<Topic.Outline>> {
         return if (name.isNullOrEmpty()) {
             Message(Shortcut.AE, "argument mismatch")
@@ -177,6 +195,7 @@ class ApiTopic : HttpServlet() {
         }
     }
 
+    // checked
     private fun child(id: String?): Message<ArrayList<Topic.Outline>> {
         return if (id.isNullOrEmpty()) {
             Message(Shortcut.AE, "")
@@ -215,6 +234,7 @@ class ApiTopic : HttpServlet() {
 
     }
 
+    // checked
     private fun test() {
         out.println(CONF.root)
         out.println(CONF.conf.server)

@@ -38,6 +38,7 @@ interface Topic {
 
     companion object {
 
+        // check
         fun similarTopic(name: String): ArrayList<Outline> {
             val list = ArrayList<Outline>()
             try {

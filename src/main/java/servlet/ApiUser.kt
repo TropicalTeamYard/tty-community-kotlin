@@ -31,10 +31,10 @@ class ApiUser : HttpServlet() {
     }
 
     override fun doPost(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        resp?.characterEncoding = "utf-8"
-        req?.characterEncoding = "utf-8"
-        out = resp!!.writer
-        ip = Value.getIP(req!!)
+        resp!!.characterEncoding = "utf-8"
+        req!!.characterEncoding = "utf-8"
+        out = resp.writer
+        ip = Value.getIP(req)
         val route = try {
             req.requestURI.substring(20)
         } catch (e: StringIndexOutOfBoundsException) {
