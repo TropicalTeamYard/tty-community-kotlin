@@ -28,7 +28,7 @@ class CONF(
     }
 
     companion object {
-        private val mode = MODE.DEBUG
+        private val mode = MODE.RELEASE
 
         const val dateFormat = "yyyy/MM/dd-HH:mm:ss"
         const val secretKey = "123456"

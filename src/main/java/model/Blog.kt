@@ -22,7 +22,7 @@ interface Blog {
     val nickname: String
     var title: String
     var introduction: String
-    val tag: String
+    val topic: Topic.Outline
     val lastActiveTime: Date
     val status: Int
 
@@ -32,7 +32,7 @@ interface Blog {
         override val author: String,
         override var title: String,
         override var introduction: String,
-        override val tag: String,
+        override val topic: Topic.Outline,
         override val lastActiveTime: Date,
         override val nickname: String,
         override val status: Int
@@ -49,14 +49,14 @@ interface Blog {
         override val author: String,
         override var title: String,
         override var introduction: String,
-        override val tag: String,
+        override val topic: Topic.Outline,
         override val lastActiveTime: Date,
         override val nickname: String,
         override var status: Int,
         private var content: String,
         comments: String,
         likes: String,
-        var lastEditTime: Date
+        private var lastEditTime: Date
     ): Blog {
         val comments: ArrayList<Comment> = gson.fromJson(comments, object : TypeToken<ArrayList<Comment>>() {}.type)
         val likes: ArrayList<Like> = gson.fromJson(likes, object : TypeToken<ArrayList<Like>>() {}.type)
@@ -83,22 +83,21 @@ interface Blog {
                 .replace("####content####", content)
                 .replace("####nickname####", nickname)
                 .replace("####blog_id####", blogId)
-
         }
     }
 
-    data class Comment(val id: String, val nickname: String, val time: String)
+    data class Comment(val id: String, val nickname: String, val time: String, val content: String)
     data class Like(val id: String, val nickname: String)
 
     companion object {
         val gson = CONF.gson
 
         // checked
-        private fun create(type: BlogType, author: String, title: String, introduction: String, content: String, tag: String, time: Timestamp, status: BlogStatus = BlogStatus.NORMAL): Message<Outline> {
+        private fun create(type: BlogType, author: String, title: String, introduction: String, content: String, topic: String, time: Timestamp, status: BlogStatus = BlogStatus.NORMAL): Message<Outline> {
             try {
                 val conn = MySQLConn.connection
                 val blogId =
-                    ("$author$content${time.time}$tag${(1000..9999).random()}".hashCode() and Integer.MAX_VALUE).toString()
+                    ("$author$content${time.time}$topic${(1000..9999).random()}".hashCode() and Integer.MAX_VALUE).toString()
                 val ps =
                     conn.prepareStatement("insert into blog (blog_id, type, author_id, title, introduction, content, tag, last_edit_time, last_active_time, status, data, log, comments, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
                 ps.setString(1, blogId)
@@ -107,7 +106,7 @@ interface Blog {
                 ps.setString(4, title)
                 ps.setString(5, introduction)
                 ps.setString(6, content)
-                ps.setString(7, tag) // id of topic
+                ps.setString(7, topic) // id of topic
                 ps.setTimestamp(8, time) // last_edit_time
                 ps.setTimestamp(9, time) // last_active_time
                 ps.setInt(10, status.value()) // status
@@ -139,15 +138,15 @@ interface Blog {
                 val title = fields["title"]
                 val introduction = fields["introduction"]
                 val content = fields["content"]
-                val tag = fields["tag"]
+                val topic = fields["topic"]
                 val timestamp = Timestamp(Date().time)
 
-                if (ip == "0.0.0.0" || author.isNullOrEmpty() || token.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || tag.isNullOrEmpty()) {
+                if (ip == "0.0.0.0" || author.isNullOrEmpty() || token.isNullOrEmpty() || title.isNullOrEmpty() || introduction.isNullOrEmpty() || content.isNullOrEmpty() || topic.isNullOrEmpty()) {
                     Message(Shortcut.AE, "argument mismatch")
                 } else {
                     when (User.checkToken(author, token)) {
                         Shortcut.OK -> {
-                            val message = create(type, author, title, introduction, content, tag, timestamp)
+                            val message = create(type, author, title, introduction, content, topic, timestamp)
                             val blog = message.data
                             if (message.shortcut == Shortcut.OK && blog != null) {
                                 Log.createBlog(author, timestamp, ip, true, blog.blogId)
@@ -202,7 +201,8 @@ interface Blog {
                     val status = rs.getInt("status")
                     rs.close()
                     ps.close()
-                    return Outline(blogId, type, author, title, introduction, tag, lastActiveTime, nickname ?: Value.DEFAULT_NICKNAME, status)
+                    val topic = Topic.findOutlineById(tag)?:Topic.Outline("000000", "ALL", "000000", "TTY Community")
+                    return Outline(blogId, type, author, title, introduction, topic, lastActiveTime, nickname ?: Value.DEFAULT_NICKNAME, status)
                 } else {
                     rs.close()
                     ps.close()
@@ -236,7 +236,8 @@ interface Blog {
                     val introduction = rs.getString("introduction")
                     val title = rs.getString("title")
                     val status = rs.getInt("status")
-                    val outline = Outline(blogId, type, author, title, introduction, tag, lastActiveTime, nickname ?: Value.DEFAULT_NICKNAME, status).parse()
+                    val _topic = Topic.findOutlineById(tag)?:Topic.Outline("000000", "ALL", "000000", "TTY Community")
+                    val outline = Outline(blogId, type, author, title, introduction, _topic, lastActiveTime, nickname ?: Value.DEFAULT_NICKNAME, status).parse()
                     list.add(outline)
                 }
                 rs.close()
@@ -271,7 +272,8 @@ interface Blog {
                         val introduction = rs.getString("introduction")
                         val title = rs.getString("title")
                         val status = rs.getInt("status")
-                        val outline = Outline(blogId, type, author, title, introduction, tag, lastActiveTime, nickname ?: Value.DEFAULT_NICKNAME, status).parse()
+                        val _topic = Topic.findOutlineById(tag)?:Topic.Outline("000000", "ALL", "000000", "TTY Community")
+                        val outline = Outline(blogId, type, author, title, introduction, _topic, lastActiveTime, nickname ?: Value.DEFAULT_NICKNAME, status).parse()
                         list.add(outline)
                     }
                     rs.close()
@@ -307,8 +309,8 @@ interface Blog {
                     val lastActiveTime = rs.getTimestamp("last_active_time")
                     val status = rs.getInt("status")
                     val nickname = User.getNicknameById(author) ?: Value.DEFAULT_NICKNAME
-
-                    val detail = Detail(blogId, type, author, title, introduction, tag, lastActiveTime, nickname, status, content, comments, likes, lastEditTime)
+                    val topic = Topic.findOutlineById(tag)?:Topic.Outline("000000", "ALL", "000000", "TTY Community")
+                    val detail = Detail(blogId, type, author, title, introduction, topic, lastActiveTime, nickname, status, content, comments, likes, lastEditTime)
                     rs.close()
                     ps.close()
 
