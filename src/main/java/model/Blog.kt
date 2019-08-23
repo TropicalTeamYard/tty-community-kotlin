@@ -5,7 +5,6 @@ import enums.Shortcut
 import model.Blog.BlogType.Companion.parse
 import util.CONF
 import util.Value
-import util.Value.string
 import util.conn.MySQLConn
 import util.parse.Markdown2Html
 import util.parse.MultipleForm
@@ -70,10 +69,10 @@ interface Blog {
 
         fun parseHtml(): String {
             content = Markdown2Html.parse(content)
-            val html = Value.htmlTemplate()
+            var html = Value.htmlTemplate()
             val style = Value.markdownAirCss()
 
-            return html
+            html = html
                 .replace("####title-author####", "$title-$nickname")
                 .replace("####style####", style)
                 .replace("####title####", title)
@@ -83,6 +82,10 @@ interface Blog {
                 .replace("####content####", content)
                 .replace("####nickname####", nickname)
                 .replace("####blog_id####", blogId)
+
+
+
+            return html
         }
     }
 
@@ -301,10 +304,10 @@ interface Blog {
                     val type = rs.getInt("type")
                     val title = rs.getString("title")
                     val introduction = rs.getString("introduction")
-                    val content = rs.getBlob("content").string()
+                    val content = rs.getString("content")
                     val tag = rs.getString("tag")
-                    val comments = rs.getBlob("comments").string()
-                    val likes = rs.getBlob("likes").string()
+                    val comments = rs.getString("comments")
+                    val likes = rs.getString("likes")
                     val lastEditTime = rs.getTimestamp("last_edit_time")
                     val lastActiveTime = rs.getTimestamp("last_active_time")
                     val status = rs.getInt("status")

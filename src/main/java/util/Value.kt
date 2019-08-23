@@ -19,7 +19,7 @@ import kotlin.experimental.and
 object Value {
     const val DEFAULT_NICKNAME = "[RESET]"
 
-    fun Blob.string(): String {
+    private fun Blob.string(): String {
         return try {
             val string: String
             val inputStream = binaryStream

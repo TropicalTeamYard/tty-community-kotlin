@@ -7,7 +7,6 @@ import model.User
 import util.CONF
 import util.Value
 import util.Value.fields
-import util.conn.MySQLConn
 import java.io.PrintWriter
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
@@ -95,7 +94,7 @@ class ApiTopic : HttpServlet() {
 
             "parent" -> {
                 /**
-                 * http://47.102.200.155:8080/community/api/topic/parent?id=0000001
+                 * http://47.102.200.155:8080/community/api/topic/parent?id=000001
                  * @field id
                  */
                 val id = fields["id"]
@@ -104,7 +103,7 @@ class ApiTopic : HttpServlet() {
 
             "child" -> {
                 /**
-                 * http://47.102.200.155:8080/community/api/topic/child?id=0000001
+                 * http://47.102.200.155:8080/community/api/topic/child?id=000001
                  * @field id
                  */
                 val id = fields["id"]
@@ -113,11 +112,17 @@ class ApiTopic : HttpServlet() {
 
             "follow" -> {
                 /**
+                 * http://localhost:8080/community/api/topic/follow?id=1554751432&topic=000001&token=B240A5EE666017D53146C4FD404F2136
                  * @field id, token, topic_id
                  * the action that the user want to follow the topic that he can view the
                  * content of the topic, the id and token is necessary to ensure the request
                  * is posted by user himself
                  */
+
+                val userId = fields["id"]
+                val token = fields["token"]
+                val topicId = fields["topic"]
+                follow(userId, token, topicId).write()
             }
 
             "unfollow" -> {
@@ -150,6 +155,30 @@ class ApiTopic : HttpServlet() {
             }
         }
     }
+
+
+    private fun follow(userId: String?, token: String?, topicId: String?): Message<Message<Any>> {
+        if (userId.isNullOrEmpty() || token.isNullOrEmpty() || topicId.isNullOrEmpty()) {
+            return Message(Shortcut.AE, "argument mismatch")
+        } else if (topicId == "000000") {
+            return Message(Shortcut.OK, "nothing changed")
+        } else {
+            return when(val shortcut = User.checkToken(userId, token)) {
+                Shortcut.OK -> {
+                    val topic = Topic.getDetailById(topicId)
+                    if (topic != null) {
+                        Message(Topic.addFollowerById(userId, topic), "...")
+                    } else {
+                        Message(Shortcut.TNE, "topic $topicId not found")
+                    }
+                }
+
+                else -> Message(shortcut, "check user failed")
+            }
+        }
+    }
+
+
 
     private fun create(id: String, token: String, name: String, parent: String, introduction: String): Shortcut {
         TODO()

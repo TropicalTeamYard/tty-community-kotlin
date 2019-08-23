@@ -1,8 +1,9 @@
 package model
 
 import com.google.gson.reflect.TypeToken
+import enums.Shortcut
 import util.CONF
-import util.Value.string
+import util.CONF.Companion.gson
 import util.conn.MySQLConn
 import java.sql.Timestamp
 import java.util.*
@@ -162,7 +163,7 @@ interface Topic {
                 val parent = rs.getString("parent")
                 val introduction = rs.getString("introduction")
                 val picture = rs.getString("picture")
-                val follower = rs.getBlob("follower").string()
+                val follower = rs.getString("follower")
                 val admin = rs.getString("admin")
                 val lastActiveTime = rs.getTimestamp("last_active_time")
                 val status = rs.getString("status")
@@ -188,7 +189,7 @@ interface Topic {
                 val parent = rs.getString("parent")
                 val introduction = rs.getString("introduction")
                 val picture = rs.getString("picture")
-                val follower = rs.getBlob("follower").string()
+                val follower = rs.getString("follower")
                 val admin = rs.getString("admin")
                 val lastActiveTime = rs.getTimestamp("last_active_time")
                 val status = rs.getString("status")
@@ -200,6 +201,31 @@ interface Topic {
                 ps.close()
                 return null
             }
+        }
+
+        fun addFollowerById(userId: String, topic: Detail): Shortcut {
+            try {
+                val conn = MySQLConn.connection
+
+                val ps1 = conn.prepareStatement("update topic set follower = JSON_ARRAY_INSERT(follower, '$[0]', ?) where not json_contains(follower, json_array(?)) and topic_id = ?")
+                ps1.setString(1, userId)
+                ps1.setString(2, userId)
+                ps1.setString(3, topic.id)
+                ps1.execute()
+                ps1.close()
+                val ps2 = conn.prepareStatement("update user_detail set topic = JSON_ARRAY_INSERT(topic, '$[0]', ?) where not json_contains(topic, json_array(?)) and id = ?")
+                ps2.setString(1, topic.id)
+                ps2.setString(2, topic.id)
+                ps2.setString(3, userId)
+                ps2.execute()
+                ps2.close()
+                return Shortcut.OK
+
+
+            } catch (e: Exception) {
+                return Shortcut.OTHER
+            }
+
         }
 
         fun log(topicId: String, log: String) {

@@ -4,7 +4,6 @@ import com.google.gson.reflect.TypeToken
 import enums.Shortcut
 import util.CONF
 import util.Value
-import util.Value.string
 import util.conn.MySQLConn
 import util.parse.MultipleForm
 import java.sql.SQLException
@@ -205,11 +204,11 @@ class User {
                             val rs1 = ps1.executeQuery()
                             if (rs1.next()) {
                                 val portrait = rs1.getString("portrait")
-                                val follower = rs1.getBlob("follower").string()
-                                val following = rs1.getBlob("following").string()
+                                val follower = rs1.getString("follower")
+                                val following = rs1.getString("following")
                                 val signature = rs1.getString("personal_signature")
                                 val exp = rs1.getInt("exp")
-                                val topic = rs1.getBlob("topic").string()
+                                val topic = rs1.getString("topic")
                                 val school = rs1.getString("school")
                                 message = Message(
                                     Shortcut.OK,
@@ -320,7 +319,7 @@ class User {
                 ps.setString(1, id)
                 val rs = ps.executeQuery()
                 if (rs.next()) {
-                    val topic: ArrayList<String> = gson.fromJson(rs.getBlob("topic").string(), object : TypeToken<ArrayList<String>>(){}.type)
+                    val topic: ArrayList<String> = gson.fromJson(rs.getString("topic"), object : TypeToken<ArrayList<String>>(){}.type)
                     rs.close()
                     ps.close()
 
