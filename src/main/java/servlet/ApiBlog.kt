@@ -4,7 +4,7 @@ import enums.Shortcut
 import model.Blog
 import model.Blog.*
 import model.Message
-import model.User
+import net.coobird.thumbnailator.Thumbnails
 import util.CONF
 import util.Value
 import util.Value.json
@@ -13,7 +13,6 @@ import util.Value.value
 import util.conn.MySQLConn
 import java.io.FileInputStream
 import java.io.PrintWriter
-import java.sql.PreparedStatement
 import java.sql.SQLException
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
@@ -51,8 +50,13 @@ class ApiBlog : HttpServlet() {
             // http://localhost:8080/community/api/blog/list?type=time&time=2019/8/25-03:24:52&count=2&tag=000000 # date 及之前日期的 count 条记录 &tag=?
             "list" -> getBlogList(req)
 
-            // http://localhost:8080/community/api/blog/picture?id=700642438&index=0
-            "picture" -> getBlogPic(req, resp)
+            // http://localhost:8080/community/api/blog/picture?id=700642438&key=0
+            "picture" -> {
+                getBlogPic(req, resp)
+            }
+
+            // http://localhost:8080/community/api/blog/picture_raw?id=700642438&key=0
+            "picture_raw" -> getRawBlogPic(req, resp)
 
             // http://localhost:8080/community/api/blog/test
             "test" -> test()
@@ -85,57 +89,83 @@ class ApiBlog : HttpServlet() {
         }
     }
 
-    private fun getBlogPic(req: HttpServletRequest?, resp: HttpServletResponse?) {
-        val map = req!!.parameterMap
-        val blogId = map["id"]?.get(0)
-        val picKey = map["key"]?.get(0)
+    private fun getBlogPic(req: HttpServletRequest, resp: HttpServletResponse) {
+        val map = req.parameterMap.fields()
+        val blogId = map["id"]
+        val picKey = map["key"]
         if (blogId.isNullOrEmpty() || picKey.isNullOrEmpty()) {
-            out.write(json(Shortcut.AE, "argument mismatch."))
-            return
-        }
-
-        val status = BlogStatus.NORMAL
-
-        val conn = MySQLConn.connection
-        try {
-            val ps = conn.prepareStatement("select data from blog where blog_id = ? and status <= ? limit 1")
-            ps.setString(1, blogId)
-            ps.setInt(2, status.value())
-            val rs = ps.executeQuery()
-            if (rs.next()) {
-                val path = CONF.conf.blog + "/$blogId/$picKey"
-                val inputStream = FileInputStream(path)
-
-                resp!!.reset()
-                val os = resp.outputStream
-                var len: Int
-                val buffer = ByteArray(1024)
-                do {
-                    len = inputStream.read(buffer)
-                    if (len == -1) {
-                        break
-                    }
-                    os.write(buffer, 0, len)
-                } while (true)
-
-                os.close()
-                inputStream.close()
+            Message<Any>(Shortcut.AE, "argument mismatch").write()
+        } else {
+            val status = BlogStatus.NORMAL
+            val conn = MySQLConn.connection
+            try {
+                val ps = conn.prepareStatement("select data from blog where blog_id = ? and status <= ? limit 1")
+                ps.setString(1, blogId)
+                ps.setInt(2, status.value())
+                val rs = ps.executeQuery()
+                if (rs.next()) {
+                    val path = CONF.conf.blog + "/$blogId/$picKey"
+                    resp.reset()
+                    val outputStream = resp.outputStream
+                    Thumbnails.of(path).scale(0.85).outputQuality(0.5).toOutputStream(outputStream)
+                    outputStream.close()
+                } else {
+                    Message<Any>(Shortcut.BNE, "blog $blogId not found").write()
+                }
 
                 rs.close()
                 ps.close()
-            } else {
-                out.write(json(Shortcut.BNE, "blog $blogId not found."))
-                rs.close()
-                ps.close()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Message<Any>(Shortcut.OTHER, "unknown error").write()
             }
+        }
+    }
 
+    private fun getRawBlogPic(req: HttpServletRequest, resp: HttpServletResponse) {
+        val map = req.parameterMap.fields()
+        val blogId = map["id"]
+        val picKey = map["key"]
+        if (blogId.isNullOrEmpty() || picKey.isNullOrEmpty()) {
+            Message<Any>(Shortcut.AE, "argument mismatch").write()
+        } else {
+            val status = BlogStatus.NORMAL
+            val conn = MySQLConn.connection
+            try {
+                val ps = conn.prepareStatement("select data from blog where blog_id = ? and status <= ? limit 1")
+                ps.setString(1, blogId)
+                ps.setInt(2, status.value())
+                val rs = ps.executeQuery()
+                if (rs.next()) {
+                    val path = CONF.conf.blog + "/$blogId/$picKey"
+                    val inputStream = FileInputStream(path)
+                    resp.reset()
 
-        } catch (e: SQLException) {
-            e.printStackTrace()
-            out.write(json(Shortcut.OTHER, "SQL ERROR"))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            out.write(json(Shortcut.OTHER, "UNKNOWN EXCEPTION"))
+                    val outputStream = resp.outputStream
+                    var len: Int
+                    val buffer = ByteArray(1024)
+                    do {
+                        len = inputStream.read(buffer)
+                        if (len == -1) {
+                            break
+                        }
+                        outputStream.write(buffer, 0, len)
+                    } while (true)
+
+                    outputStream.close()
+                    inputStream.close()
+                } else {
+                    Message<Any>(Shortcut.BNE, "blog $blogId not found").write()
+                }
+
+                rs.close()
+                ps.close()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Message<Any>(Shortcut.OTHER, "unknown error").write()
+            }
         }
     }
 

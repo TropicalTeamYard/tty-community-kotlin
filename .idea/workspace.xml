@@ -8,15 +8,96 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/community.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/community.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/community_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/community_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/1e0491f5-6cdd-479c-86c0-ba9ba6a4df00.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/design/tty_community.sql" beforeDir="false" afterPath="$PROJECT_DIR$/design/tty_community.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Blog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Blog.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Topic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Topic.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/ApiTopic.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/ApiTopic.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Value.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Value.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTY_COMMUNITY.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TTY_COMMUNITY.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/META-INF/TTY_COMMUNITY.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/META-INF/TTY_COMMUNITY.kotlin_module" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/enums/Shortcut.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/enums/Shortcut.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/enums/UserCertification.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/enums/UserCertification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/enums/UserGroup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/enums/UserGroup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogContentType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogListType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$BlogType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$comments$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$comments$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$likes$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail$likes$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Detail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Like.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Like.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog$Outline.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Blog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Log.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Message$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Message$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Message.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Detail$follower$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Detail$follower$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Detail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Outline.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic$Outline.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/Topic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginPlatform.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginPlatform.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$LoginType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$topic$topic$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion$topic$topic$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$LoginResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$LoginResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo$Companion$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo$Companion$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PrivateInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$follower$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$follower$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$following$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$following$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$topic$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo$topic$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$PublicInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Detail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail$Detail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleDetail.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser$User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$SimpleUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater$Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater$Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User$Updater.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/model/User.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIBlog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APITopic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/APIUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/ApiPublic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/ApiPublic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/ApiTopic$FindOutlineListType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/ApiTopic$FindOutlineListType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/ApiTopic$FindOutlineType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/servlet/ApiTopic$FindOutlineType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion$WhenMappings.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion$WhenMappings.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$MODE.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF$MODE.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/CONF.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/Value.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/conn/MySQLConn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/conn/MySQLConn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/file/FileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/file/FileUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/Markdown2Html.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/Markdown2Html.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/MultipleForm$Stream.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/MultipleForm$Stream.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/MultipleForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/MultipleForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/Time.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/classes/util/parse/Time.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-reflect.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-reflect.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-stdlib-jdk7.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-stdlib-jdk7.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-stdlib-jdk8.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-stdlib-jdk8.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-stdlib.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-stdlib.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-test.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/community/WEB-INF/lib/kotlin-test.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,20 +140,6 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="community@server" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="topic: table" type="285a2a93:MysqlImplModel$Table" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="community@server" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="tty_community: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="user_detail: table" type="285a2a93:MysqlImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -81,148 +148,6 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="TTY-Community-Kotlin" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiTopic.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="162" column="56" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
-              <folding>
-                <element signature="n#!!block;n#write#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#doGet#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#create#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#find#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#parent#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#similar#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#child#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineListById#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineListByName#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#test#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineByName#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineById#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#FindOutlineType#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#FindOutlineListType#0;n#!!block;n#ApiTopic#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/util/Value.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
-              <folding>
-                <element signature="n#!!block;n#value#0;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#getTime#0;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#getTime#1;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#getMD5#0;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#byteArrayToHex#0;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#json#0;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#json#1;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#json#2;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#fields#0;n#!!block;n#Value#0" />
-                <element signature="n#!!block;n#getIP#0;n#!!block;n#Value#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/schema/tty_community/table/topic">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-              <filtering>
-                <filter text="" />
-              </filtering>
-              <column-attributes>
-                <column name="follower" languageId="JSON" position="6" />
-              </column-attributes>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Blog.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="306" column="46" selection-start-line="306" selection-start-column="46" selection-end-line="306" selection-end-column="46" />
-              <folding>
-                <element signature="e#15#436#0" expanded="true" />
-                <element signature="n#!!block;n#create#1;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#getOutlineById#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#getBlogListByTime#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#getBlogListById#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#log#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogType#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogStatus#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogContentType#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogListType#0;n#!!block;n#Blog#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Topic.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="217" column="42" lean-forward="true" selection-start-line="217" selection-start-column="42" selection-end-line="217" selection-end-column="42" />
-              <folding>
-                <element signature="e#15#259#0" expanded="true" />
-                <element signature="n#!!block;n#similarTopic#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findOutlineByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findOutlineById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findParentById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findParentByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findChildrenById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findChildrenByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#log#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="106" lean-forward="true" selection-start-column="2" selection-end-column="106" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/schema/tty_community/table/user_detail">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-              <filtering>
-                <filter text="" />
-              </filtering>
-              <column-attributes>
-                <column name="follower" languageId="JSON" position="4" />
-                <column name="following" languageId="JSON" position="5" />
-                <column name="topic" languageId="JSON" position="9" />
-                <column name="settings" languageId="JSON" position="13" />
-              </column-attributes>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/schema/tty_community/table/user">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-              <filtering>
-                <filter text="" />
-              </filtering>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -247,24 +172,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/main/java/servlet/ApiUser.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/servlet/ApiPublic.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/util/CONF.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/util/conn/MySQLConn.kt" />
-        <option value="$PROJECT_DIR$/design/tty_community.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/util/Value.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/model/Blog.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/model/User.kt" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/console.sql" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
-        <option value="$PROJECT_DIR$/src/main/java/model/Topic.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/servlet/ApiTopic.kt" />
-      </list>
-    </option>
-  </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -284,76 +191,9 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="TTY_COMMUNITY" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="TTY_COMMUNITY" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
-        </path>
-      </expand>
-      <select />
-    </treeState>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
-  </component>
   <component name="ProjectId" id="1OrMMp0fTYFUkKNsA85lZPpgn58" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
-  </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="servlet" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
@@ -372,7 +212,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JSON" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/tty_community_blog.sql" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/conf" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -382,20 +222,14 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.31034482" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin" />
   </component>
   <component name="RecentsManager">
     <key name="KotlinExtractSuperclassDialog.RECENT_KEYS">
       <recent name="model" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util\log" />
-      <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\servlet" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="model" />
@@ -404,15 +238,21 @@
       <recent name="servlet" />
       <recent name="util" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="util" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\wcf\GitHub\TTY-Community-Kotlin\web\conf" />
       <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\web\conf" />
       <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util\parse" />
       <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\web\css" />
       <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\lib" />
-      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="util" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\wcf\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util\log" />
+      <recent name="C:\Users\WCF\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\servlet" />
+      <recent name="C:\Users\15331\Documents\GitHub\TTY-Community-Kotlin\src\main\java\util" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -428,7 +268,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="RUN" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat" ALTERNATIVE_JRE_ENABLED="false">
+    <configuration name="RUN" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.341" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
       <option name="UPDATING_POLICY" value="redeploy-artifacts" />
@@ -507,39 +347,7 @@
     <option name="allServicesViewState">
       <serviceView>
         <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@674025ef" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@674025ef" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@7dfcc9f7" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7836a95d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7836a95d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@12a59027" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7836a95d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@12a59027" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@4f5aa99e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7836a95d" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@12a59027" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@4f5aa99e" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@6078f4b4" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
+          <expand />
           <select />
         </treeState>
       </serviceView>
@@ -604,11 +412,9 @@
       <workItem from="1566380439258" duration="22223000" />
       <workItem from="1566563570062" duration="240000" />
       <workItem from="1566563865996" duration="6615000" />
+      <workItem from="1566716294460" duration="3600000" />
     </task>
     <servers />
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35641000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -619,46 +425,6 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.19382322" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info id="Image Layers" order="6" />
-      <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32937366" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.33801296" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32937366" />
-      <window_info anchor="bottom" id="Application Servers" order="7" weight="0.32829374" />
-      <window_info anchor="bottom" id="Database Console" order="8" weight="0.32937366" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32937366" />
-      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32829374" />
-      <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32829374" />
-      <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.32937366" />
-      <window_info anchor="bottom" id="Database Changes" order="15" weight="0.32937366" />
-      <window_info anchor="bottom" id="Version Control" order="16" weight="0.32937366" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.24973376" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.18690096" />
-      <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Remote Host" order="5" weight="0.18051118" />
-      <window_info anchor="right" id="Capture Analysis" order="6" />
-      <window_info active="true" anchor="right" id="Database" order="7" visible="true" weight="0.2284345" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Theme Preview" order="9" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -668,12 +434,6 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -706,370 +466,6 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/conf/path_debug.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/conf/path_release.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiPublic.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#17#362#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar!/com/google/gson/Gson.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="492" column="27" lean-forward="true" selection-start-line="492" selection-start-column="27" selection-end-line="492" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="44" column="33" lean-forward="true" selection-start-line="44" selection-start-column="33" selection-end-line="44" selection-end-column="33" />
-          <folding>
-            <element signature="n#!!block;n#getBlog#0;n#!!block;n#ApiBlog#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/conn/MySQLConn.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="82" lean-forward="true" selection-start-line="10" selection-start-column="82" selection-end-line="10" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/kotlin/String.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/design/tty_community.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="56" column="17" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/tty_community_blog_2019_08_23_20_51_26.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/tty_community_blog">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/schema/tty_community/table/blog">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-          <column-attributes>
-            <column name="comments" languageId="JSON" position="9" />
-            <column name="likes" languageId="JSON" position="10" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/blog">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/CONF.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/user_detail">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-          <column-attributes>
-            <column name="settings" languageId="JSON" position="13" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/Blog.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="306" column="46" selection-start-line="306" selection-start-column="46" selection-end-line="306" selection-end-column="46" />
-          <folding>
-            <element signature="e#15#436#0" expanded="true" />
-            <element signature="n#!!block;n#create#1;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#getOutlineById#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#getBlogListByTime#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#getBlogListById#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#log#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#BlogType#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#BlogStatus#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#BlogContentType#0;n#!!block;n#Blog#0" />
-            <element signature="n#!!block;n#BlogListType#0;n#!!block;n#Blog#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiUser.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="29" column="25" lean-forward="true" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/User.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="176" column="12" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
-          <folding>
-            <element signature="e#15#381#0" expanded="true" />
-            <element signature="n#!!block;n#getToken#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#getNicknameById#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#getIdByNickname#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#isNicknameValid#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#isEmailValid#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#isSchoolValid#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#checkPassword#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#updateLogin#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#updateToken#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#autoLogin#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#login#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#register#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#addDetail#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#addUser#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#changePortrait#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#changePassword#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#getPortrait#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#log#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#LoginType#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-            <element signature="n#!!block;n#LoginPlatform#0;n#!!block;n#Companion#0;n#!!block;n#User#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://1e0491f5-6cdd-479c-86c0-ba9ba6a4df00/schema/tty_community/table/topic">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/util/Value.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
-          <folding>
-            <element signature="n#!!block;n#value#0;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#getTime#0;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#getTime#1;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#getMD5#0;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#byteArrayToHex#0;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#json#0;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#json#1;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#json#2;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#fields#0;n#!!block;n#Value#0" />
-            <element signature="n#!!block;n#getIP#0;n#!!block;n#Value#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/schema/tty_community/table/user">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="106" lean-forward="true" selection-start-column="2" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/Topic.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="217" column="42" lean-forward="true" selection-start-line="217" selection-start-column="42" selection-end-line="217" selection-end-column="42" />
-          <folding>
-            <element signature="e#15#259#0" expanded="true" />
-            <element signature="n#!!block;n#similarTopic#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-            <element signature="n#!!block;n#findOutlineByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-            <element signature="n#!!block;n#findOutlineById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-            <element signature="n#!!block;n#findParentById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-            <element signature="n#!!block;n#findParentByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-            <element signature="n#!!block;n#findChildrenById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-            <element signature="n#!!block;n#findChildrenByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-            <element signature="n#!!block;n#log#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/schema/tty_community/table/user_detail">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-          <column-attributes>
-            <column name="follower" languageId="JSON" position="4" />
-            <column name="following" languageId="JSON" position="5" />
-            <column name="topic" languageId="JSON" position="9" />
-            <column name="settings" languageId="JSON" position="13" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://8ea5d0e7-528f-4f06-a3f7-0bd90cc8ac95/schema/tty_community/table/topic">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="73792233-8364-4024-8b88-bf7d8e9d9f76">
-          <filtering>
-            <filter text="" />
-          </filtering>
-          <column-attributes>
-            <column name="follower" languageId="JSON" position="6" />
-          </column-attributes>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiTopic.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="162" column="56" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
-          <folding>
-            <element signature="n#!!block;n#write#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#doGet#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#create#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#find#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#parent#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#similar#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#child#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#findTopicOutlineListById#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#findTopicOutlineListByName#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#test#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#findTopicOutlineByName#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#findTopicOutlineById#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#FindOutlineType#0;n#!!block;n#ApiTopic#0" />
-            <element signature="n#!!block;n#FindOutlineListType#0;n#!!block;n#ApiTopic#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>community</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.17556562" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Kotlin</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.31034482" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.31034482" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>11</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.31034482" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>TTY_COMMUNITY</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.31034482" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>KotlinJavaRuntime</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.31034482" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
   <component name="mavenExecuteGoalHistory">
     <option value="" />

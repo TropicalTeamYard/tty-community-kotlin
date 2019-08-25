@@ -30,23 +30,14 @@ class User {
         fun result(): Message<ArrayList<Item>> {
             val after: Message<PrivateInfo> = PrivateInfo.get(id, token)
 
-            when(after.shortcut) {
+            return when(after.shortcut) {
                 Shortcut.OK -> {
                     Log.changeUserInfo(id,date, ip, before.data, after.data)
-                    return Message(Shortcut.OK, "invalid token", items)
+                    Message(Shortcut.OK, "invalid token", items)
                 }
-
-                Shortcut.TE -> {
-                    return Message(Shortcut.TE, "invalid token")
-                }
-
-                Shortcut.UNE -> {
-                    return Message(Shortcut.UNE, "user $id not found")
-                }
-
-                else -> {
-                    return Message(Shortcut.OTHER, "error when checking the token")
-                }
+                Shortcut.TE -> Message(Shortcut.TE, "invalid token")
+                Shortcut.UNE -> Message(Shortcut.UNE, "user $id not found")
+                else -> Message(Shortcut.OTHER, "error when checking the token")
             }
 
         }

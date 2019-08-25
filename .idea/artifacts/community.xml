@@ -11,6 +11,7 @@
           <element id="library" level="project" name="Maven: com.vladsch.flexmark:flexmark-formatter:0.34.48" />
           <element id="library" level="project" name="Maven: com.vladsch.flexmark:flexmark-util:0.34.48" />
           <element id="library" level="project" name="Maven: com.vladsch.flexmark:flexmark:0.34.48" />
+          <element id="library" level="project" name="Maven: net.coobird:thumbnailator:0.4.8" />
         </element>
       </element>
     </root>

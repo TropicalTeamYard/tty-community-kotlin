@@ -9,6 +9,7 @@
     </root>
     <schema id="2" parent="1" name="information_schema">
       <Collation>utf8_general_ci</Collation>
+      <Substituted>1</Substituted>
     </schema>
     <schema id="3" parent="1" name="mysql">
       <Collation>utf8mb4_0900_ai_ci</Collation>
@@ -21,8 +22,8 @@
     </schema>
     <schema id="6" parent="1" name="tty_community">
       <Current>1</Current>
-      <Visible>1</Visible>
       <Collation>utf8mb4_0900_ai_ci</Collation>
+      <Visible>1</Visible>
     </schema>
     <collation id="7" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
