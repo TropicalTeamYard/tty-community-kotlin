@@ -1,6 +1,7 @@
 package util.file
 
 import com.alibaba.fastjson.JSONObject
+import net.coobird.thumbnailator.Thumbnails
 import java.io.*
 import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletResponse
@@ -34,7 +35,7 @@ object FileUtil {
         return JSONObject.parseObject(s)
     }
 
-    fun writeFileToResponse(path: String, resp: HttpServletResponse) {
+    fun writeFile2Response(path: String, resp: HttpServletResponse) {
         resp.reset()
         val inputStream = FileInputStream(path)
         val outputStream = resp.outputStream
@@ -50,4 +51,12 @@ object FileUtil {
         outputStream.close()
         inputStream.close()
     }
+
+    fun writePicture2Response(resp: HttpServletResponse, path: String, scale: Double, quality: Double) {
+        resp.reset()
+        val outputStream = resp.outputStream
+        Thumbnails.of(path).scale(scale).outputQuality(quality).toOutputStream(outputStream)
+        outputStream.close()
+    }
+
 }

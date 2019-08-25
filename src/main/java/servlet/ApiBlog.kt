@@ -11,9 +11,11 @@ import util.Value.json
 import util.Value.fields
 import util.Value.value
 import util.conn.MySQLConn
+import util.file.FileUtil
 import java.io.FileInputStream
 import java.io.PrintWriter
 import java.sql.SQLException
+import javax.print.attribute.standard.PrintQuality
 import javax.servlet.annotation.WebServlet
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -51,15 +53,14 @@ class ApiBlog : HttpServlet() {
             "list" -> getBlogList(req)
 
             // http://localhost:8080/community/api/blog/picture?id=700642438&key=0
-            "picture" -> {
-                getBlogPic(req, resp)
-            }
+            "picture" -> getBlogPic(req, resp, 0.4, 0.6)
 
             // http://localhost:8080/community/api/blog/picture_raw?id=700642438&key=0
-            "picture_raw" -> getRawBlogPic(req, resp)
+            "picture/raw" -> getBlogPic(req, resp, 1.0, 1.0)
 
             // http://localhost:8080/community/api/blog/test
             "test" -> test()
+
             else -> Message<Any>(Shortcut.AE, "invalid request").write()
         }
     }
@@ -89,7 +90,7 @@ class ApiBlog : HttpServlet() {
         }
     }
 
-    private fun getBlogPic(req: HttpServletRequest, resp: HttpServletResponse) {
+    private fun getBlogPic(req: HttpServletRequest, resp: HttpServletResponse, scale: Double, quality: Double) {
         val map = req.parameterMap.fields()
         val blogId = map["id"]
         val picKey = map["key"]
@@ -105,63 +106,13 @@ class ApiBlog : HttpServlet() {
                 val rs = ps.executeQuery()
                 if (rs.next()) {
                     val path = CONF.conf.blog + "/$blogId/$picKey"
-                    resp.reset()
-                    val outputStream = resp.outputStream
-                    Thumbnails.of(path).scale(0.85).outputQuality(0.5).toOutputStream(outputStream)
-                    outputStream.close()
+                    FileUtil.writePicture2Response(resp, path, scale, quality)
                 } else {
                     Message<Any>(Shortcut.BNE, "blog $blogId not found").write()
                 }
 
                 rs.close()
                 ps.close()
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Message<Any>(Shortcut.OTHER, "unknown error").write()
-            }
-        }
-    }
-
-    private fun getRawBlogPic(req: HttpServletRequest, resp: HttpServletResponse) {
-        val map = req.parameterMap.fields()
-        val blogId = map["id"]
-        val picKey = map["key"]
-        if (blogId.isNullOrEmpty() || picKey.isNullOrEmpty()) {
-            Message<Any>(Shortcut.AE, "argument mismatch").write()
-        } else {
-            val status = BlogStatus.NORMAL
-            val conn = MySQLConn.connection
-            try {
-                val ps = conn.prepareStatement("select data from blog where blog_id = ? and status <= ? limit 1")
-                ps.setString(1, blogId)
-                ps.setInt(2, status.value())
-                val rs = ps.executeQuery()
-                if (rs.next()) {
-                    val path = CONF.conf.blog + "/$blogId/$picKey"
-                    val inputStream = FileInputStream(path)
-                    resp.reset()
-
-                    val outputStream = resp.outputStream
-                    var len: Int
-                    val buffer = ByteArray(1024)
-                    do {
-                        len = inputStream.read(buffer)
-                        if (len == -1) {
-                            break
-                        }
-                        outputStream.write(buffer, 0, len)
-                    } while (true)
-
-                    outputStream.close()
-                    inputStream.close()
-                } else {
-                    Message<Any>(Shortcut.BNE, "blog $blogId not found").write()
-                }
-
-                rs.close()
-                ps.close()
-
             } catch (e: Exception) {
                 e.printStackTrace()
                 Message<Any>(Shortcut.OTHER, "unknown error").write()

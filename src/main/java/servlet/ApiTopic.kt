@@ -62,70 +62,52 @@ class ApiTopic : HttpServlet() {
 
             }
 
-            "find" -> {
-                /**
-                 * http://47.102.200.155:8080/community/api/topic/find?name=ALL
-                 * @field name
-                 * find the topic which match to the name
-                 */
-                val name = fields["name"]
-                find(name).write()
-            }
 
-            "similar" -> {
-                /**
-                 * http://47.102.200.155:8080/community/api/topic/similar?name=al
-                 * find the list of topic whose name or introduction similar to the name for user to select
-                 */
+            /**
+             * http://47.102.200.155:8080/community/api/topic/find?name=ALL
+             * @field name
+             * find the topic which match to the name
+             */
+            "find" -> find(fields["name"]).write()
 
-                val name = fields["name"]
-                similar(name).write()
-            }
+            /**
+             * http://47.102.200.155:8080/community/api/topic/similar?name=al
+             * find the list of topic whose name or introduction similar to the name for user to select
+             */
+            "similar" -> similar(fields["name"]).write()
 
-            "list" -> {
-                /**
-                 * http://47.102.200.155:8080/community/api/topic/list?id=2008153477
-                 * @field id
-                 * the following topic list of the user's id, the info is public for everyone
-                 */
-                val id = fields["id"]
-                list(id).write()
-            }
+            /**
+             * http://47.102.200.155:8080/community/api/topic/list?id=2008153477
+             * @field id
+             * the following topic list of the user's id, the info is public for everyone
+             */
+            "list" -> list(fields["id"]).write()
 
-            "parent" -> {
-                /**
-                 * http://47.102.200.155:8080/community/api/topic/parent?id=000001
-                 * @field id
-                 */
-                val id = fields["id"]
-                parent(id).write()
-            }
+            /**
+             * http://47.102.200.155:8080/community/api/topic/parent?id=000001
+             * @field id
+             */
+            "parent" -> parent(fields["id"]).write()
 
-            "child" -> {
-                /**
-                 * http://47.102.200.155:8080/community/api/topic/child?id=000001
-                 * @field id
-                 */
-                val id = fields["id"]
-                child(id).write()
-            }
+            /**
+             * http://47.102.200.155:8080/community/api/topic/child?id=000001
+             * @field id
+             */
+            "child" -> child(fields["id"]).write()
 
-            "follow" -> {
-                /**
-                 * http://localhost:8080/community/api/topic/follow?id=1554751432&topic=000001&token=B240A5EE666017D53146C4FD404F2136
-                 * @field id, token, topic_id
-                 * the action that the user want to follow the topic that he can view the
-                 * content of the topic, the id and token is necessary to ensure the request
-                 * is posted by user himself
-                 */
+            /**
+             * http://localhost:8080/community/api/topic/follow?id=1554751432&topic=000001&token=B240A5EE666017D53146C4FD404F2136
+             * @field id, token, topic_id
+             * the action that the user want to follow the topic that he can view the
+             * content of the topic, the id and token is necessary to ensure the request
+             * is posted by user himself
+             */
+            "follow" -> follow(fields["id"], fields["token"], fields["topic"]).write()
 
+            "unfollow" -> {
                 val userId = fields["id"]
                 val token = fields["token"]
                 val topicId = fields["topic"]
-                follow(userId, token, topicId).write()
-            }
-
-            "unfollow" -> {
                 TODO()
             }
 
@@ -145,19 +127,40 @@ class ApiTopic : HttpServlet() {
                 TODO()
             }
 
-            "test" -> {
-                // http://47.102.200.155:8080/community/api/topic/test
-                test()
-            }
 
-            else -> {
-                out.write(Message(Shortcut.AE, "invalid request.", null).json())
-            }
+            /**
+             * http://47.102.200.155:8080/community/api/topic/test
+             */
+            "test" -> test()
+
+            else -> Message(Shortcut.AE, "invalid request.", null).write()
         }
     }
 
 
-    private fun follow(userId: String?, token: String?, topicId: String?): Message<Message<Any>> {
+    private fun unfollow(userId: String?, token: String?, topicId: String?): Message<Any> {
+        if (userId.isNullOrEmpty() || token.isNullOrEmpty() || topicId.isNullOrEmpty()) {
+            return Message(Shortcut.AE, "argument mismatch")
+        } else if (topicId == "000000") {
+            return Message(Shortcut.OK, "nothing changed")
+        } else {
+            return when(val shortcut = User.checkToken(userId, token)) {
+                Shortcut.OK -> {
+                    val topic = Topic.getDetailById(topicId)
+                    if (topic != null) {
+                        Message(Topic.removeFollowerById(userId, topic), "")
+                    } else {
+                        Message(Shortcut.TNE, "topic $topicId not found")
+                    }
+                }
+
+                else -> Message(shortcut, "check user failed")
+            }
+        }
+    }
+
+    // checked
+    private fun follow(userId: String?, token: String?, topicId: String?): Message<Any> {
         if (userId.isNullOrEmpty() || token.isNullOrEmpty() || topicId.isNullOrEmpty()) {
             return Message(Shortcut.AE, "argument mismatch")
         } else if (topicId == "000000") {
@@ -178,12 +181,11 @@ class ApiTopic : HttpServlet() {
         }
     }
 
-
-
     private fun create(id: String, token: String, name: String, parent: String, introduction: String): Shortcut {
         TODO()
     }
 
+    // checked
     private fun list(id: String?): Message<ArrayList<Topic.Outline>> {
         return if(id.isNullOrEmpty()) {
             Message(Shortcut.AE, "argument mismatch")

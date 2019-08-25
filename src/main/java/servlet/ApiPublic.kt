@@ -51,11 +51,14 @@ class ApiPublic : HttpServlet() {
                 // http://localhost:8080/community/api/public/portrait?id=2008153477
                 val id = fields["id"]
                 val path = CONF.conf.portrait + "/" + User.getPortrait(id)
-                FileUtil.writeFileToResponse(path, resp)
+                FileUtil.writePicture2Response(resp, path, 1.0, 1.0)
+                resp.reset()
+
             }
 
             // http://localhost:8080/community/api/public/test
             "test" -> test()
+
             else -> Message<Any>(Shortcut.AE, "invalid request").write()
         }
     }

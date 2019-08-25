@@ -221,11 +221,14 @@ interface Topic {
                 ps2.close()
                 return Shortcut.OK
 
-
             } catch (e: Exception) {
                 return Shortcut.OTHER
             }
 
+        }
+
+        fun removeFollowerById(userId: String, topic: Detail): Shortcut {
+            return Shortcut.PME
         }
 
         fun log(topicId: String, log: String) {
