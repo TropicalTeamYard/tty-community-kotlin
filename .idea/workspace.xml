@@ -9,7 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="36d44388-5dd2-4db2-8daf-56a46d699360" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTY_COMMUNITY.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TTY_COMMUNITY.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -78,136 +77,7 @@
     <favorites_list name="TTY-Community-Kotlin" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiTopic.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2312">
-              <caret line="155" selection-start-line="155" selection-end-line="155" />
-              <folding>
-                <element signature="n#!!block;n#write#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#doGet#0;n#!!block;n#ApiTopic#0" />
-                <element signature="e#2102#2278#0" />
-                <element signature="n#!!block;n#create#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#list#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#find#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#parent#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#similar#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#child#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineListById#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineListByName#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#test#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineByName#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#findTopicOutlineById#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#FindOutlineType#0;n#!!block;n#ApiTopic#0" />
-                <element signature="n#!!block;n#FindOutlineListType#0;n#!!block;n#ApiTopic#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Topic.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
-              <caret line="230" column="31" selection-start-line="230" selection-start-column="31" selection-end-line="230" selection-end-column="31" />
-              <folding>
-                <element signature="n#!!block;n#similarTopic#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findOutlineByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findOutlineById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findParentById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findParentByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findChildrenById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#findChildrenByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#getDetailById#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#getDetailByName#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-                <element signature="n#!!block;n#log#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiUser.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-              <folding>
-                <element signature="n#!!block;n#getBlog#0;n#!!block;n#ApiBlog#0" />
-                <element signature="n#!!block;n#getBlogPic#0;n#!!block;n#ApiBlog#0" />
-                <element signature="n#!!block;n#getBlogList#0;n#!!block;n#ApiBlog#0" />
-                <element signature="n#!!block;n#test#0;n#!!block;n#ApiBlog#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiPublic.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="53" column="68" selection-start-line="53" selection-start-column="68" selection-end-line="53" selection-end-column="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Blog.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3009">
-              <caret line="411" column="1" selection-start-line="411" selection-start-column="1" selection-end-line="411" selection-end-column="1" />
-              <folding>
-                <element signature="n#!!block;n#create#1;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#getOutlineById#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#getBlogListByTime#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#getBlogListById#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#log#0;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogType#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogStatus#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogContentType#0;n#!!block;n#Blog#0" />
-                <element signature="n#!!block;n#BlogListType#0;n#!!block;n#Blog#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/User.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13906">
-              <caret line="829" column="24" selection-start-line="829" selection-start-column="24" selection-end-line="829" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Message.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/Log.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -240,6 +110,7 @@
         <option value="$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt" />
         <option value="$PROJECT_DIR$/src/main/java/model/Topic.kt" />
         <option value="$PROJECT_DIR$/src/main/java/servlet/ApiTopic.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/servlet/StaticResources.kt" />
       </list>
     </option>
   </component>
@@ -263,7 +134,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
+    <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -276,6 +147,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -328,12 +200,22 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="servlet" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TTY-Community-Kotlin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TTY-Community-Kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="conf" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -555,11 +437,14 @@
       <workItem from="1566563865996" duration="6615000" />
       <workItem from="1566716294460" duration="3600000" />
       <workItem from="1566745049660" duration="1725000" />
+      <workItem from="1566785760627" duration="38000" />
+      <workItem from="1566785875944" duration="2405000" />
+      <workItem from="1566823025030" duration="1873000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8704000" />
+    <option name="totallyTimeSpent" value="13020000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -572,9 +457,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14749734" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15228967" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
@@ -604,7 +488,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Maven" order="3" weight="0.18690096" />
       <window_info anchor="right" id="Palette" order="4" />
-      <window_info active="true" anchor="right" id="Remote Host" order="5" visible="true" weight="0.22470714" />
+      <window_info anchor="right" id="Remote Host" order="5" visible="true" weight="0.1799787" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Database" order="7" weight="0.25239617" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
@@ -747,9 +631,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiUser.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/conf/path_debug.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/StaticResources.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="31" lean-forward="true" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+          <folding>
+            <element signature="e#17#188#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="n#!!block;n#getBlog#0;n#!!block;n#ApiBlog#0" />
+            <element signature="n#!!block;n#getBlogPic#0;n#!!block;n#ApiBlog#0" />
+            <element signature="n#!!block;n#getBlogList#0;n#!!block;n#ApiBlog#0" />
+            <element signature="n#!!block;n#test#0;n#!!block;n#ApiBlog#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Topic.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
+        <state relative-caret-position="644">
           <caret line="230" column="31" selection-start-line="230" selection-start-column="31" selection-end-line="230" selection-end-column="31" />
           <folding>
             <element signature="n#!!block;n#similarTopic#0;n#!!block;n#Companion#0;n#!!block;n#Topic#0" />
@@ -766,23 +687,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiUser.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiPublic.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        <state relative-caret-position="644">
+          <caret line="53" column="68" selection-start-line="53" selection-start-column="68" selection-end-line="53" selection-end-column="68" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiPublic.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/User.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="53" column="68" selection-start-line="53" selection-start-column="68" selection-end-line="53" selection-end-column="68" />
+        <state relative-caret-position="644">
+          <caret line="829" column="24" selection-start-line="829" selection-start-column="24" selection-end-line="829" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Blog.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3009">
+        <state relative-caret-position="644">
           <caret line="411" column="1" selection-start-line="411" selection-start-column="1" selection-end-line="411" selection-end-column="1" />
           <folding>
             <element signature="n#!!block;n#create#1;n#!!block;n#Companion#0;n#!!block;n#Blog#0" />
@@ -798,13 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/User.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13906">
-          <caret line="829" column="24" selection-start-line="829" selection-start-column="24" selection-end-line="829" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/Message.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -816,19 +730,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/servlet/ApiBlog.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
-          <folding>
-            <element signature="n#!!block;n#getBlog#0;n#!!block;n#ApiBlog#0" />
-            <element signature="n#!!block;n#getBlogPic#0;n#!!block;n#ApiBlog#0" />
-            <element signature="n#!!block;n#getBlogList#0;n#!!block;n#ApiBlog#0" />
-            <element signature="n#!!block;n#test#0;n#!!block;n#ApiBlog#0" />
-          </folding>
         </state>
       </provider>
     </entry>
