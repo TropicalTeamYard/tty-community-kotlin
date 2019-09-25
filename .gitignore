@@ -11,3 +11,4 @@ buildNumber.properties
 web/conf/path_release.json
 out/artifacts/community/conf/path_release.json
 out/artifacts/community.war
+.idea/
