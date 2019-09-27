@@ -1,4 +1,4 @@
-package database
+package orm
 
 interface Field {
     val name: String
@@ -21,7 +21,7 @@ interface Field {
 class CharField(
         override val name: String,
         private val length: Int = 32,
-        override val unique: Boolean,
+        override val unique: Boolean = false,
         override val nullable: Boolean = false,
         override val primaryKey: Boolean = false
 ): Field {
