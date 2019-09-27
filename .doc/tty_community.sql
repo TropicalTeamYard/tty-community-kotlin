@@ -1,5 +1,5 @@
-create orm tty_community;
-alter orm tty_community character set utf8mb4;
+create database tty_community;
+alter database tty_community character set utf8mb4;
 use tty_community;
 
 create table user(
