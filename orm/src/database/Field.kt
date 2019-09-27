@@ -16,9 +16,6 @@ interface Field {
         sql = if (nullable) { sql.plus("null") } else { sql.plus("not null") }
         return sql
     }
-
-
-
 }
 
 class CharField(
