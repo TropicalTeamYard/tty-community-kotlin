@@ -13,6 +13,7 @@ create table user(
     email text not null
 );
 
+
 create table user_detail(
     _id integer primary key auto_increment,
     id varchar(32) not null unique,
